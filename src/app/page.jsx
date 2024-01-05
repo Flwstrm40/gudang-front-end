@@ -1,5 +1,11 @@
+import LoginForm from '../components/loginForm/LoginForm'
+
 const Home = () => {
-  return <div className="text-red-800 text-5xl">Hello World!</div>;
-};
+  return ( 
+    <div className='flex items-center justify-center min-h-screen mx-auto'>
+      <LoginForm />
+    </div>
+  );
+}
 
 export default Home;
