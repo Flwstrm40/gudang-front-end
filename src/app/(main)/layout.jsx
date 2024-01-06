@@ -11,19 +11,17 @@ const poppins = Poppins({
 })
 
 // const isLoggedIn = true;
+const word = 'hello world';
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>
-        <Providers>
           <div className='flex'>
-            <Sidebar />
+            <Sidebar/>
             {/* hallo */}
-            {children}
+            <div className='bg-gray-200 w-full'>
+              {children}
+            </div>
           </div>
-        </Providers>
-      </body>
-    </html>
+
   )
 }
