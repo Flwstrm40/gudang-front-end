@@ -26,16 +26,31 @@ import {
   ArrowPathRoundedSquareIcon,
   ArrowDownRightIcon,
   ArrowUpLeftIcon,
+  UsersIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { destroyCookie } from 'nookies';
+import { useRouter } from 'next/navigation';
  
 export function Sidebar({user}) {
   const [open, setOpen] = React.useState(0);
+  const router = useRouter();
  
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
+
+  const handleLogout = () => {
+    // Destroy the 'token' cookie
+    destroyCookie(null, 'token');
+    destroyCookie(null, 'username');
+    destroyCookie(null, 'role');
+    
+    // Redirect to the login page or any other desired page
+    router.push('/');
+  };
+  
  
   return (
     <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 ">
@@ -144,7 +159,7 @@ export function Sidebar({user}) {
               <ListItemPrefix>
                 <ArrowPathRoundedSquareIcon className="h-5 w-5 " />
               </ListItemPrefix>
-              <Typography color="" className="mr-auto font-normal">
+              <Typography className="mr-auto font-normal">
                 Riwayat
               </Typography>
             </AccordionHeader>
@@ -181,15 +196,23 @@ export function Sidebar({user}) {
           </ListItem>
         </Link>
 
-        {/* Log Out */}
-        <Link href="/">
+        {/* Manajemen Akun */}
+        <Link href="/accountManagement">
           <ListItem>
             <ListItemPrefix>
-              <PowerIcon className="h-5 w-5" />
+              <UsersIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Log Out
+            Manajemen Akun
           </ListItem>
         </Link>
+
+        {/* Log Out */}
+        <ListItem onClick={handleLogout}>
+          <ListItemPrefix>
+            <PowerIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Log Out
+        </ListItem>
       </List>
     </div>
   );
