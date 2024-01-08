@@ -24,8 +24,6 @@ const RootLayout = ({ children }) => {
       <body className={poppins.className}>
         <Providers>
           <div>
-            {/* {isLoggedIn && <Sidebar />}
-            <Sidebar /> */}
             {children}
           </div>
         </Providers>

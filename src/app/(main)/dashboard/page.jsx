@@ -4,6 +4,7 @@
 import { parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import DashboardCard from '@/components/dashboard/DashboardCard';
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -42,8 +43,8 @@ const Dashboard = () => {
   console.log('Username:', username);
 
   return ( 
-    <div className="text-red-800 text-5xl flex-col justify-center">
-      Dashboard Page, hi {username}!
+    <div>
+      <DashboardCard username={username}/>
     </div>
   );
 }
