@@ -14,11 +14,7 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import {
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
   PowerIcon,
   HomeIcon,
   ArrowsRightLeftIcon,
@@ -32,6 +28,7 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { destroyCookie, parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
+import { usePathname } from "next/navigation";
  
 export function Sidebar({user}) {
   const [open, setOpen] = React.useState(0);
@@ -39,6 +36,8 @@ export function Sidebar({user}) {
   const cookies = parseCookies();
   const role = cookies.role;
   console.log("role", role)
+
+  const pathname = usePathname();
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -55,8 +54,14 @@ export function Sidebar({user}) {
     router.push('/');
   };
   
+  const isActiveLink = (path) => {
+    return pathname === path;
+  }
   
- 
+  const styleActiveLink = () => {
+    return 'bg-gray-100 font-semibold';
+  }
+
   return (
     <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 ">
       {/* {console.log(children)} */}
@@ -66,54 +71,10 @@ export function Sidebar({user}) {
         </Typography>
       </div>
       <hr className="my-2 border--100" />
-      <List className="">
-        {/* <Accordion
-          open={open === 1}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0 " selected={open === 1}>
-            <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3 ">
-              <ListItemPrefix>
-                <PresentationChartBarIcon className="h-5 w-5 " />
-              </ListItemPrefix>
-              <Typography color="" className="mr-auto font-normal">
-                Dashboard
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1">
-            <List className="p-0 ">
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Analytics
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Reporting
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Projects
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion> */}
-       
-
+      <List>
         {/* Dashboard */}
         <Link href="/dashboard">
-          <ListItem>
+          <ListItem className={isActiveLink('/dashboard') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <HomeIcon className="h-5 w-5 " />
             </ListItemPrefix>
@@ -123,7 +84,7 @@ export function Sidebar({user}) {
 
         {/* Inventory */}
         <Link href="/inventory">
-          <ListItem>
+          <ListItem className={isActiveLink('/inventory') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <ClipboardDocumentListIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -133,7 +94,7 @@ export function Sidebar({user}) {
 
         {/* Stock Transfer */}
         <Link href="/stockTransfer">
-          <ListItem>
+          <ListItem className={isActiveLink('/stockTransfer') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <ArrowsRightLeftIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -172,7 +133,7 @@ export function Sidebar({user}) {
           <AccordionBody className="py-1">
             <List className="p-0 ">
               <Link href="/history/entered">
-                <ListItem>
+                <ListItem  className={isActiveLink('/history/entered') ? styleActiveLink() : ''}>
                   <ListItemPrefix>
                     <ArrowDownRightIcon strokeWidth={3} className="h-3 w-5" />
                   </ListItemPrefix>
@@ -180,7 +141,7 @@ export function Sidebar({user}) {
                 </ListItem>
               </Link>
               <Link href="/history/left">
-                <ListItem>
+                <ListItem  className={isActiveLink('/history/left') ? styleActiveLink() : ''}>
                   <ListItemPrefix>
                     <ArrowUpLeftIcon strokeWidth={3} className="h-3 w-5" />
                   </ListItemPrefix>
@@ -193,7 +154,7 @@ export function Sidebar({user}) {
           
         {/* Profile */}
         <Link href="/profile">
-          <ListItem>
+          <ListItem  className={isActiveLink('/profile') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <UserCircleIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -204,7 +165,7 @@ export function Sidebar({user}) {
         {/* Manajemen Akun */}
         {role == 'kepala gudang' &&  
         <Link href="/accountManagement">
-          <ListItem>
+          <ListItem  className={isActiveLink('/accountManagement') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <UsersIcon className="h-5 w-5" />
             </ListItemPrefix>
