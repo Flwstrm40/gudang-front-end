@@ -28,4 +28,5 @@ const RootLayout = ({ children }) => {
 }
 
 // export default withAuth(RootLayout);
-export default RootLayout
+// export default RootLayout
+export default withAuth(RootLayout);

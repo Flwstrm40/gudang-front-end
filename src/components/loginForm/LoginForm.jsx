@@ -7,7 +7,8 @@ dotenv.config({ path: './.env' });
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { setCookie, destroyCookie } from 'nookies';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
+import { usePathname } from 'next/navigation';
 import {
     Card,
     CardHeader,
@@ -20,6 +21,7 @@ import {
   } from "@material-tailwind/react";
 import { useRouter } from 'next/navigation'
 import { TooltipIcon } from "../tooltip/Tooltip";
+import { Cookie } from 'next/font/google';
    
   export default function LoginForm() {
         // Menggunakan useNavigate untuk mendapatkan objek navigate dari router
@@ -27,7 +29,13 @@ import { TooltipIcon } from "../tooltip/Tooltip";
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
 
-
+        const pathname = usePathname();
+        console.log("pathname", pathname)
+        
+        // Mengakses cookies
+        const cookies = parseCookies();
+        const token = cookies.token;
+        console.log("token", token)
         
         useEffect(() => {
           // Destroy the cookies
@@ -35,7 +43,19 @@ import { TooltipIcon } from "../tooltip/Tooltip";
           destroyCookie(null, 'username', { path: '/' });
           destroyCookie(null, 'role', { path: '/' });
           destroyCookie(null, 'id', { path: '/' });
-        }, [router]);
+
+          // Add event listener ketika user menekan tombol Enter
+          const handleKeyPress = (e) => {
+            if (e.key === 'Enter') {
+              // If Enter key is pressed, call the handleLogin function
+              handleLogin(e);
+            }
+          };
+          document.addEventListener('keydown', handleKeyPress);
+          return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+          };
+        }, [router, username, password]);
 
         const handleLogin = async (e) => {
           e.preventDefault();
