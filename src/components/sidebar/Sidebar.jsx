@@ -30,26 +30,31 @@ import {
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { destroyCookie } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
  
 export function Sidebar({user}) {
   const [open, setOpen] = React.useState(0);
   const router = useRouter();
- 
+  const cookies = parseCookies();
+  const role = cookies.role;
+  console.log("role", role)
+
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
 
   const handleLogout = () => {
     // Destroy the 'token' cookie
-    destroyCookie(null, 'token');
-    destroyCookie(null, 'username');
-    destroyCookie(null, 'role');
+    destroyCookie(null, 'token', { path: '/dashboard' });
+    destroyCookie(null, 'username', { path: '/dashboard' });
+    destroyCookie(null, 'role', { path: '/dashboard' });
+    destroyCookie(null, 'id', { path: '/dashboard' });
     
     // Redirect to the login page or any other desired page
     router.push('/');
   };
+  
   
  
   return (
@@ -197,6 +202,7 @@ export function Sidebar({user}) {
         </Link>
 
         {/* Manajemen Akun */}
+        {role == 'kepala gudang' &&  
         <Link href="/accountManagement">
           <ListItem>
             <ListItemPrefix>
@@ -205,6 +211,8 @@ export function Sidebar({user}) {
             Manajemen Akun
           </ListItem>
         </Link>
+        }
+       
 
         {/* Log Out */}
         <ListItem onClick={handleLogout}>

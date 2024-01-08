@@ -5,9 +5,9 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
 
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { setCookie } from 'nookies';
+import { setCookie, destroyCookie } from 'nookies';
 import {
     Card,
     CardHeader,
@@ -26,6 +26,16 @@ import { TooltipIcon } from "../tooltip/Tooltip";
         const router = useRouter()
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
+
+
+        
+        useEffect(() => {
+          // Destroy the cookies
+          destroyCookie(null, 'token', { path: '/' });
+          destroyCookie(null, 'username', { path: '/' });
+          destroyCookie(null, 'role', { path: '/' });
+          destroyCookie(null, 'id', { path: '/' });
+        }, [router]);
 
         const handleLogin = async (e) => {
           e.preventDefault();
@@ -58,21 +68,27 @@ import { TooltipIcon } from "../tooltip/Tooltip";
           console.log('Token:', data.token);
           console.log('Username:', data.username);
           console.log('Role:', data.role);
+          console.log('Id:', data.userId);
       
           // Set cookie di sisi server dan klien dengan path ke '/dashboard'
           setCookie(null, 'token', data.token, {
             maxAge: 3600, // Expire in 1 hour
-            path: '/dashboard', // Set path ke '/dashboard'
+            path: '/', // Set path ke '/'
           });
       
           setCookie(null, 'username', data.username, {
             maxAge: 3600,
-            path: '/dashboard',
+            path: '/',
           });
       
           setCookie(null, 'role', data.role, {
             maxAge: 3600,
-            path: '/dashboard',
+            path: '/',
+          });
+
+          setCookie(null, 'id', data.userId, {
+            maxAge: 3600,
+            path: '/',
           });
         };
 

@@ -1,7 +1,8 @@
-
+'use client';
 import { Poppins } from 'next/font/google';
 import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Providers } from '@/app/providers';
+import { withAuth } from '@/components/auth/requireAuth';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -13,7 +14,7 @@ const poppins = Poppins({
 // const isLoggedIn = true;
 const word = 'hello world';
 
-export default function RootLayout({ children }) {
+const RootLayout = ({ children }) => {
   return (
           <div className='flex'>
             <Sidebar/>
@@ -25,3 +26,6 @@ export default function RootLayout({ children }) {
 
   )
 }
+
+// export default withAuth(RootLayout);
+export default RootLayout
