@@ -29,6 +29,7 @@ import Link from "next/link";
 import { destroyCookie, parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
 import { usePathname } from "next/navigation";
+import Image from "next/image";
  
 export function Sidebar({user}) {
   const [open, setOpen] = React.useState(0);
@@ -67,10 +68,14 @@ export function Sidebar({user}) {
   return (
     <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 ">
       {/* {console.log(children)} */}
-      <div className="mb-2 p-4">
-        <Typography variant="h5" color="blue-gray">
-          Gudang
-        </Typography>
+      <div className="mb-2 p-4 mx-auto">
+        <Image
+          src="/Logo-Offo.png"
+          alt="Logo"
+          width={150}
+          height={50}
+          className="object-contain"
+        />
       </div>
       <hr className="my-2 border--100" />
       <List>
