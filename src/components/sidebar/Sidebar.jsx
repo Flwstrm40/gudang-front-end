@@ -59,8 +59,10 @@ export function Sidebar({user}) {
   }
   
   const styleActiveLink = () => {
-    return 'bg-gray-100 font-semibold';
+    return 'bg-gray-200 font-semibold text-black';
   }
+  
+  console.log("pathname", pathname);
 
   return (
     <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 ">

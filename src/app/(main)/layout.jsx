@@ -4,6 +4,7 @@ import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Providers } from '@/app/providers';
 import { withAuth } from '@/components/auth/requireAuth';
 import { Card } from '@material-tailwind/react';
+import { useEffect, useState } from 'react';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -16,19 +17,28 @@ const poppins = Poppins({
 const word = 'hello world';
 
 const RootLayout = ({ children }) => {
-  return (
-          <div className='flex'>
-            <Sidebar/>
-            {/* hallo */}
-            <div className='bg-gray-200 w-full'>
-            <Card className="w-[95%] h-auto m-auto mt-5">
-              <div className="mt-10 ml-7 mr-7 mb-10 text-xl">
-                {children}
-              </div>    
-            </Card>
-            </div>
-          </div>
+  const [isBrowser, setIsBrowser] = useState(false);
+  useEffect(() => {
+    setIsBrowser(typeof window !== undefined ? true : false);
+  }, []);
 
+  console.log("tipe", typeof window);
+  return (
+    <>
+      {isBrowser && (
+        <div className='flex'>
+        <Sidebar/>
+        {/* hallo */}
+        <div className='bg-gray-200 w-full'>
+        <Card className="w-[95%] h-auto m-auto mt-5">
+          <div className="mt-10 ml-7 mr-7 mb-10 text-xl">
+            {children}
+          </div>    
+        </Card>
+        </div>
+      </div>
+      )}
+    </>
   )
 }
 

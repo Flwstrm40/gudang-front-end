@@ -3,6 +3,9 @@ import { Poppins } from 'next/font/google';
 import './globals.css';
 import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Providers } from './providers'
+import { Suspense } from 'react';
+import Skeleton from './loading';
+import { withAuth } from '@/components/auth/requireAuth';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -24,7 +27,9 @@ const RootLayout = ({ children }) => {
       <body className={poppins.className}>
         <Providers>
           <div>
-            {children}
+            <Suspense fallback={<Skeleton />}>
+              {children}
+            </Suspense>
           </div>
         </Providers>
       </body>
