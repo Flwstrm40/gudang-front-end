@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Riwayat',
+  description: 'Riwayat page',
+}
 
 const History = () => {
     return ( 
