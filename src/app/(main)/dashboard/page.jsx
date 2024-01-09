@@ -7,8 +7,6 @@ export const metadata = {
 }
 
 const Dashboard = () => {
- 
-
   return ( 
     <div>
       <DashboardCard/>

@@ -26,7 +26,8 @@ const DashboardCard = () => {
 
    // Get the router instance
    const router = useRouter();
-   const [username, setUsername] = useState('');
+   const [name, setName] = useState('');
+   const [username, setUserName] = useState('');
    const [user, setUser] = useState([]);
  
    // // Mengakses cookies
@@ -50,9 +51,10 @@ const DashboardCard = () => {
          } else {
            const response = await axios.get(`http://localhost:5050/user/${id}`);
            setUser(response.data[0]);
-           // console.log("user", response.data[0])
+           console.log("user", response.data[0])
            
-           setUsername(response.data[0].username);
+           setName(response.data[0].displayName);
+           setUserName(response.data[0].username);
          }
        } catch (error) {
          console.error('Error fetching user data:', error.message);
@@ -64,15 +66,19 @@ const DashboardCard = () => {
  
  
  
-  //  console.log('Username:', username);
+  //  console.log('Username:', name);
 
   return (
     <div>
      <div className="flex items-center text-2xl justify-between">
         <div>
           {greeting},
-          <span className="ml-2 font-bold">
-            {username}!
+          <span className="font-bold ml-2">
+            {/* if name null, display username */}
+            {name ? name : username}
+          </span>
+          <span>
+            !
           </span>
         </div>
         <div className="ml-4 text-gray-500 text-xl">
@@ -86,6 +92,7 @@ const DashboardCard = () => {
           width={1500}
           height={1500}
           className="rounded-lg"
+          priority={true}
         />
       </div>
     </div> 
