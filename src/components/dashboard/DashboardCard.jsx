@@ -69,7 +69,7 @@ const DashboardCard = () => {
   //  console.log('Username:', name);
 
   return (
-    <div>
+    <div className="text-black">
      <div className="flex items-center text-2xl justify-between">
         <div>
           {greeting},

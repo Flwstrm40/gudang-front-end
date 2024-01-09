@@ -1,5 +1,3 @@
-'use client'
-
 import LoginForm from '../components/loginForm/LoginForm'
 
 const Home = () => {

@@ -63,10 +63,10 @@ export function Sidebar({user}) {
     return 'bg-gray-200 font-semibold text-black';
   }
   
-  console.log("pathname", pathname);
+  // console.log("pathname", pathname);
 
   return (
-    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 ">
+    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 md:hidden">
       {/* {console.log(children)} */}
       <div className="mb-2 p-4 mx-auto">
         <Image

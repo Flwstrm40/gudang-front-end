@@ -1,6 +1,5 @@
 'use client';
 
-
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
 
@@ -21,7 +20,7 @@ import {
   } from "@material-tailwind/react";
 import { useRouter } from 'next/navigation'
 import { TooltipIcon } from "../tooltip/Tooltip";
-import { Cookie } from 'next/font/google';
+import Image from 'next/image';
    
   export default function LoginForm() {
         // Menggunakan useNavigate untuk mendapatkan objek navigate dari router
@@ -116,12 +115,20 @@ import { Cookie } from 'next/font/google';
       <Card className="w-96">
         <CardHeader
           variant="gradient"
-          color="blue"
-          className="mb-4 grid h-28 place-items-center"
+          color="white"
+          className="mb-4 grid h-28 place-items-center border-2 border-gray-200"
         >
-          <Typography variant="h3" color="white">
+          {/* <Typography variant="h3" color="white">
             Sistem Gudang
-          </Typography>
+          </Typography> */}
+          <Image
+            src="/Logo-Offo.png"
+            alt="Logo Offo"
+            width={200}
+            height={200}
+            priority={true}
+            className="w-auto h-auto"
+          />
         </CardHeader>
         <CardBody className="flex flex-col gap-4">
           <Input label="Username" size="lg" onChange={(e) => setUsername(e.target.value)} value={username}/>
