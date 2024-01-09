@@ -1,3 +1,5 @@
+import StockTransferCard from "@/components/stockTransfer/StockTransferCard";
+
 export const metadata = {
   title: 'Transfer Stok',
   description: 'Transfer Stok page',
@@ -5,8 +7,8 @@ export const metadata = {
 
 const StockTransfer = () => {
     return ( 
-      <div className="text-red-800 text-5xl flex-col justify-center">
-        StockTransfer Page
+      <div>
+        <StockTransferCard/>
       </div>
     );
   }

@@ -1,3 +1,5 @@
+import HistoryEnteredCard from "@/components/history/entered/HistoryEnteredCard";
+
 export const metadata = {
   title: 'Riwayat Masuk',
   description: 'Riwayat Masuk page',
@@ -5,8 +7,8 @@ export const metadata = {
 
 const HistoryEntered = () => {
     return ( 
-      <div className="text-red-800 text-5xl flex-col justify-center">
-        HistoryEntered Page
+      <div>
+        <HistoryEnteredCard/>
       </div>
     );
   }

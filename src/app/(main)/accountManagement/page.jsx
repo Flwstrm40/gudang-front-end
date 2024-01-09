@@ -1,3 +1,5 @@
+import AccountManagementCard from "@/components/accountManagement/AccountManagementCard";
+
 export const metadata = {
   title: 'Manajemen Akun',
   description: 'Manajemen Akun page',
@@ -5,8 +7,8 @@ export const metadata = {
 
 const accountManagement = () => {
     return ( 
-      <div className="text-red-800 text-5xl flex-col justify-center">
-        accountManagement Page
+      <div>
+        <AccountManagementCard/>
       </div>
     );
   }

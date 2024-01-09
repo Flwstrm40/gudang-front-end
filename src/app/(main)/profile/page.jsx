@@ -1,3 +1,5 @@
+import ProfileCard from "@/components/profile/ProfileCard";
+
 export const metadata = {
   title: 'Profil',
   description: 'Profil page',
@@ -5,8 +7,8 @@ export const metadata = {
 
 const Profile = () => {
     return ( 
-      <div className="text-red-800 text-5xl flex-col justify-center">
-        Profile Page
+      <div>
+        <ProfileCard/>
       </div>
     );
   }

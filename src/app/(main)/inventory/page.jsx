@@ -1,3 +1,6 @@
+import InventoryCard from "@/components/inventory/InventoryCard";
+
+
 export const metadata = {
   title: 'Inventori',
   description: 'Inventori page',
@@ -5,8 +8,8 @@ export const metadata = {
 
 const Inventory = () => {
     return ( 
-      <div className="text-red-800 text-5xl flex-col justify-center">
-        Inventory Page
+      <div>
+        <InventoryCard/>
       </div>
     );
   }

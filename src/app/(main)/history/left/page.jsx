@@ -1,3 +1,5 @@
+import HistoryLeftCard from "@/components/history/left/HistoryLeftCard";
+
 export const metadata = {
   title: 'Riwayat Keluar',
   description: 'Riwayat Keluar page',
@@ -5,8 +7,8 @@ export const metadata = {
 
 const HistoryLeft = () => {
     return ( 
-      <div className="text-red-800 text-5xl flex-col justify-center">
-        HistoryLeft Page
+      <div>
+        <HistoryLeftCard/>
       </div>
     );
   }
