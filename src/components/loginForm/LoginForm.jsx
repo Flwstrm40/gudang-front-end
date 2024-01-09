@@ -21,6 +21,7 @@ import {
 import { useRouter } from 'next/navigation'
 import { TooltipIcon } from "../tooltip/Tooltip";
 import Image from 'next/image';
+import { Toaster, toast } from 'sonner'
    
   export default function LoginForm() {
         // Menggunakan useNavigate untuk mendapatkan objek navigate dari router
@@ -58,10 +59,10 @@ import Image from 'next/image';
 
         const handleLogin = async (e) => {
           e.preventDefault();
-          console.log('Login button clicked');
-          console.log('Username:', username);
-          console.log('Password:', password);
-          console.log(process.env.PORT)
+          // console.log('Login button clicked');
+          // console.log('Username:', username);
+          // console.log('Password:', password);
+          // console.log(process.env.PORT)
           try {
             const response = await axios.post( 'http://localhost:5050/auth/login' , {
               username,
@@ -76,18 +77,20 @@ import Image from 'next/image';
               // Autentikasi gagal, tangani kesalahan atau tampilkan pesan kesalahan
               console.error('Authentication failed');
               console.error('Error:', response.data.message);
+              toast.error('Username/Password salah');
             }
           } catch (error) {
             console.error('Error during authentication:', error.message);
+            toast.error('Username/Password salah');
           }
         };
     
         const handleSuccessfulLogin = (data) => {
-          console.log('Authentication successful');
-          console.log('Token:', data.token);
-          console.log('Username:', data.username);
-          console.log('Role:', data.role);
-          console.log('Id:', data.userId);
+          // console.log('Authentication successful');
+          // console.log('Token:', data.token);
+          // console.log('Username:', data.username);
+          // console.log('Role:', data.role);
+          // console.log('Id:', data.userId);
       
           // Set cookie di sisi server dan klien dengan path ke '/dashboard'
           setCookie(null, 'token', data.token, {
@@ -112,40 +115,43 @@ import Image from 'next/image';
         };
 
     return (
-      <Card className="w-96">
-        <CardHeader
-          variant="gradient"
-          color="white"
-          className="mb-4 grid h-28 place-items-center border-2 border-gray-200"
-        >
-          {/* <Typography variant="h3" color="white">
-            Sistem Gudang
-          </Typography> */}
-          <Image
-            src="/Logo-Offo.png"
-            alt="Logo Offo"
-            width={200}
-            height={200}
-            priority={true}
-            className="w-auto h-auto"
-          />
-        </CardHeader>
-        <CardBody className="flex flex-col gap-4">
-          <Input label="Username" size="lg" onChange={(e) => setUsername(e.target.value)} value={username}/>
-          <Input type="password" label="Password" size="lg" onChange={(e) => setPassword(e.target.value)} value={password}/>
-          <div className="flex justify-center text-sm">
-            <div className="mr-2">
-              Lupa Username/Password? 
+      <>
+        <Toaster position="top-right" closeButton={true} richColors={true}/>
+        <Card className="w-96">
+          <CardHeader
+            variant="gradient"
+            color="white"
+            className="mb-4 grid h-28 place-items-center border-2 border-gray-200"
+          >
+            {/* <Typography variant="h3" color="white">
+              Sistem Gudang
+            </Typography> */}
+            <Image
+              src="/Logo-Offo.png"
+              alt="Logo Offo"
+              width={200}
+              height={200}
+              priority={true}
+              className="w-auto h-auto"
+            />
+          </CardHeader>
+          <CardBody className="flex flex-col gap-4">
+            <Input label="Username" size="lg" onChange={(e) => setUsername(e.target.value)} value={username}/>
+            <Input type="password" label="Password" size="lg" onChange={(e) => setPassword(e.target.value)} value={password}/>
+            <div className="flex justify-center text-sm">
+              <div className="mr-2">
+                Lupa Username/Password? 
+              </div>
+              <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Manajer" />
             </div>
-            <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Manajer" />
-          </div>
-        </CardBody>
-        <CardFooter className="pt-0 mt-16">
-          <Button variant="gradient" color="blue" fullWidth onClick={handleLogin}>
-            Login
-          </Button>
-        </CardFooter>
-      </Card>
+          </CardBody>
+          <CardFooter className="pt-0 mt-16">
+            <Button variant="gradient" color="blue" fullWidth onClick={handleLogin}>
+              Login
+            </Button>
+          </CardFooter>
+        </Card>
+      </>
     );
   }
   {/* <div className="-ml-2.5">
