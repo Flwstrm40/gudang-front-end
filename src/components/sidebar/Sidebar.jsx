@@ -74,7 +74,8 @@ export function Sidebar({user}) {
           alt="Logo"
           width={150}
           height={50}
-          className="object-contain"
+          className="object-contain w-auto h-auto"
+          priority={true}
         />
       </div>
       <hr className="my-2 border--100" />
