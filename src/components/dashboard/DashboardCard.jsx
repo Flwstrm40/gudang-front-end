@@ -4,6 +4,7 @@ import { parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Image from "next/image";
 
 const getGreeting = () => {
   const currentHour = new Date().getHours();
@@ -21,6 +22,7 @@ const getGreeting = () => {
 
 const DashboardCard = () => {
   const greeting = getGreeting();
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
    // Get the router instance
    const router = useRouter();
@@ -31,6 +33,14 @@ const DashboardCard = () => {
    const cookies = parseCookies();
    const id = cookies.id;
    // console.log("id", id)
+
+   useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []); 
  
    useEffect(() => {
      const fetchData = async () => {
@@ -54,12 +64,31 @@ const DashboardCard = () => {
  
  
  
-   console.log('Username:', username);
+  //  console.log('Username:', username);
 
-  return ( 
+  return (
     <div>
-        {greeting}, {username}! 
-    </div>
+     <div className="flex items-center text-2xl justify-between">
+        <div>
+          {greeting},
+          <span className="ml-2 font-bold">
+            {username}!
+          </span>
+        </div>
+        <div className="ml-4 text-gray-500 text-xl">
+          {currentTime}
+        </div>
+      </div>
+      <div className="mt-10">
+        <Image
+          src="/Front-Offo.jpg"
+          alt="Picture of Offo Living Office"
+          width={1500}
+          height={1500}
+          className="rounded-lg"
+        />
+      </div>
+    </div> 
   );
 }
 
