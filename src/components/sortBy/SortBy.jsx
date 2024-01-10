@@ -15,7 +15,7 @@ export default function SortBy() {
         <Option>Kuantitas (Ascending)</Option>
         <Option>Kuantitas (Descending)</Option>
         <Option>Produk (A-Z)</Option>
-        <Option>Produk (Ascending)</Option>
+        <Option>Produk (Z-A)</Option>
       </Select>
     </div>
   );

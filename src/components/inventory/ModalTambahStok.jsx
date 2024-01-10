@@ -52,7 +52,7 @@ export default function ModalTambahStok({name, userId}) {
         <>
         <Toaster position="top-right" closeButton={true} richColors={true}/>
         <Button onClick={handleOpen} size="sm" color="blue-gray" className="hover:bg-blue-500">
-            <PlusIcon className="h-4 w-3" />
+            <PlusIcon className="h-4 w-4" />
         </Button>
     <Dialog open={open} size="lg" handler={handleOpen}>
         <div className="flex items-center justify-between">
