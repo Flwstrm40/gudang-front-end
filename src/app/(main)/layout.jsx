@@ -30,7 +30,7 @@ const RootLayout = ({ children }) => {
         <Sidebar/>
         {/* hallo */}
         <div className='bg-gray-200 w-full'>
-        <Card className="w-[95%] h-auto m-auto mt-5">
+        <Card className="w-[95%] h-auto m-auto mt-5 mb-5">
           <div className="mt-10 ml-7 mr-7 mb-10 text-xl">
             {children}
           </div>    
