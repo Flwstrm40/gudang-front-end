@@ -1,7 +1,7 @@
 'use client';
 
-const dotenv = require('dotenv');
-dotenv.config({ path: './.env' });
+// const dotenv = require('dotenv');
+// dotenv.config({ path: './.env' });
 
 
 import { useState, useEffect } from 'react';
