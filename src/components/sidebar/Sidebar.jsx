@@ -184,7 +184,7 @@ export function Sidebar({user}) {
        
 
         {/* Log Out */}
-        <ListItem onClick={handleLogout}>
+        <ListItem onClick={handleLogout} className="bg-red-500 hover:bg-red-800 text-white hover:text-white">
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
