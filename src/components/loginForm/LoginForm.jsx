@@ -24,7 +24,6 @@ import Image from 'next/image';
 import { Toaster, toast } from 'sonner'
    
   export default function LoginForm() {
-        // Menggunakan useNavigate untuk mendapatkan objek navigate dari router
         const router = useRouter()
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
