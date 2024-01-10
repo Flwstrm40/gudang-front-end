@@ -11,8 +11,6 @@ import {
 } from "@material-tailwind/react";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { Toaster, toast } from 'sonner'
  
 export default function EditModalName({name, userId}) {
@@ -23,6 +21,7 @@ export default function EditModalName({name, userId}) {
         setDisplayName(name);
     }, [name]);
     const handleOpen = () => setOpen(!open);
+    
 
     const handleSave = async () => {
         try {
@@ -36,8 +35,6 @@ export default function EditModalName({name, userId}) {
                 toast.success('Display Name berhasil diubah');
                 handleOpen();
                 // router.replace('/profile');
-                revalidatePath('/profile');
-                redirect('/profile');
             } else {
                 toast.error('Display Name gagal diubah');
             }
@@ -55,13 +52,13 @@ export default function EditModalName({name, userId}) {
     
     return (
         <>
-        <Toaster position="bottom-right" closeButton={true} richColors={true}/>
-        <Button onClick={handleOpen} size="sm" color="blue-gray">
+        <Toaster position="top-right" closeButton={true} richColors={true}/>
+        <Button onClick={handleOpen} size="sm" color="blue-gray" variant="gradient">
             <PencilSquareIcon className="h-5 w-5" />
             {/* Edit Display Name */}
         </Button>
-        <Dialog open={open} size="xs" handler={handleOpen}>
-            <div className="flex items-center justify-between">
+        <Dialog open={open} size="lg" handler={handleOpen}>
+            <div className="flex items-center justify-between lg:w-3">
             <DialogHeader className="flex flex-col items-start">
                 {" "}
                 <div className="mb-1" variant="h4">
@@ -72,7 +69,7 @@ export default function EditModalName({name, userId}) {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="mr-3 h-5 w-5"
+                className="mr-3 h-5 w-5 cursor-pointer"
                 onClick={handleOpen}
             >
                 <path
@@ -97,7 +94,7 @@ export default function EditModalName({name, userId}) {
             <Button variant="text" color="gray" onClick={handleBack}>
                 Batalkan
             </Button>
-            <Button variant="gradient" color="gray" onClick={handleSave}>
+            <Button variant="gradient" color="blue" onClick={handleSave}>
                 Simpan
             </Button>
             </DialogFooter>

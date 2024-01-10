@@ -29,7 +29,7 @@ const ProfileCard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [id, token]);
+  }, [id, token, userData]);
 
   // console.log("userData", userData)
 
@@ -82,7 +82,7 @@ const ProfileCard = () => {
         </div>
       </div>
       <div className="flex justify-end mt-10">
-        <EditModalAkun />
+        <EditModalAkun uname={userData.username} userId={id}/>
         {/* <Button>
           Ganti Username/Password
         </Button> */}
