@@ -62,7 +62,7 @@ const ProfileCard = () => {
         </div>
         {/* DisplayName and Username */}
         <div className="flex flex-col ">
-          <div className="flex">
+          <div className="flex items-center">
             <div className="text-lg font-semibold">
               Display Name
             </div>

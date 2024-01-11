@@ -6,6 +6,7 @@ import SortBy from "../sortBy/SortBy";
 import Pagination from "../pagination/Pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ModalLihatDetail } from "./ModalLihatDetail";
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
 
@@ -26,7 +27,7 @@ export default function TableInventory() {
     };
 
     fetchData();
-  }, []); 
+  }, [tableRows]); 
 
   if (isLoading) return <p>Loading...</p>
   // if (!tableRows || tableRows.length === 0) return <p>No product data</p>
@@ -55,33 +56,27 @@ export default function TableInventory() {
             </tr>
           </thead>
           <tbody>
-            {tableRows.map(({ id_produk, kode_produk, nama_produk, stok }) => (
+            {tableRows.map(({ id_produk, kode_produk, nama_produk, stok, harga, deskripsi }) => (
               <tr key={id_produk} className="even:bg-blue-gray-50/50">
-                <td className="p-4">
+                <td className="p-3">
                   <div className="font-normal">
                     {kode_produk}
                   </div>
                 </td>
-                <td className="p-4">
-                  <div className="font-normal">
-                    {nama_produk}
-                  </div>
+                <td className="px-0 py-3">
+                 <ModalLihatDetail Produk={nama_produk} Kode={kode_produk} Stok={stok} Harga={harga} Deskripsi={deskripsi}/>
                 </td>
-                <td className="p-4">
+                <td className="p-3">
                       <div className="font-normal">
                           {stok}  
                       </div>
                 </td>
-                <td className="p-4">
+                <td className="p-3">
                     <div className="flex justify-center gap-3 items-center sm:flex-col">
                       <div>
-                        <ModalTambahStok name={nama_produk} />
+                        <ModalTambahStok name={nama_produk} produkId={id_produk}/>
                       </div>
-                      <div>
-                        <Button size="sm" variant="text" color="black">
-                          Detail
-                        </Button>
-                      </div>
+
                   </div>
                 </td>
               </tr>

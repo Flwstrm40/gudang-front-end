@@ -16,9 +16,9 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
  
-export default function ModalTambahStok({name, userId}) {
+export default function ModalTambahStok({name, produkId}) {
     const [open, setOpen] = React.useState(false);
-    const [stock, setStock] = useState(0);
+    const [stock, setStock] = useState('');
     
     const handleOpen = () => setOpen(!open);
 
@@ -34,18 +34,32 @@ export default function ModalTambahStok({name, userId}) {
     };
 
     const handleSubmit = async () => {
-      if (stock === 0) {
+      if (stock === 0 || stock === '') {
         toast.error('Stok tidak boleh kosong');
         return;
       } else if (stock < 0) {
         toast.error('Stok tidak boleh negatif');
         return;
-      } 
-      toast.success('Stok berhasil ditambahkan');
-      console.log("stok: ", stock);
-      handleOpen();
-      setStock(0);
-    }
+      }
+    
+      try {
+        // Assuming you have the product ID available in your component, replace ':id' with the actual product ID.
+        const response = await axios.put(`http://localhost:5050/products/addStock/${produkId}`, { stok: stock });
+    
+        // Handle success, e.g., show a success toast or perform additional actions.
+        console.log('Response:', response.data);
+        toast.success('Stok berhasil ditambahkan');
+    
+        // Close the modal and reset the stock input
+        handleOpen();
+        setStock('');
+      } catch (error) {
+        // Handle errors, e.g., show an error toast or perform additional error handling.
+        toast.error('Gagal menambahkan stok');
+        console.error('Error:', error.message);
+      }
+    };
+    
 
 
     return (
