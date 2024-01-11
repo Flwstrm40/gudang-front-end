@@ -15,9 +15,6 @@ const InventoryCard = () => {
         <div className="text-lg">
           <TableInventory />
         </div>
-        <div className="mt-5 flex justify-end">
-          <Pagination />
-        </div>
       </div>
     );
   }

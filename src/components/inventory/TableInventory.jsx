@@ -1,41 +1,38 @@
-import { Button, Card, div } from "@material-tailwind/react";
-import { PencilIcon } from "@heroicons/react/24/solid";
+'use client';
+import { Button, Card } from "@material-tailwind/react";
 import ModalTambahStok from "./ModalTambahStok";
 import Search from "../search/Search";
 import SortBy from "../sortBy/SortBy";
-import { useState } from "react";
+import Pagination from "../pagination/Pagination";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
- 
-const TABLE_ROWS = [
-  {
-    kode: "K001",
-    produk: "Kulkas",
-    stok: "21",
-  },
-  {
-    kode: "K002",
-    produk: "Lemari 2 Pintu",
-    stok: "56",
-  },
-  {
-    kode: "K003",
-    produk: "Lemari 3 Pintu",
-    stok: "30",
-  },
-  {
-    kode: "K004",
-    produk: "Kasur",
-    stok: "5",
-  },
-  {
-    kode: "K005",
-    produk: "Meja Makan",
-    stok: "42",
-  },
-];
- 
+
 export default function TableInventory() {
+  const [tableRows, setTableRows] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5050/products');
+        setTableRows(response.data.products);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching product data:', error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  if (isLoading) return <p>Loading...</p>
+  // if (!tableRows || tableRows.length === 0) return <p>No product data</p>
+
+  console.log("tableRows", tableRows)
+
   return (
     <div>
       <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
@@ -58,16 +55,16 @@ export default function TableInventory() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ kode, produk, stok }, index) => (
-              <tr key={kode} className="even:bg-blue-gray-50/50">
+            {tableRows.map(({ id_produk, kode_produk, nama_produk, stok }) => (
+              <tr key={id_produk} className="even:bg-blue-gray-50/50">
                 <td className="p-4">
                   <div className="font-normal">
-                    {kode}
+                    {kode_produk}
                   </div>
                 </td>
                 <td className="p-4">
                   <div className="font-normal">
-                    {produk}
+                    {nama_produk}
                   </div>
                 </td>
                 <td className="p-4">
@@ -78,7 +75,7 @@ export default function TableInventory() {
                 <td className="p-4">
                     <div className="flex justify-center gap-3 items-center sm:flex-col">
                       <div>
-                        <ModalTambahStok name={produk} />
+                        <ModalTambahStok name={nama_produk} />
                       </div>
                       <div>
                         <Button size="sm" variant="text" color="black">
@@ -92,6 +89,9 @@ export default function TableInventory() {
           </tbody>
         </table>
       </Card>
+      <div className="mt-5 flex justify-end">
+          <Pagination />
+        </div>
     </div>
   );
 }
