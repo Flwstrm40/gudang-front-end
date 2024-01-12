@@ -5,6 +5,7 @@ import { Providers } from '@/app/providers';
 import { withAuth } from '@/components/auth/requireAuth';
 import { Card } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
+import { SidebarMock } from '@/components/sidebarMock';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -27,9 +28,10 @@ const RootLayout = ({ children }) => {
     <>
       {isBrowser && (
         <div className='flex'>
+        <SidebarMock/>
         <Sidebar/>
         {/* hallo */}
-        <div className='bg-gray-200 w-full'>
+        <div className='bg-gray-200 w-full min-h-screen'>
         <Card className="w-[95%] h-auto m-auto mt-5 mb-5">
           <div className="mt-10 ml-7 mr-7 mb-10 text-xl">
             {children}
