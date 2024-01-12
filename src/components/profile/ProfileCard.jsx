@@ -53,6 +53,7 @@ const ProfileCard = () => {
         <div>
           <Image
             src="/RanC.png"
+            // src="/ProfPicNone.png"
             alt="Foto Profil"
             width={100}
             height={100}
