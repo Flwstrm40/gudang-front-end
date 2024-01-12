@@ -23,6 +23,7 @@ import {
   ArrowDownRightIcon,
   ArrowUpLeftIcon,
   UsersIcon,
+  ShoppingCartIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -66,7 +67,7 @@ export function Sidebar({user}) {
   // console.log("pathname", pathname);
 
   return (
-    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 md:hidden">
+    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 md:hidden fixed z-30 overflow-auto">
       {/* {console.log(children)} */}
       <div className="mb-2 p-4 mx-auto">
         <Image
@@ -87,6 +88,16 @@ export function Sidebar({user}) {
               <HomeIcon className="h-5 w-5 " />
             </ListItemPrefix>
             Dashboard
+          </ListItem>
+        </Link>
+
+        {/* Order */}
+        <Link href="/order">
+          <ListItem className={isActiveLink('/order') ? styleActiveLink() : ''}>
+            <ListItemPrefix>
+              <ShoppingCartIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Pesanan
           </ListItem>
         </Link>
 
