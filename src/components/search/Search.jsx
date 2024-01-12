@@ -2,7 +2,7 @@
 import { Input, Button } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 
-const Search = () => {
+const Search = ({Value, onChange, label}) => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = () => {
@@ -30,10 +30,10 @@ const Search = () => {
             id="search-input"
             type="text"
             color="blue"
-            label="Cari di sini..."
+            label={label}
             className="pr-20"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            value={Value}
+            onChange={onChange}
           />
           <Button
             size="sm"

@@ -1,7 +1,11 @@
 'use client';
 import { Select, Option } from "@material-tailwind/react";
  
-export default function SortBy() {
+export default function SortBy({ onChange }) {
+  const handleSortChange = (value) => {
+    onChange(value);
+  };
+
   return (
     <div className="w-72">
       <Select
@@ -11,11 +15,13 @@ export default function SortBy() {
           unmount: { y: 25 },
         }}
         color="blue"
+        onChange={handleSortChange} // Pass the function directly
       >
-        <Option>Kuantitas (Ascending)</Option>
-        <Option>Kuantitas (Descending)</Option>
-        <Option>Produk (A-Z)</Option>
-        <Option>Produk (Z-A)</Option>
+        <Option value="default">Default</Option>
+        <Option value="quantityAsc">Kuantitas (Ascending)</Option>
+        <Option value="quantityDesc">Kuantitas (Descending)</Option>
+        <Option value="productAsc">Produk (A-Z)</Option>
+        <Option value="productDesc">Produk (Z-A)</Option>
       </Select>
     </div>
   );

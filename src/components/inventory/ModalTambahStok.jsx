@@ -20,7 +20,10 @@ export default function ModalTambahStok({name, produkId}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
     
-    const handleOpen = () => setOpen(!open);
+    const handleOpen = () => {
+      setOpen(!open)
+      setStock(''); 
+    };
 
     const handleStockChange = (e) => {
       const newStock = parseInt(e.target.value, 10);
