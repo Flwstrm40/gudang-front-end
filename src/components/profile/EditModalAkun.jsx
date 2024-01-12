@@ -92,10 +92,15 @@ export default function EditModalAkun({uname, userId}) {
       if (!isSameUsername) {
         const isUsernameAvailable = await checkUsernameAvailability();
         if (!isUsernameAvailable) {
-          return; // Stop further processing if username is not available
+          return;
         }
       }
 
+      // password baru harus lebih dari 6 karakter
+      if (newPassword.length <= 6) {
+        toast.error('Password baru harus terdiri dari 6/lebih karakter');
+        return;
+      }
   
       const response = await axios.put(`http://localhost:5050/user/${userId}`, {
         username: username,
