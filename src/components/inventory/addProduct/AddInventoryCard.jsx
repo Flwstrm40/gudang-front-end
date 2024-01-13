@@ -29,13 +29,38 @@ export default function AddInventoryCard() {
         router.push("/inventory");
     }
 
-    console.log("product", product);
+    // console.log("product", product);
+
+    // cek kode produk apakah sudah digunakan oleh produk lain
+    const checkKodeProdukAvailability = async () => {
+      try {
+          const response = await axios.post(`http://localhost:5050/products/cekKodeProduk`, {
+            kode_produk: product.kode_produk,
+          });
+    
+          if (!response.data.isKodeProdukAvailable) {
+            toast.error('Kode produk sudah digunakan oleh produk lain');
+          }
+          console.log("response", response.data.isKodeProdukAvailable)
+          return response.data.isKodeProdukAvailable;
+        } catch (error) {
+          console.error('Error checking kode produk availability:', error.message);
+          toast.error('Error checking kode produk availability');
+        }
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!product.kode_produk || !product.nama_produk) {
             toast.error("Harap isi semua kolom yang diperlukan.");
+            return;
+        }
+
+        // Cek kode produk apakah sudah digunakan oleh produk lain
+        const isKodeProdukAvailable = await checkKodeProdukAvailability();
+        console.log("isKodeProdukAvailable", isKodeProdukAvailable);
+        if (!isKodeProdukAvailable) {
             return;
         }
     

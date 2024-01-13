@@ -41,8 +41,6 @@ export default function EditModalAkun({uname, userId}) {
   // cek username apakah sudah digunakan oleh pengguna lain
   const checkUsernameAvailability = async () => {
     try {
-      // make random username to avoid current username
-
       const response = await axios.post(`http://localhost:5050/auth/cekUsername`, {
         username: username,
         userId: userId,
