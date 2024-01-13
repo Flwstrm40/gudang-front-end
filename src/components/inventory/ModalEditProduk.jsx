@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
  
-export default function ModalEditStok({kode_produk, nama_produk, harga, deskripsi, id_produk}) {
+export default function ModalEditStok({kode_produk, nama_produk, harga, deskripsi, id_produk, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
     const [product, setProduct] = useState({
@@ -63,6 +63,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
         if (response.status === 200) {
           // Handle success, maybe redirect to inventory page
           toast.success("Produk berhasil ditambahkan");
+          mutate();
           handleOpen();
         } else {
           // Handle error

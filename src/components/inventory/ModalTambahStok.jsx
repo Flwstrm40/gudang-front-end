@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
  
-export default function ModalTambahStok({name, produkId}) {
+export default function ModalTambahStok({name, produkId, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
     
@@ -52,6 +52,7 @@ export default function ModalTambahStok({name, produkId}) {
         // Handle success, e.g., show a success toast or perform additional actions.
         console.log('Response:', response.data);
         toast.success('Stok berhasil ditambahkan');
+        mutate();
     
         // Close the modal and reset the stock input
         handleOpen();

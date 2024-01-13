@@ -11,6 +11,7 @@ import ModalEditStok from "./ModalEditProduk";
 import DialAddProduk from "./DialAddProduk";
 import { parseCookies } from "nookies";
 import { Toaster, toast } from "sonner";
+import useSWR, {mutate} from "swr";
 
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
@@ -22,8 +23,11 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function TableInventory() {
-  const [tableRows, setTableRows] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const { data: tableRows, error, mutate } = useSWR('http://localhost:5050/products', async (url) => {
+    const response = await axios.get(url);
+    return response.data.products;
+  });
+
   const [searchInput, setSearchInput] = useState("");
   const [filteredRows, setFilteredRows] = useState([]);
   const [sortOption, setSortOption] = useState("default");
@@ -33,23 +37,9 @@ export default function TableInventory() {
 
   const role = cookies.role;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5050/products');
-        setTableRows(response.data.products);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching product data:', error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  // }, [tableRows]);
-  }, []);
 
   useEffect(() => {
+    if (!tableRows) return;
     // Filtering logic based on search input
     const filtered = tableRows.filter(({ kode_produk, nama_produk }) =>
       kode_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
@@ -73,7 +63,8 @@ export default function TableInventory() {
     setFilteredRows(sortedRows);
   }, [searchInput, tableRows, sortOption]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching data...</p>;
+  if (!tableRows) return <p>Loading...</p>;
 
   // Get the current page of rows based on activePage and pageSize
   const paginatedRows = paginate(filteredRows, activePage, pageSize);
@@ -120,11 +111,11 @@ export default function TableInventory() {
                   <td className="p-3">
                     <div className="flex justify-center gap-2 items-center sm:flex-col">
                       <div>
-                        <ModalTambahStok name={nama_produk} produkId={id_produk}/>
+                        <ModalTambahStok name={nama_produk} produkId={id_produk} mutate={mutate}/>
                       </div>
                       { role === "kepala gudang" &&
                       <div>
-                        <ModalEditStok nama_produk={nama_produk} kode_produk={kode_produk} harga={harga} deskripsi={deskripsi} id_produk={id_produk}/>
+                        <ModalEditStok nama_produk={nama_produk} kode_produk={kode_produk} harga={harga} deskripsi={deskripsi} id_produk={id_produk} mutate={mutate}/>
                       </div>}
                     </div>
                   </td>
