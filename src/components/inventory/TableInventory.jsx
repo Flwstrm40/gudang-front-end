@@ -7,6 +7,10 @@ import Pagination from "../pagination/Pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ModalLihatDetail } from "./ModalLihatDetail";
+import DialAddProduk from "./DialAddProduk";
+import { parseCookies } from "nookies";
+import { Toaster, toast } from "sonner";
+
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
 
@@ -21,9 +25,12 @@ export default function TableInventory() {
   const [isLoading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const [filteredRows, setFilteredRows] = useState([]);
-  const [sortOption, setSortOption] = useState(null);
+  const [sortOption, setSortOption] = useState("default");
   const [activePage, setActivePage] = useState(1);
   const pageSize = 6; // Number of rows per page
+  const cookies = parseCookies();
+
+  const role = cookies.role;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +45,8 @@ export default function TableInventory() {
     };
 
     fetchData();
-  }, [tableRows]);
+  // }, [tableRows]);
+  }, []);
 
   useEffect(() => {
     // Filtering logic based on search input
@@ -71,6 +79,7 @@ export default function TableInventory() {
 
   return (
     <div>
+      <Toaster position="top-right" closeButton={true} richColors={true}/>
       <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
         <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Produk/Kode di sini..."} />
         <SortBy onChange={(value) => setSortOption(value)} />
@@ -120,15 +129,21 @@ export default function TableInventory() {
           </tbody>
         </table>
       </Card>
-      {filteredRows.length > 0 && (
-      <div className="mt-5 flex justify-end">
-        <Pagination
-          activePage={activePage}
-          pageCount={Math.ceil(filteredRows.length / pageSize)}
-          onPageChange={(pageNumber) => setActivePage(pageNumber)}
-        />
+      <div className="mt-4 justify-between flex items-center">
+        <div>
+          {filteredRows.length > 0 && (
+            <Pagination
+              activePage={activePage}
+              pageCount={Math.ceil(filteredRows.length / pageSize)}
+              onPageChange={(pageNumber) => setActivePage(pageNumber)}
+            />
+            )}     
+        </div>
+        <div>
+          {role === "kepala gudang" && 
+          <DialAddProduk/>}
+        </div>
       </div>
-      )}
     </div>
   );
 }

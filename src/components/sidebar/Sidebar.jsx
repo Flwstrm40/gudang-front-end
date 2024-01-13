@@ -103,7 +103,7 @@ export function Sidebar({user}) {
 
         {/* Inventory */}
         <Link href="/inventory">
-          <ListItem className={isActiveLink('/inventory') ? styleActiveLink() : ''}>
+          <ListItem className={isActiveLink('/inventory') || isActiveLink('/inventory/addInfo') || isActiveLink('/inventory/addProduct') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <ClipboardDocumentListIcon className="h-5 w-5" />
             </ListItemPrefix>

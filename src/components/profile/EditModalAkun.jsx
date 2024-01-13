@@ -97,7 +97,7 @@ export default function EditModalAkun({uname, userId}) {
       }
 
       // password baru harus lebih dari 6 karakter
-      if (newPassword.length <= 6) {
+      if (newPassword.length < 6) {
         toast.error('Password baru harus terdiri dari 6/lebih karakter');
         return;
       }

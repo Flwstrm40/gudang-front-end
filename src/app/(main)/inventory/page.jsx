@@ -1,5 +1,4 @@
 import InventoryCard from "@/components/inventory/InventoryCard";
-import DialAddProduk from "@/components/inventory/DialAddProduk";
 
 export const metadata = {
   title: 'Inventori',
@@ -11,9 +10,6 @@ const Inventory = () => {
       <div>
         <div>
           <InventoryCard/>
-        </div>
-        <div>
-          <DialAddProduk/>
         </div>
       </div>
     );

@@ -15,7 +15,8 @@ export default function SortBy({ onChange }) {
           unmount: { y: 25 },
         }}
         color="blue"
-        onChange={handleSortChange} // Pass the function directly
+        value="default"
+        onChange={handleSortChange}
       >
         <Option value="default">Default</Option>
         <Option value="quantityAsc">Kuantitas (Ascending)</Option>

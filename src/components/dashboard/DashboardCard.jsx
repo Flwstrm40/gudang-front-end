@@ -1,5 +1,5 @@
 'use client';
-import { Card } from "@material-tailwind/react";
+
 import { parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
