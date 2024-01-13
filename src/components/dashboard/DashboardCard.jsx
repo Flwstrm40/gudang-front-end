@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from "next/image";
+import useSWR from 'swr';
 
 const getGreeting = () => {
   const currentHour = new Date().getHours();
@@ -20,6 +21,7 @@ const getGreeting = () => {
   }
 };
 
+
 const DashboardCard = () => {
   const greeting = getGreeting();
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
@@ -28,12 +30,19 @@ const DashboardCard = () => {
    const router = useRouter();
    const [name, setName] = useState('');
    const [username, setUserName] = useState('');
-   const [user, setUser] = useState([]);
  
    // // Mengakses cookies
    const cookies = parseCookies();
    const id = cookies.id;
    // console.log("id", id)
+
+   const fetcher = async (url) => {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data[0];
+  };
+
+  const { data: user, error } = useSWR(id ? `http://localhost:5050/user/${id}` : null, fetcher);
 
    useEffect(() => {
     const intervalId = setInterval(() => {
@@ -43,26 +52,14 @@ const DashboardCard = () => {
     return () => clearInterval(intervalId);
   }, []); 
  
-   useEffect(() => {
-     const fetchData = async () => {
-       try {
-         if (!cookies.token) {
-           router.push('/');
-         } else {
-           const response = await axios.get(`http://localhost:5050/user/${id}`);
-           setUser(response.data[0]);
-           console.log("user", response.data[0])
-           
-           setName(response.data[0].displayName);
-           setUserName(response.data[0].username);
-         }
-       } catch (error) {
-         console.error('Error fetching user data:', error.message);
-       }
-     };
- 
-     fetchData(); 
-   }, [cookies.token, id, router]);
+  useEffect(() => {
+    if (!cookies.token) {
+      router.push('/');
+    } else if (user) {
+      setName(user.displayName);
+      setUserName(user.username);
+    }
+  }, [user, router, cookies.token]);
  
  
  

@@ -7,34 +7,33 @@ import { useEffect, useState } from 'react';
 import { Button } from "@material-tailwind/react";
 import EditModalAkun from "./EditModalAkun";
 import EditModalName from "./EditModalName";
+import useSWR, {mutate} from "swr";
 
 const ProfileCard = () => {
   const cookies = parseCookies();
   const token = cookies.token;
   const id = cookies.id;
-  const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
+  // Define the fetcher function to fetch user data
+  const fetcher = async (url) => {
     try {
-      const response = await axios.get(`http://localhost:5050/user/${id}`);
-
-      setUserData(response.data[0]);
-      setLoading(false);
+      const response = await axios.get(url);
+      return response.data[0];
     } catch (error) {
       console.error('Error fetching user data:', error.message);
-      setLoading(false);
+      throw error;
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [id, token, userData]);
+   // Use SWR to fetch user data
+   const { data: userData, error, mutate } = useSWR(`http://localhost:5050/user/${id}`, fetcher);
 
-  // console.log("userData", userData)
+  if (error) {
+    return <div>Error fetching user data</div>;
+  }
 
-  if (loading) {
-    return <div>Loading...</div>; // You can replace this with a loading indicator
+  if (!userData) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -68,7 +67,7 @@ const ProfileCard = () => {
               Display Name
             </div>
             <div className="ml-5">
-              <EditModalName name={userData.displayName} userId={id}/>
+              <EditModalName name={userData.displayName} userId={id} mutate={mutate}/>
             </div>
           </div>
           <div className="text-lg mb-5 text-blue-gray-500">
@@ -83,7 +82,7 @@ const ProfileCard = () => {
         </div>
       </div>
       <div className="flex justify-end mt-10">
-        <EditModalAkun uname={userData.username} userId={id}/>
+        <EditModalAkun uname={userData.username} userId={id} mutate={mutate}/>
         {/* <Button>
           Ganti Username/Password
         </Button> */}

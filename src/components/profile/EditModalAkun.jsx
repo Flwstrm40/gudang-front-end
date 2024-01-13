@@ -15,7 +15,7 @@ import { Toaster, toast } from 'sonner'
 import { useEffect } from 'react';
 
  
-export default function EditModalAkun({uname, userId}) {
+export default function EditModalAkun({uname, userId, mutate}) {
   const [open, setOpen] = React.useState(false);
   const [username, setUsername] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
@@ -107,6 +107,7 @@ export default function EditModalAkun({uname, userId}) {
   
       if (response.data) {
         toast.success('Username dan Password berhasil diubah');
+        mutate();
         handleOpen();
         setStep1(true);
         setStep2(false);

@@ -13,7 +13,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
  
-export default function EditModalName({name, userId}) {
+export default function EditModalName({name, userId, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [displayName, setDisplayName] = React.useState('');
  
@@ -33,6 +33,7 @@ export default function EditModalName({name, userId}) {
             // console.log(response.data);
             if (response.data) {
                 toast.success('Display Name berhasil diubah');
+                mutate();
                 handleOpen();
                 // router.replace('/profile');
             } else {
