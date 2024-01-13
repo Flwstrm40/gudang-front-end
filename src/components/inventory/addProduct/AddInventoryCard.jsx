@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
-import Loading from "@/app/(main)/inventory/loading";
+import { TooltipIcon } from "@/components/tooltip/Tooltip";
   
 export default function AddInventoryCard() {
     const router = useRouter();
@@ -98,7 +98,8 @@ export default function AddInventoryCard() {
     return (
        <div className="text-sm text-black w-full">
         <Toaster position="top-right" closeButton={true} richColors={true}/>
-        <div className="flex justify-start gap-6 mb-14">
+        <div className="flex justify-between items-center mb-14">
+          <div className="flex justify-start gap-6">
             <Button variant="text" className="rounded-full" onClick={handleBack}>
                 <ArrowUturnLeftIcon className="h-5 w-5" />
             </Button>
@@ -110,6 +111,8 @@ export default function AddInventoryCard() {
                 Tambah produk baru ke dalam gudang
                 </div>
             </div>
+          </div>
+          <TooltipIcon message="Produk yang sudah ditambahkan tidak dapat dihapus." />
         </div>
         <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit}>
           <div className="mb-1 flex md:flex-col gap-6">
@@ -190,6 +193,9 @@ export default function AddInventoryCard() {
           </div>
           <div className="mt-7 text-xs text-red-800">
             (*) Wajib diisi
+          </div>
+          <div className="mt-2 text-xs text-red-800">
+            (*) Prouk yang sudah ditambahkan tidak dapat dihapus
           </div>
           <Button className="mt-3" fullWidth color="blue" type="submit">
             Tambah

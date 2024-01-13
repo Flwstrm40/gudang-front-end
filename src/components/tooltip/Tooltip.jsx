@@ -1,20 +1,18 @@
-import { Tooltip, Typography } from "@material-tailwind/react";
+import { Tooltip } from "@material-tailwind/react";
  
 export function TooltipIcon({message}) {
   return (
     <Tooltip
       content={
         <div className="w-80">
-          <Typography color="white" className="font-medium">
+          <div className="font-semibold text-md">
             Penting
-          </Typography>
-          <Typography
-            variant="small"
-            color="white"
-            className="font-normal opacity-80"
+          </div>
+          <div
+            className="font-normal opacity-80 text-sm"
           >
             {message}
-          </Typography>
+          </div>
         </div>
       }
     >
