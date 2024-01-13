@@ -7,6 +7,7 @@ import Pagination from "../pagination/Pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ModalLihatDetail } from "./ModalLihatDetail";
+import ModalEditStok from "./ModalEditProduk";
 import DialAddProduk from "./DialAddProduk";
 import { parseCookies } from "nookies";
 import { Toaster, toast } from "sonner";
@@ -117,10 +118,14 @@ export default function TableInventory() {
                     <div className="font-normal">{stok}</div>
                   </td>
                   <td className="p-3">
-                    <div className="flex justify-center gap-3 items-center sm:flex-col">
+                    <div className="flex justify-center gap-2 items-center sm:flex-col">
                       <div>
                         <ModalTambahStok name={nama_produk} produkId={id_produk}/>
                       </div>
+                      { role === "kepala gudang" &&
+                      <div>
+                        <ModalEditStok nama_produk={nama_produk} kode_produk={kode_produk} harga={harga} deskripsi={deskripsi} id_produk={id_produk}/>
+                      </div>}
                     </div>
                   </td>
                 </tr>
