@@ -4,8 +4,9 @@ import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Providers } from '@/app/providers';
 import { withAuth } from '@/components/auth/requireAuth';
 import { Card } from '@material-tailwind/react';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { SidebarMock } from '@/components/sidebarMock';
+import Skeleton from 'react-loading-skeleton';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -23,13 +24,14 @@ const RootLayout = ({ children }) => {
     setIsBrowser(typeof window !== undefined ? true : false);
   }, []);
 
-  console.log("tipe", typeof window);
+  // console.log("tipe", typeof window);
   return (
     <>
       {isBrowser && (
         <div className='flex'>
         <SidebarMock/>
         <Sidebar/>
+        {/* <Skeleton count={5}/> */}
         {/* hallo */}
         <div className='bg-gray-200 w-full min-h-screen'>
         <Card className="w-[95%] h-auto m-auto mt-5 mb-5">
