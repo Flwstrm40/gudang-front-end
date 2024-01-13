@@ -4,7 +4,7 @@ import './globals.css';
 import { Sidebar } from '@/components/sidebar/Sidebar';
 import { Providers } from './providers'
 import { Suspense } from 'react';
-import Skeleton from './loading';
+import Loading from './loading';
 import { withAuth } from '@/components/auth/requireAuth';
 
 const poppins = Poppins({
@@ -31,7 +31,7 @@ const RootLayout = ({ children }) => {
       <body className={poppins.className}>
         <Providers>
           <div>
-            <Suspense fallback={<Skeleton />}>
+            <Suspense fallback={<Loading />}>
               {children}
             </Suspense>
           </div>

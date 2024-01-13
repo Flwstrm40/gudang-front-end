@@ -8,7 +8,7 @@ import {
     Button,
 } from "@material-tailwind/react";
  
-export default function Skeleton() {
+export default function Loading() {
   return (
     <div className="mt-6 w-96 h-[100vh] animate-pulse mx-auto my-auto">
     <CardHeader
