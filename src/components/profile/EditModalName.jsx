@@ -53,7 +53,6 @@ export default function EditModalName({name, userId, mutate}) {
     
     return (
         <>
-        <Toaster position="top-right" closeButton={true} richColors={true}/>
         <Button onClick={handleOpen} size="sm" color="blue-gray" variant="gradient">
             <PencilSquareIcon className="h-4 w-4" />
             {/* Edit Display Name */}
