@@ -82,7 +82,7 @@ const DashboardCard = () => {
           {currentTime}
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 w-auto">
         <Image
           src="/Front-Offo.jpg"
           alt="Picture of Offo Living Office"
