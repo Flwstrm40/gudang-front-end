@@ -113,7 +113,7 @@ export function Sidebar({user}) {
 
         {/* Stock Transfer */}
         <Link href="/stockTransfer">
-          <ListItem className={isActiveLink('/stockTransfer') ? styleActiveLink() : ''}>
+          <ListItem className={isActiveLink('/stockTransfer') || isActiveLink('/stockTransfer/formTransfer') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <ArrowsRightLeftIcon className="h-5 w-5" />
             </ListItemPrefix>
