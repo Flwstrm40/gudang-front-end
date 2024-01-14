@@ -70,10 +70,8 @@ export default function AddInventoryCard() {
           if (response.status === 200) {
             // Handle success, maybe redirect to inventory page
             toast.success("Produk berhasil ditambahkan");
-            // Tunggu 3 detik sebelum navigasi
-            setTimeout(() => {
-                router.push("/inventory");
-            }, 1000);
+            // Tunggu 1 detik sebelum navigasi
+              router.push("/inventory");
           } else {
             // Handle error
             toast.error("Gagal menambahkan produk");
@@ -97,7 +95,6 @@ export default function AddInventoryCard() {
 
     return (
        <div className="text-sm text-black w-full">
-        <Toaster position="top-right" closeButton={true} richColors={true}/>
         <div className="flex justify-between items-center mb-14">
           <div className="flex justify-start gap-6">
             <Button variant="text" className="rounded-full" onClick={handleBack}>
