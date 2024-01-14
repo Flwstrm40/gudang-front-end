@@ -7,6 +7,7 @@ import { Card } from '@material-tailwind/react';
 import { Suspense, useEffect, useState } from 'react';
 import { SidebarMock } from '@/components/sidebarMock';
 import Skeleton from 'react-loading-skeleton';
+import { Toaster } from 'sonner';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -29,6 +30,7 @@ const RootLayout = ({ children }) => {
     <>
       {isBrowser && (
         <div className='flex'>
+         <Toaster position="top-right" closeButton={true} richColors={true}/>
         <SidebarMock/>
         <Sidebar/>
         {/* <Skeleton count={5}/> */}
