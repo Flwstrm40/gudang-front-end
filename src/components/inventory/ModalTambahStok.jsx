@@ -19,10 +19,12 @@ import { Toaster, toast } from 'sonner'
 export default function ModalTambahStok({name, produkId, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
+    const [keterangan, setKeterangan] = useState('');
     
     const handleOpen = () => {
       setOpen(!open)
       setStock(''); 
+      setKeterangan('');  
     };
 
     const handleStockChange = (e) => {
@@ -56,6 +58,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
     
         // Close the modal and reset the stock input
         handleOpen();
+        setKeterangan('');
         setStock('');
       } catch (error) {
         // Handle errors, e.g., show an error toast or perform additional error handling.
@@ -69,7 +72,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
     return (
         <>
         {/* <Toaster position="top-right" closeButton={true} richColors={true}/> */}
-        <Button onClick={handleOpen} size="sm" color="blue-gray" className="hover:bg-blue-500">
+        <Button onClick={handleOpen} size="sm" variant="text" color="blue">
             <PlusIcon className="h-4 w-4" />
         </Button>
     <Dialog open={open} size="lg" handler={handleOpen}>
@@ -104,6 +107,10 @@ export default function ModalTambahStok({name, produkId, mutate}) {
               Tambah Stok
             </div>
             <Input type="number" label="Stok" value={stock} onChange={handleStockChange} min={0}/>
+            <div className="-mb-1 text-blue-gray-800">
+              Keterangan
+            </div>
+            <Textarea value={keterangan} label="keterangan" onChange={(e) => setKeterangan(e.target.value)}/>
           </div>
         </DialogBody>
         <DialogFooter className="space-x-2">

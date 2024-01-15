@@ -109,7 +109,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
     return (
         <>
         {/* <Toaster position="top-right" closeButton={true} richColors={true}/> */}
-        <Button onClick={handleOpen} size="sm" color="black" className="hover:bg-green-500">
+        <Button onClick={handleOpen} size="sm" color="green" variant="text">
             <PencilSquareIcon className="h-4 w-4" />
         </Button>
     <Dialog open={open} size="lg" handler={handleOpen}>
