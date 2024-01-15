@@ -8,12 +8,14 @@ import { useState, useEffect } from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { ModalLihatDetail } from "../inventory/ModalLihatDetail";
+import ModalKonfirmasiTransfer from "./ModalKonfirmasiTransfer";
 // import ModalEditStok from "./ModalEditProduk";
 // import DialAddProduk from "./DialAddProduk";
 import { parseCookies } from "nookies";
 import { Toaster, toast } from "sonner";
 import useSWR, {mutate} from "swr";
 import DialFormTransfer from "./DialFormTransfer";
+import ModalEditTransfer from "./ModalEditTransfer";
 
 
 const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
@@ -42,7 +44,7 @@ export default function TableStockTransfeConf() {
     useEffect(() => {
       if (!tableRows) return;
       // Filtering logic based on search input and status === 0
-      const filtered = tableRows.filter(({ nama_toko, nama_produk, asal }) =>
+      const filtered = tableRows.filter(({ nama_toko, nama_produk, asal,  }) =>
         nama_toko.toLowerCase().includes(searchInput.toLowerCase()) ||
         nama_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
         asal.toLowerCase().includes(searchInput.toLowerCase())
@@ -132,14 +134,12 @@ export default function TableStockTransfeConf() {
                     <div className="flex justify-center gap-2 items-center sm:flex-col">
                       <div>
                         {/* <ModalTambahStok name={nama_produk} produkId={id_transfer} mutate={mutate}/> */}
-                        <Button variant="text" size="sm" onClick={() => handleDelete(id_transfer)}>
-                            <TrashIcon className="h-5 w-5 text-red-500" />
+                        <ModalEditTransfer id_transfer={id_transfer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantitas} edit_keterangan={keterangan}  mutate={mutate}/>
+                        <Button variant="text" size="sm" onClick={() => handleDelete(id_transfer)} color="red">
+                            <TrashIcon className="h-5 w-5" />
                         </Button>
+                        <ModalKonfirmasiTransfer mutate={mutate} id_transfer={id_transfer} />
                       </div>
-                      { role === "kepala gudang" &&
-                      <div>
-                        {/* <ModalEditStok nama_produk={nama_produk} nama_toko={nama_toko} harga={harga} deskripsi={deskripsi} id_transfer={id_transfer} mutate={mutate}/> */}
-                      </div>}
                     </div>
                   </td>
                 </tr>
