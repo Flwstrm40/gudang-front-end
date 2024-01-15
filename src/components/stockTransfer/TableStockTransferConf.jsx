@@ -9,6 +9,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { ModalLihatDetail } from "../inventory/ModalLihatDetail";
 import ModalKonfirmasiTransfer from "./ModalKonfirmasiTransfer";
+import ModalDeleteTransfer from "./ModalDeleteTransfer";
 // import ModalEditStok from "./ModalEditProduk";
 // import DialAddProduk from "./DialAddProduk";
 import { parseCookies } from "nookies";
@@ -76,18 +77,6 @@ export default function TableStockTransfeConf() {
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);
 
-
-    const handleDelete = async (id_transfer) => {
-      console.log("id_transfer",  id_transfer)
-      try {
-        await axios.delete(`http://localhost:5050/transfers/${id_transfer}`);
-        toast.success("Transfer berhasil dibatalkan.");
-        mutate();
-      } catch (error) {
-        toast.error("Gagal membatalkan transfer.");
-      }
-    }
-
   return (
     <div>
       <Toaster position="top-right" closeButton={true} richColors={true}/>
@@ -135,10 +124,8 @@ export default function TableStockTransfeConf() {
                       <div>
                         {/* <ModalTambahStok name={nama_produk} produkId={id_transfer} mutate={mutate}/> */}
                         <ModalEditTransfer id_transfer={id_transfer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantitas} edit_keterangan={keterangan}  mutate={mutate}/>
-                        <Button variant="text" size="sm" onClick={() => handleDelete(id_transfer)} color="red">
-                            <TrashIcon className="h-5 w-5" />
-                        </Button>
-                        <ModalKonfirmasiTransfer mutate={mutate} id_transfer={id_transfer} />
+                        <ModalDeleteTransfer id_transfer={id_transfer} mutate={mutate} nama_produk={nama_produk}/>
+                        <ModalKonfirmasiTransfer mutate={mutate} id_transfer={id_transfer} nama_produk={nama_produk}/>
                       </div>
                     </div>
                   </td>
