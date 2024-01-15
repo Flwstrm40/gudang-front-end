@@ -5,6 +5,7 @@ import Search from "../search/Search";
 import SortBy from "../sortBy/SortBy";
 import Pagination from "../pagination/Pagination";
 import { useState, useEffect } from "react";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { ModalLihatDetail } from "../inventory/ModalLihatDetail";
 // import ModalEditStok from "./ModalEditProduk";
@@ -73,6 +74,18 @@ export default function TableStockTransfeConf() {
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);
 
+
+    const handleDelete = async (id_transfer) => {
+      console.log("id_transfer",  id_transfer)
+      try {
+        await axios.delete(`http://localhost:5050/transfers/${id_transfer}`);
+        toast.success("Transfer berhasil dibatalkan.");
+        mutate();
+      } catch (error) {
+        toast.error("Gagal membatalkan transfer.");
+      }
+    }
+
   return (
     <div>
       <Toaster position="top-right" closeButton={true} richColors={true}/>
@@ -119,6 +132,9 @@ export default function TableStockTransfeConf() {
                     <div className="flex justify-center gap-2 items-center sm:flex-col">
                       <div>
                         {/* <ModalTambahStok name={nama_produk} produkId={id_transfer} mutate={mutate}/> */}
+                        <Button variant="text" size="sm" onClick={() => handleDelete(id_transfer)}>
+                            <TrashIcon className="h-5 w-5 text-red-500" />
+                        </Button>
                       </div>
                       { role === "kepala gudang" &&
                       <div>

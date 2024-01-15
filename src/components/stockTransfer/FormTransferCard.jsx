@@ -29,6 +29,13 @@ export default function FormTransferCard() {
     axios.get(url).then((res) => res.data.stores)
     );
 
+  // Use useSWR to fetch the stock data
+  const { data: getStok } = useSWR(
+    idProduk ? `http://localhost:5050/products/getStock/${idProduk}` : null,
+    (url) => axios.get(url).then((res) => res.data.stock)
+  );
+
+
     
     const handleBack = () => {
         router.push("/stockTransfer");
@@ -36,36 +43,49 @@ export default function FormTransferCard() {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-    
-      const gudangAsal = "Gudang Semarang"; // Change this according to your data
+  
+      const gudangAsal = "Gudang Semarang";
       const form = e.target;
-    
+  
       const formData = new FormData(form);
-      const stok = formData.get("kuantitas");
+      const kuantitas = formData.get("kuantitas");
       const keterangan = formData.get("keterangan");
-
-       
-      //  console.log("data", { gudangAsal, idToko, idProduk, stok, keterangan });
-       
-       if (!idToko || !idProduk || !stok ) {
-         toast.error("Harap isi kolom yang diperlukan.");
-         return;
-       }
-
-       if (stok <= 0) {
+  
+      if (!idToko || !idProduk || !kuantitas) {
+        toast.error("Harap isi kolom yang diperlukan.");
+        return;
+      }
+  
+      if (kuantitas <= 0) {
         toast.error("Stok tidak boleh Nol/Negatif.");
         return;
       }
+      console.log(getStok);
 
+      if (kuantitas > getStok) {
+        toast.error("Qty tidak boleh lebih besar dari stok yang ada.");
+        return;
+      }
+  
       try {
-        const response = await axios.put(`http://localhost:5050/products/transferStock/${idProduk}`, {
-          stok: stok,
+        // Send a POST request to the new endpoint
+        const response = await axios.post("http://localhost:5050/transfers", {
+          id_produk: parseInt(idProduk),
+          id_toko: parseInt(idToko),
+          kuantitas: parseInt(kuantitas),
+          asal: gudangAsal,
+          keterangan: keterangan,
+          status: 0, // Set the status to 0
         });
-    
-        toast.success(response.data.message || "Berhasil melakukan transfer stok produk");
-        router.push("/history/left");
+  
+        toast.success(
+          response.data.message || "Berhasil melakukan transfer stok produk"
+        );
+        router.push("/stockTransfer");
       } catch (error) {
-        toast.error(error.response.data.error || "Gagal melakukan transfer stok produk");
+        toast.error(
+          error.response.data.error || "Gagal melakukan transfer stok produk"
+        );
       }
     };
     
@@ -73,7 +93,7 @@ export default function FormTransferCard() {
     const productOptions = products
     ? products.map((product) => ({
         value: product.id_produk.toString(),
-        label: `${product.kode_produk} - ${product.nama_produk}`,
+        label: `${product.kode_produk} - ${product.nama_produk} (Sisa stok: ${product.stok})`,
       }))
     : [];
 

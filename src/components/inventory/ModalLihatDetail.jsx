@@ -38,7 +38,7 @@ export function ModalLihatDetail({Produk, Kode, Stok, Harga, Deskripsi}) {
                     {Kode}
                 </div>
                 <div>
-                    Stok: {Stok}
+                    Sisa Stok: {Stok}
                 </div>
             </div>
             </div>
