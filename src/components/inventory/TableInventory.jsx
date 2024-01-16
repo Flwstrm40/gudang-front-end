@@ -41,9 +41,10 @@ export default function TableInventory() {
   useEffect(() => {
     if (!tableRows) return;
     // Filtering logic based on search input
-    const filtered = tableRows.filter(({ kode_produk, nama_produk }) =>
+    const filtered = tableRows.filter(({ kode_produk, nama_produk, stok }) =>
       kode_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
-      nama_produk.toLowerCase().includes(searchInput.toLowerCase())
+      nama_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
+      stok.toString().includes(searchInput)
     );
 
     // Sorting logic based on the selected option

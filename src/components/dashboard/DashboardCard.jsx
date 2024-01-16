@@ -53,9 +53,7 @@ const DashboardCard = () => {
   }, []); 
  
   useEffect(() => {
-    if (!cookies.token) {
-      router.push('/');
-    } else if (user) {
+    if (user) {
       setName(user.displayName);
       setUserName(user.username);
     }

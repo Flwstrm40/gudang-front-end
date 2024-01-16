@@ -45,10 +45,11 @@ export default function TableStockTransfeConf() {
     useEffect(() => {
       if (!tableRows) return;
       // Filtering logic based on search input and status === 0
-      const filtered = tableRows.filter(({ nama_toko, nama_produk, asal,  }) =>
+      const filtered = tableRows.filter(({ nama_toko, nama_produk, asal, kuantitas }) =>
         nama_toko.toLowerCase().includes(searchInput.toLowerCase()) ||
         nama_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
-        asal.toLowerCase().includes(searchInput.toLowerCase())
+        asal.toLowerCase().includes(searchInput.toLowerCase()) ||
+        kuantitas.toString().includes(searchInput)
       );
   
       // Only include rows with status === 0
