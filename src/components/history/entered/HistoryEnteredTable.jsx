@@ -3,7 +3,6 @@
 
 import { Button, Card, tab } from "@material-tailwind/react";
 import Search from "@/components/search/Search";
-import HistoryFilter from "@/components/sortBy/HistoryFilter";
 import Pagination from "@/components/pagination/Pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
