@@ -37,7 +37,7 @@ export function Sidebar({user}) {
   const router = useRouter();
   const cookies = parseCookies();
   const role = cookies.role;
-  console.log("role", role)
+  // console.log("role", role)
 
   const pathname = usePathname();
 
@@ -67,7 +67,7 @@ export function Sidebar({user}) {
   // console.log("pathname", pathname);
 
   return (
-    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 md:hidden fixed z-30 overflow-auto">
+    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 md:hidden fixed z-30 overflow-auto bg-white">
       {/* {console.log(children)} */}
       <div className="mb-2 p-4 mx-auto">
         <Image
