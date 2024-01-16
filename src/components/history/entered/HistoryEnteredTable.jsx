@@ -14,6 +14,7 @@ import 'react-date-range/dist/theme/default.css';
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 // import { isSameDay, isWithinInterval, addDays, addMonths } from 'date-fns';
 import { DateRangePicker } from 'react-date-range';
+import ModalDetailHistoryMasuk from "./ModalDetailHistoryMasuk";
 
 
 // Function to slice rows based on the active page
@@ -141,16 +142,7 @@ export default function HistoryEnteredTable() {
                   <hr />
                   <div className="flex justify-between gap-3 items-center">
                     <div> {jam} WIB</div>
-                    <button className="font-semibold hover:bg-blue-gray-50 rounded-md pl-4 p-2">
-                      <div className="flex items-center gap-2">
-                        <div>
-                          Detail 
-                        </div>
-                        <div>
-                          <ChevronRightIcon className="h-4 w-4" />
-                        </div>
-                      </div>
-                    </button>
+                    <ModalDetailHistoryMasuk stok_masuk={stok_masuk} tanggal={formatDate(tanggal)} jam={jam} keterangan={keterangan} kode_produk={kode_produk} nama_produk={nama_produk} pj={pj}/>
                   </div>
                   {/* <div>{keterangan}</div> */}
                 </div>
