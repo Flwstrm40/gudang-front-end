@@ -1,7 +1,9 @@
+import HistoryEnteredTable from "./HistoryEnteredTable";
+
 const HistoryEnteredCard = () => {
     return ( 
       <div className="text-xl">
-        HistoryEnteredCard Page Ini
+        <HistoryEnteredTable />
       </div>
     );
   }

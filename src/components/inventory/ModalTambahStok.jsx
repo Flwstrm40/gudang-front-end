@@ -15,11 +15,15 @@ import {
 } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
+import { parseCookies } from "nookies";
  
 export default function ModalTambahStok({name, produkId, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
     const [keterangan, setKeterangan] = useState('');
+    const cookies = parseCookies();
+
+    const role = cookies.role;
     
     const handleOpen = () => {
       setOpen(!open)
@@ -56,6 +60,18 @@ export default function ModalTambahStok({name, produkId, mutate}) {
         toast.success('Stok berhasil ditambahkan');
         mutate();
     
+        // Post to inHistories endpoint
+        const inHistoriesData = {
+          id_produk: produkId,
+          stok_masuk: stock,
+          tanggal: new Date().toISOString().split('T')[0],
+          jam: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }), 
+          keterangan: keterangan,
+          pj: role
+        };
+    
+        await axios.post('http://localhost:5050/inHistories', inHistoriesData);
+    
         // Close the modal and reset the stock input
         handleOpen();
         setKeterangan('');
@@ -66,6 +82,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
         console.error('Error:', error.message);
       }
     };
+    
     
 
 
