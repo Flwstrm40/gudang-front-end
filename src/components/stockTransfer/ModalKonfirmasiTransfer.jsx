@@ -11,10 +11,13 @@ import {
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
+import { parseCookies } from "nookies";
  
 export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk}) {
   const [open, setOpen] = React.useState(false);
- 
+  const cookies = parseCookies();
+  const role = cookies.role;
+
   const handleOpen = () => setOpen(!open);
  
   const handleSubmit = async (e) => {
