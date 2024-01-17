@@ -67,7 +67,9 @@ export function Sidebar({user}) {
   // console.log("pathname", pathname);
 
   return (
-    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow--900/5 md:hidden fixed z-30 overflow-auto bg-white">
+    <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden fixed z-30 overflow-auto bg-white">
+    {/* // <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden overflow-auto bg-white"> */}
+    {/* shadow-xl shadow--900/5 */}
       {/* {console.log(children)} */}
       <div className="mb-2 p-4 mx-auto">
         <Image
