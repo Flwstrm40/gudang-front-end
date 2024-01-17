@@ -12,6 +12,11 @@ const nextConfig = {
 
     return config;
   },
+  reactStrictMode: true,
+  swcMinify: true,
+  env: {
+    API: "http://localhost:5050",
+  },
 };
 
 module.exports = nextConfig;
