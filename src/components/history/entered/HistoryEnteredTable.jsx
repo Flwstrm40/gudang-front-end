@@ -7,7 +7,6 @@ import Pagination from "@/components/pagination/Pagination";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { parseCookies } from "nookies";
-import { Toaster, toast } from "sonner";
 import useSWR, {mutate} from "swr";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css';
@@ -104,7 +103,6 @@ export default function HistoryEnteredTable() {
 
   return (
     <div>
-      <Toaster position="top-right" closeButton={true} richColors={true}/>
       <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
         <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Riwayat di sini..."} />
         {/* <HistoryFilter onChange={(value) => setSortOption(value)} /> */}
@@ -137,8 +135,17 @@ export default function HistoryEnteredTable() {
                   <div className="mb-2 text-blue-gray-700">{formatDate(tanggal)}</div>
                 </div>
                 <div className="text-blue-gray-700 flex flex-col gap-2">
-                  <div> Stok Masuk: {stok_masuk}</div>
-                  <div> {pj} </div>
+                  <div className="flex justify-start gap-4">
+                    <div>
+                      <div> Stok Masuk </div>
+                      <div> Konfirmator </div>
+                    </div>
+                    <div>
+                      <div> : {stok_masuk}</div>
+                      <div> : {pj} </div>
+                    </div>
+                  </div>
+                  
                   <hr />
                   <div className="flex justify-between gap-3 items-center">
                     <div> {jam} WIB</div>
