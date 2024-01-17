@@ -16,7 +16,8 @@ import { DateRangePicker } from 'react-date-range';
 // import ModalDetailHistoryMasuk from "./ModalDetailHistoryMasuk";
 import RadioFilterType from "./RadioFilterType";
 import { set } from "date-fns";
-import ModalDetailHistoryKeluar from "./ModalDetailHistoryKeluar";
+import ModalDetailHistoryKeluarTipe0 from "./ModalDetailHistoryKeluarTipe0";
+import ModalDetailHistoryKeluarTipe1 from "./ModalDetailHistoryKeluarTipe1";
 
 // tipe 0 = id_customernya null, tipe 1 = id_transfernya null
 
@@ -145,7 +146,7 @@ export default function HistoryLeftTable() {
               Riwayat Tidak Ditemukan.
             </div>
           ) : (
-            paginatedRows.map(({ id_history_keluar, id_produk, tipe, kuantitas, kuantiti, tanggal, jam, keterangan, nama_produk, kode_produk, pj, nama_cust, nama_toko }) => (
+            paginatedRows.map(({ id_history_keluar, id_produk, tipe, kuantitas, kuantiti, tanggal, jam, keterangan, nama_produk, kode_produk, pj, nama_cust, nama_toko, harga, no_hp, alamat, pembayaran, tanggal_order, jadwal_kirim, sales_jualan }) => (
               <Card key={id_history_keluar} className="border p-4 rounded-md text-sm text-black" shadow={false}>
                 <div className="flex justify-between gap-3">
                   <div className="font-semibold text-md mb-2">[{kode_produk}] {nama_produk}</div>
@@ -165,7 +166,10 @@ export default function HistoryLeftTable() {
                   <hr />
                   <div className="flex justify-between gap-3 items-center">
                     <div> {jam} WIB</div>
-                    <ModalDetailHistoryKeluar stok_keluar={tipe === 1? kuantiti: kuantitas} tanggal={formatDate(tanggal)} jam={jam} keterangan={keterangan} kode_produk={kode_produk} nama_produk={nama_produk} pj={pj}/>
+                    {tipe === 0?
+                      <ModalDetailHistoryKeluarTipe0 harga={harga} nama_toko={nama_toko} stok_keluar={kuantitas} tanggal={formatDate(tanggal)} jam={jam} keterangan={keterangan} kode_produk={kode_produk} nama_produk={nama_produk} pj={pj}/>
+                      :  <ModalDetailHistoryKeluarTipe1 nama_cust={nama_cust} no_hp={no_hp} alamat={alamat} pembayaran={pembayaran} tanggal_order={tanggal_order} jadwal_kirim={jadwal_kirim} harga={harga} stok_keluar={kuantiti} tanggal={formatDate(tanggal)} jam={jam} keterangan={keterangan} kode_produk={kode_produk} nama_produk={nama_produk} pj={pj}/>
+                    } 
                   </div>
                   {/* <div>{keterangan}</div> */}
                 </div>

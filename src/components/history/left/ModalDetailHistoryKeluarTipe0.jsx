@@ -8,10 +8,21 @@ import {
 } from "@material-tailwind/react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
  
-export default function ModalDetailHistoryKeluar({stok_keluar, tanggal, jam, keterangan, kode_produk, nama_produk, pj}) {
+export default function ModalDetailHistoryKeluarTipe0({stok_keluar, tanggal, jam, keterangan, kode_produk, nama_produk, pj, nama_toko, harga}) {
   const [open, setOpen] = React.useState(false);
  
   const handleOpen = () => setOpen(!open);
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(value);
+  };
+
+  const totalHarga = harga * stok_keluar;
+
+  
  
   return (
     <>
@@ -45,7 +56,13 @@ export default function ModalDetailHistoryKeluar({stok_keluar, tanggal, jam, ket
                         Stok Keluar
                     </div>
                     <div>
-                        Penanggung Jawab
+                        Tujuan
+                    </div>
+                    <div>
+                        Total Harga (@Harga)
+                    </div>
+                    <div>
+                        Konfirmator
                     </div>
                     <div>
                         Keterangan
@@ -57,6 +74,12 @@ export default function ModalDetailHistoryKeluar({stok_keluar, tanggal, jam, ket
                     </div>
                     <div>
                         : {stok_keluar}
+                    </div>
+                    <div>
+                        : {nama_toko}
+                    </div>
+                    <div>
+                      : {formatCurrency(totalHarga)} (@{formatCurrency(harga)})
                     </div>
                     <div>
                         : {pj}
@@ -76,9 +99,6 @@ export default function ModalDetailHistoryKeluar({stok_keluar, tanggal, jam, ket
           >
             <span>Tutup</span>
           </Button>
-          {/* <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
-          </Button> */}
         </DialogFooter>
       </Dialog>
     </>
