@@ -19,7 +19,8 @@ import DialFormTransfer from "./DialFormTransfer";
 import ModalEditTransfer from "./ModalEditTransfer";
 
 
-const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
+// const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
+const TABLE_HEAD = ["Tujuan", "Barang", "Qty", ""];
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -108,9 +109,9 @@ export default function TableStockTransfeConf() {
             ) : (
               paginatedRows.map(({ id_transfer, id_produk, id_toko, asal, status, nama_toko, nama_produk, kode_produk, stok, harga, deskripsi, kuantitas, keterangan }) => (
                 <tr key={id_transfer} className="even:bg-blue-gray-50/50">
-                  <td className="p-3">
+                  {/* <td className="p-3">
                     <div className="font-normal">{asal}</div>
-                  </td>
+                  </td> */}
                   <td className="p-3">
                     <div className="font-normal">{nama_toko}</div>
                   </td>
