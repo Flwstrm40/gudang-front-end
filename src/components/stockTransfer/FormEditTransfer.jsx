@@ -71,16 +71,16 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
       });
 
       // Send a POST request to the new endpoint
-      const response = await axios.put(`http://localhost:5050/transfers/${id_transfer}`, {
+      await axios.put(`http://localhost:5050/transfers/${id_transfer}`, {
         id_produk: parseInt(idProduk),
         id_toko: parseInt(idToko),
         kuantitas: parseInt(kuantitas),
         asal: gudangAsal,
         keterangan: keterangan,
-        status: 0, // Set the status to 0
+        status: 0, 
       });
 
-      // send a post to transferStock api
+      // send a put to transferStock api
       await axios.put(`http://localhost:5050/products/transferStock/${idProduk}`, {
         stok : kuantitas,
       });
@@ -89,7 +89,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
         "Berhasil melakukan edit transfer produk"
       );
       mutate();
-      router.push("/stockTransfer");
+      handleOpen();
     } catch (error) {
       toast.error(
         error.response.data.error || "Gagal melakukan edit transfer produk"
@@ -145,25 +145,27 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
                   disabled
                   name="gudangAsal"
                 />
-                <div className="-mb-3">Toko Tujuan (*)</div>
+                <div className="-mb-3">Toko Tujuan</div>
                 <Select
                     options={storeOptions}
                     className="w-full"
                     value={storeOptions.find((option) => option.value === idToko)}
                     onChange={(selectedOption) => setIdToko(selectedOption.value)}
                     isSearchable
+                    isDisabled
                     placeholder="Pilih Toko Tujuan"
                 />
               </div>
                         
               <div className="flex flex-col gap-6 w-full">
-                <div className="-mb-3">Barang (*)</div>
+                <div className="-mb-3">Barang</div>
                 <Select
                   options={productOptions}
-                  className="w-full"
+                  className="w-full cursor-not-allowed"
                   value={productOptions.find((option) => option.value === idProduk)}
                   onChange={(selectedOption) => setIdProduk(selectedOption.value)}
                   isSearchable
+                  isDisabled
                   placeholder="Pilih Barang"
                 />
       
@@ -209,7 +211,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
                 <Button variant="text" color="gray" onClick={handleOpen}>
                     Batalkan
                 </Button>
-                <Button variant="gradient" color="blue" type="submit" onClick={handleOpen}>
+                <Button variant="gradient" color="blue" type="submit">
                     Simpan
                 </Button>
             </div>
