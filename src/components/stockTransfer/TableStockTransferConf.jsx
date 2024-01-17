@@ -127,7 +127,7 @@ export default function TableStockTransfeConf() {
                         {/* <ModalTambahStok name={nama_produk} produkId={id_transfer} mutate={mutate}/> */}
                         <ModalEditTransfer id_transfer={id_transfer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantitas} edit_keterangan={keterangan}  mutate={mutate}/>
                         <ModalDeleteTransfer id_transfer={id_transfer} mutate={mutate} nama_produk={nama_produk}/>
-                        <ModalKonfirmasiTransfer mutate={mutate} id_transfer={id_transfer} nama_produk={nama_produk}/>
+                        <ModalKonfirmasiTransfer mutate={mutate} id_transfer={id_transfer} nama_produk={nama_produk} id_produk={id_produk}/>
                       </div>
                     </div>
                   </td>
