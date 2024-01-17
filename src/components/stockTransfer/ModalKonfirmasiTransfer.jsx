@@ -13,7 +13,7 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
  
-export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk}) {
+export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk}) {
   const [open, setOpen] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
@@ -23,20 +23,37 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:5050/transfers/${id_transfer}`, {
+      const transferRes = await axios.put(`http://localhost:5050/transfers/${id_transfer}`, {
         status: 1,
       });
-
-      if (res.status === 200) {
-        toast.success("Transfer berhasil dikonfirmasi.");
-        mutate();
-        handleOpen();
+  
+      if (transferRes.status === 200) {
+        // Post data to outHistories
+        const outHistoriesRes = await axios.post('http://localhost:5050/outHistories', {
+          id_produk: id_produk,
+          tanggal: new Date().toISOString().split('T')[0], // Today's date
+          jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
+          tipe: 0,
+          pj: role,
+          id_transfer: id_transfer,
+        });
+  
+        if (outHistoriesRes.status === 200) {
+          toast.success("Transfer berhasil dikonfirmasi.");
+          mutate();
+          handleOpen();
+        } else {
+          toast.error("Gagal menambahkan data ke riwayat keluar.");
+        }
+      } else {
+        toast.error("Gagal mengkonfirmasi transfer.");
       }
     } catch (error) {
       toast.error("Terjadi kesalahan.");
       console.log(error);
     }
   };
+  
 
 
   return (

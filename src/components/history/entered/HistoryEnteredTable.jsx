@@ -14,6 +14,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 // import { isSameDay, isWithinInterval, addDays, addMonths } from 'date-fns';
 import { DateRangePicker } from 'react-date-range';
 import ModalDetailHistoryMasuk from "./ModalDetailHistoryMasuk";
+import { constants } from "crypto";
 
 
 // Function to slice rows based on the active page
@@ -84,8 +85,9 @@ export default function HistoryEnteredTable() {
         && isDateInRange;
     });
   
+    const sortedRows = filtered.sort((a, b) => new Date(b.id_history_masuk) - new Date(a.id_history_masuk));
     // console.log("filteredRows:", filtered);
-    setFilteredRows(filtered);
+    setFilteredRows(sortedRows);
   }, [searchInput, tableRows, dateRange]);
   
   if (error) return <p>Error fetching data...</p>;
@@ -111,12 +113,12 @@ export default function HistoryEnteredTable() {
         </Button>
       </div>
       {isOpened && (
-        <div className="mb-3 flex justify-center gap-8 items-end md:flex-col "> {/* Adjust the margin as needed */}
+        <div className="mb-3 flex justify-center gap-8 items-end xl:flex-col xl:items-center "> {/* Adjust the margin as needed */}
           <DateRangePicker
             onChange={(ranges) => setDateRange([ranges.selection])}
             ranges={dateRange}
           />
-          <Button variant="text" color="blue-gray" onClick={hanldeReset}>
+          <Button variant="text" color="red" onClick={hanldeReset}>
             Reset
           </Button>
         </div>
