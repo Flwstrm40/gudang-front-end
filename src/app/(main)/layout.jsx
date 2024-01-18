@@ -8,6 +8,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { SidebarMock } from '@/components/sidebarMock';
 import Skeleton from 'react-loading-skeleton';
 import { Toaster } from 'sonner';
+import SidebarBurger from '@/components/sidebar/SidebarBurger';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -33,6 +34,7 @@ const RootLayout = ({ children }) => {
          <Toaster position="top-right" closeButton={true} richColors={true}/>
         <SidebarMock/>
         <Sidebar/>
+        <SidebarBurger/>
         {/* <Skeleton count={5}/> */}
         {/* hallo */}
         <div className='bg-gray-200 w-full min-h-screen'>
