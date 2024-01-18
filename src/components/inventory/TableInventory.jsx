@@ -77,7 +77,7 @@ export default function TableInventory() {
         <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Produk/Kode di sini..."} />
         <SortBy onChange={(value) => setSortOption(value)} />
       </div>
-      <Card className="h-full w-full overflow-auto text-black">
+      <Card className="h-full w-full overflow-auto text-black" shadow={true}>
         <table className="w-full min-w-max table-auto text-center text-sm">
           <thead>
             <tr>

@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
  
-export default function ModalDetailHistoryKeluarTipe1({stok_keluar, tanggal, jam, keterangan, kode_produk, nama_produk, pj, harga, nama_cust, no_hp, alamat, pembayaran, tanggal_order, jadwal_kirim}) {
+export default function ModalDetailHistoryKeluarTipe1({stok_keluar, harga_jual, tanggal, jam, keterangan, kode_produk, nama_produk, pj, harga, nama_cust, no_hp, alamat, pembayaran, tanggal_order, jadwal_kirim}) {
   const [open, setOpen] = React.useState(false);
  
   const handleOpen = () => setOpen(!open);
@@ -20,7 +20,7 @@ export default function ModalDetailHistoryKeluarTipe1({stok_keluar, tanggal, jam
     }).format(value);
   };
 
-  const totalHarga = harga * stok_keluar;
+  const totalHarga = harga_jual? harga_jual * stok_keluar : harga * stok_keluar;
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -107,7 +107,7 @@ export default function ModalDetailHistoryKeluarTipe1({stok_keluar, tanggal, jam
                         : {stok_keluar}
                     </div>
                     <div>
-                        : {formatCurrency(totalHarga)} (@{formatCurrency(harga)})
+                        : {formatCurrency(totalHarga)} (@{formatCurrency(harga_jual? harga_jual : harga)})
                     </div>
                     <div>
                         : {pj}

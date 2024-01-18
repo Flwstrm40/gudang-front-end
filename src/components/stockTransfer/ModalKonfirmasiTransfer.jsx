@@ -13,7 +13,7 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
  
-export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk}) {
+export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk, harga}) {
   const [open, setOpen] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
@@ -31,6 +31,7 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
         // Post data to outHistories
         const outHistoriesRes = await axios.post('http://localhost:5050/outHistories', {
           id_produk: id_produk,
+          harga_jual: harga,
           tanggal: new Date().toISOString().split('T')[0], // Today's date
           jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
           tipe: 0,
