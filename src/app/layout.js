@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { Sidebar } from '@/components/sidebar/Sidebar';
@@ -17,13 +17,13 @@ const poppins = Poppins({
 
 // const isLoggedIn = true;
 
-export const metadata = {
-  title: {
-    default: 'Login Page',
-    template: '%s | Offo Living',
-  },
-  description: 'Login Page',
-}
+// export const metadata = {
+//   title: {
+//     default: 'Login Page',
+//     template: '%s | Offo Living',
+//   },
+//   description: 'Login Page',
+// }
 
 const RootLayout = ({ children }) => {
   return (
@@ -41,5 +41,5 @@ const RootLayout = ({ children }) => {
   )
 }
 
-// export default withAuth(RootLayout);
-export default RootLayout;
+export default withAuth(RootLayout);
+// export default RootLayout;

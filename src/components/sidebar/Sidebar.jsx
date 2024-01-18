@@ -47,10 +47,10 @@ export function Sidebar({user}) {
 
   const handleLogout = () => {
     // Destroy the 'token' cookie
-    destroyCookie(null, 'token', { path: '/dashboard' });
-    destroyCookie(null, 'username', { path: '/dashboard' });
-    destroyCookie(null, 'role', { path: '/dashboard' });
-    destroyCookie(null, 'id', { path: '/dashboard' });
+    destroyCookie(null, 'token', { path: '/' });
+    destroyCookie(null, 'username', { path: '/' });
+    destroyCookie(null, 'role', { path: '/' });
+    destroyCookie(null, 'id', { path: '/' });
     
     // Redirect to the login page or any other desired page
     router.push('/');

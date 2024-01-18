@@ -29,19 +29,19 @@ import { Toaster, toast } from 'sonner'
         const [password, setPassword] = useState('');
 
         const pathname = usePathname();
-        console.log("pathname", pathname)
+        // console.log("pathname", pathname)
         
         // Mengakses cookies
         const cookies = parseCookies();
         const token = cookies.token;
-        console.log("token", token)
+        // console.log("token", token)
         
         useEffect(() => {
-          // Destroy the cookies
-          destroyCookie(null, 'token', { path: '/' });
-          destroyCookie(null, 'username', { path: '/' });
-          destroyCookie(null, 'role', { path: '/' });
-          destroyCookie(null, 'id', { path: '/' });
+          // // Destroy the cookies
+          // destroyCookie(null, 'token', { path: '/' });
+          // destroyCookie(null, 'username', { path: '/' });
+          // destroyCookie(null, 'role', { path: '/' });
+          // destroyCookie(null, 'id', { path: '/' });
 
           // Add event listener ketika user menekan tombol Enter
           const handleKeyPress = (e) => {

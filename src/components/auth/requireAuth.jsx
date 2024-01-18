@@ -25,6 +25,10 @@ export function withAuth(Component){
   
     // If there's no token, redirect to the login page
     useEffect(() => {
+      // if token is exist and want to access login page, redirect to dashboard
+      if (isAuth && pathname === '/') {
+        router.push('/dashboard');
+      }
       // Check for conditions
       if (!isAuth && pathname !== '/') {
         // Redirect to the homepage
@@ -45,10 +49,6 @@ export function withAuth(Component){
         router.push('/dashboard');
       }
       
-      // if token is exist and want to access login page, redirect to dashboard
-      if (token && pathname === '/') {
-        router.push('/dashboard');
-      }
     }, [isAuth, pathname]);
 
     // If there is a token, render the original component with its props
