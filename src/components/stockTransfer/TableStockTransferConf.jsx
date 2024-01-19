@@ -67,7 +67,7 @@ export default function TableStockTransfeConf() {
       } else if (sortOption === "productDesc") {
         sortedRows = sortedRows.sort((a, b) => b.nama_produk.localeCompare(a.nama_produk));
       } else if (sortOption === "default") {
-        sortedRows = sortedRows.sort((a, b) => a.id_transfer - b.id_transfer);
+        sortedRows = sortedRows.sort((a, b) => b.id_transfer - a.id_transfer);
       }
   
       setFilteredRows(sortedRows);
