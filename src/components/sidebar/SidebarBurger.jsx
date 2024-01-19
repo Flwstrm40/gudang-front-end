@@ -86,7 +86,7 @@ export default function SidebarBurger() {
  
   return (
     <>
-      <IconButton variant="text" size="lg" onClick={openDrawer} className="hidden lg:inline z-50 lg:fixed">
+      <IconButton variant="text" size="lg" onClick={openDrawer} className="hidden lg:inline z-50">
         {isDrawerOpen ? (
           <XMarkIcon className="h-8 w-8 stroke-2" />
         ) : (
