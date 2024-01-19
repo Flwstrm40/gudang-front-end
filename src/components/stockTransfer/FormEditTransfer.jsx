@@ -70,7 +70,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
         stok: getStok + qtyAwal,
       });
 
-      // Send a POST request to the new endpoint
+      // Send a Put to transfer api
       await axios.put(`http://localhost:5050/transfers/${id_transfer}`, {
         id_produk: parseInt(idProduk),
         id_toko: parseInt(idToko),
