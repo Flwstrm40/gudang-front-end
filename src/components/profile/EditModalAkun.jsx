@@ -125,7 +125,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
 
   return (
     <div className="overflow-y-auto">
-      <Button onClick={handleOpen} size="lg" color="blue">
+      <Button onClick={handleOpen} size="md" color="blue">
         {/* <PencilSquareIcon className="h-5 w-5" /> */}
         Edit Akun
       </Button>
