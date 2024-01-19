@@ -69,7 +69,7 @@ export default function HistoryEnteredTable() {
       // console.log("Row:", { kode_produk, nama_produk, stok_masuk, pj, tanggal });
   
       const rowDate = new Date(tanggal);
-      console.log("Row Date:", rowDate);
+      // console.log("Row Date:", rowDate);
   
       const isDateInRange = dateRange[0].startDate && dateRange[0].endDate
         ? rowDate >= dateRange[0].startDate && rowDate <= dateRange[0].endDate
@@ -106,7 +106,7 @@ export default function HistoryEnteredTable() {
   return (
     <div>
       <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
-        <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Riwayat di sini..."} />
+        <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Riwayat Masuk di sini..."} />
         {/* <HistoryFilter onChange={(value) => setSortOption(value)} /> */}
         <Button size="md" variant="filled" className="hover:bg-blue-800" onClick={handleOpen} color="blue">
           Filter

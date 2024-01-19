@@ -119,7 +119,7 @@ export default function HistoryLeftTable() {
   return (
     <div>
       <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
-        <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Riwayat di sini..."} />
+        <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Riwayat Keluar di sini..."} />
         {/* <HistoryFilter onChange={(value) => setSortOption(value)} /> */}
         <Button size="md" variant="filled" className="hover:bg-blue-800" onClick={handleOpen} color="blue">
           Filter
