@@ -39,10 +39,10 @@ const ProfileCard = () => {
   return (
     <div className="text-black">
       <div className="flex justify-between">
-        <div className="text-2xl font-bold">
+        <div className="text-xl font-bold">
           Profil
         </div>
-        <div className="text-xl text-blue-gray-500">
+        <div className="text-lg text-blue-gray-500">
           {userData.role === 'admin' ? 'Admin' : 'Kepala Gudang'}
         </div>
       </div>
@@ -63,20 +63,20 @@ const ProfileCard = () => {
         {/* DisplayName and Username */}
         <div className="flex flex-col ">
           <div className="flex items-center">
-            <div className="text-lg font-semibold">
+            <div className="text-base font-semibold">
               Display Name
             </div>
             <div className="ml-5">
               <EditModalName name={userData.displayName} userId={id} mutate={mutate}/>
             </div>
           </div>
-          <div className="text-lg mb-5 text-blue-gray-500">
+          <div className="text-base mb-5 text-blue-gray-500">
             {userData.displayName? userData.displayName : '-'}
           </div>
-          <div className="text-lg font-semibold">
+          <div className="text-base font-semibold">
             Username
           </div>
-          <div className="text-lg text-blue-gray-500">
+          <div className="text-base text-blue-gray-500">
             {userData.username}
           </div>
         </div>
