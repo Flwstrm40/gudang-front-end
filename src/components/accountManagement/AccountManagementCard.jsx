@@ -40,8 +40,8 @@ const AccountManagementCard = () => {
                   <div>:</div>
                 </div>
                 <div>
-                  <div className="font-semibold">{dataKepalaGudang?.username}</div>
-                  <div className="font-semibold">{dataKepalaGudang?.displayName}</div>
+                  <div>{dataKepalaGudang?.username}</div>
+                  <div>{dataKepalaGudang?.displayName}</div>
                 </div>
               </div>
             </div>
@@ -70,8 +70,8 @@ const AccountManagementCard = () => {
                     <div>:</div>
                   </div>
                   <div>
-                    <div className="font-semibold">{username}</div>
-                    <div className="font-semibold">{displayName? displayName: "-"}</div>
+                    <div>{username}</div>
+                    <div>{displayName? displayName: "-"}</div>
                   </div>
                 </div>
               </div>
