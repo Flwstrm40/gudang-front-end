@@ -5,7 +5,11 @@ import Search from "../search/Search";
 import SortBy from "../sortBy/SortBy";
 import Pagination from "../pagination/Pagination";
 import { useState, useEffect } from "react";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { 
+  TrashIcon,
+  CheckIcon,
+  PencilSquareIcon 
+} from "@heroicons/react/24/outline";
 import axios from "axios";
 // import { ModalLihatDetail } from "../inventory/ModalLihatDetail";
 // import ModalKonfirmasiTransfer from "./ModalKonfirmasiTransfer";
@@ -15,12 +19,15 @@ import axios from "axios";
 import { parseCookies } from "nookies";
 import { Toaster, toast } from "sonner";
 import useSWR, {mutate} from "swr";
+import { ModalLihatProduk } from "./ModalLihatProduk";
+import ModalLihatOrderCust from "./ModalLihatOrderCust";
+import ModalKonfirmasiOrder from "./ModalKonfirmasiOrder";
 // import DialFormTransfer from "./DialFormTransfer";
 // import ModalEditTransfer from "./ModalEditTransfer";
 
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
-const TABLE_HEAD = ["Item Order (Qty)", "Customer", "Jadwal Kirim", ""];
+const TABLE_HEAD = ["Item Order", "Qty","Customer (Qty)", "Jadwal Kirim", ""];
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -29,9 +36,9 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function OrderTable() {
-    const { data: tableRows, error, mutate } = useSWR('http://localhost:5050/transfers', async (url) => {
+    const { data: tableRows, error, mutate } = useSWR('http://localhost:5050/customers', async (url) => {
       const response = await axios.get(url);
-      return response.data.transfers;
+      return response.data.customers;
     });
   
     const [searchInput, setSearchInput] = useState("");
@@ -44,30 +51,34 @@ export default function OrderTable() {
     const role = cookies.role;
   
     useEffect(() => {
+      // console.log(tableRows)
       if (!tableRows) return;
       // Filtering logic based on search input and status === 0
-      const filtered = tableRows.filter(({ nama_toko, nama_produk, asal, kuantitas }) =>
-        nama_toko.toLowerCase().includes(searchInput.toLowerCase()) ||
+      const filtered = tableRows.filter(({ kode_produk, nama_produk, kuantiti }) =>
+        kode_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
         nama_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
-        asal.toLowerCase().includes(searchInput.toLowerCase()) ||
-        kuantitas.toString().includes(searchInput)
+        kuantiti.toString().includes(searchInput)
       );
+
+      // console.log(filtered)
   
       // Only include rows with status === 0
-      const statusFilteredRows = filtered.filter(({ status }) => status === 0);
-  
+      const statusFilteredRows = filtered.filter(({ status_terima }) => status_terima === '0');
+      
+
+      // console.log(statusFilteredRows)
       // Sorting logic based on the selected option
       let sortedRows = [...statusFilteredRows];
       if (sortOption === "quantityAsc") {
-        sortedRows = sortedRows.sort((a, b) => a.kuantitas - b.kuantitas);
+        sortedRows = sortedRows.sort((a, b) => a.kuantiti - b.kuantiti);
       } else if (sortOption === "quantityDesc") {
-        sortedRows = sortedRows.sort((a, b) => b.kuantitas - a.kuantitas);
+        sortedRows = sortedRows.sort((a, b) => b.kuantiti - a.kuantiti);
       } else if (sortOption === "productAsc") {
         sortedRows = sortedRows.sort((a, b) => a.nama_produk.localeCompare(b.nama_produk));
       } else if (sortOption === "productDesc") {
         sortedRows = sortedRows.sort((a, b) => b.nama_produk.localeCompare(a.nama_produk));
       } else if (sortOption === "default") {
-        sortedRows = sortedRows.sort((a, b) => a.id_transfer - b.id_transfer);
+        sortedRows = sortedRows.sort((a, b) => a.id_customer - b.id_customer);
       }
   
       setFilteredRows(sortedRows);
@@ -78,6 +89,13 @@ export default function OrderTable() {
   
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);
+
+    const formatDate = (dateString) => {
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      const formattedDate = new Intl.DateTimeFormat('id-ID', options).format(new Date(dateString));
+      return formattedDate;
+    };
+    
 
   return (
     <div>
@@ -103,32 +121,38 @@ export default function OrderTable() {
             {paginatedRows.length === 0 ? (
               <tr>
                 <td colSpan={TABLE_HEAD.length} className="text-center text-gray-600 mt-4 py-3 text-md">
-                  Tidak ada transfer yang sedang dilakukan.
+                  Tidak ada Pesanan yang masuk.
                 </td>
               </tr>
             ) : (
-              paginatedRows.map(({ id_transfer, id_produk, id_toko, asal, status, nama_toko, nama_produk, kode_produk, stok, harga, deskripsi, kuantitas, keterangan }) => (
-                <tr key={id_transfer} className="even:bg-blue-gray-50/50">
+              paginatedRows.map(({ id_customer, jadwal_kirim, id_produk, nama_produk, kode_produk, stok, harga, deskripsi, kuantiti, nama_cust, no_hp, alamat, pembayaran, tanggal_order, sales_jualan }) => (
+                <tr key={id_customer} className="even:bg-blue-gray-50/50">
                   {/* <td className="p-3">
                     <div className="font-normal">{asal}</div>
                   </td> */}
                   <td className="p-3">
-                    <div className="font-normal">{nama_toko}</div>
+                    <ModalLihatProduk nama_produk={nama_produk} kode_produk={kode_produk} Stok={stok} Harga={harga} Deskripsi={deskripsi} kuantiti={kuantiti}/>
                   </td>
                   <td className="p-3">
-                    {/* <ModalLihatDetail Produk={nama_produk} Kode={kode_produk} Stok={stok} Harga={harga} Deskripsi={deskripsi}/> */}
+                    <div className="font-normal">{kuantiti}</div>
                   </td>
                   <td className="p-3">
-                    <div className="font-normal">{kuantitas}</div>
+                    <ModalLihatOrderCust nama_cust={nama_cust} no_hp={no_hp} alamat={alamat} sales_jualan={sales_jualan} kuantiti={kuantiti} pembayaran={pembayaran} tanggal_order={formatDate(tanggal_order)} jadwal_kirim={formatDate(jadwal_kirim)} harga={harga}/>
+                  </td>
+                  <td className="p-3">
+                    <div className="font-normal">{formatDate(jadwal_kirim)}</div>
                   </td>
                   <td className="p-3">
                     <div className="flex justify-center gap-2 items-center sm:flex-col">
-                      <div>
-                        {/* <ModalTambahStok name={nama_produk} produkId={id_transfer} mutate={mutate}/> */}
-                        {/* <ModalEditTransfer id_transfer={id_transfer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantitas} edit_keterangan={keterangan}  mutate={mutate}/> */}
-                        {/* <ModalDeleteTransfer id_transfer={id_transfer} mutate={mutate} nama_produk={nama_produk}/> */}
-                        {/* <ModalKonfirmasiTransfer mutate={mutate} id_transfer={id_transfer} nama_produk={nama_produk} id_produk={id_produk} harga={harga}/> */}
-                      </div>
+                      {/* <div> */}
+                        {/* <ModalTambahStok name={nama_produk} produkId={id_customer} mutate={mutate}/> */}
+                        <PencilSquareIcon className="h-6 w-6 text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => toast.success("Berhasil mengedit transfer")}/>
+                        <TrashIcon className="h-6 w-6 text-red-500 hover:text-red-700 cursor-pointer" onClick={() => toast.success("Berhasil menghapus transfer")}/>
+          
+                        {/* <ModalEditTransfer id_customer={id_customer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantiti} edit_keterangan={keterangan}  mutate={mutate}/> */}
+                        {/* <ModalDeleteTransfer id_customer={id_customer} mutate={mutate} nama_produk={nama_produk}/> */}
+                        <ModalKonfirmasiOrder mutate={mutate} id_customer={id_customer} nama_produk={nama_produk} id_produk={id_produk} harga={harga}/>
+                      {/* </div> */}
                     </div>
                   </td>
                 </tr>
