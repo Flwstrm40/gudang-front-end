@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from "next/image";
-import useSWR from 'swr';
+import useSWR, {mutate} from 'swr';
+import Link from 'next/link';
+import { Spinner } from '@material-tailwind/react';
 
 const getGreeting = () => {
   const currentHour = new Date().getHours();
@@ -23,6 +25,9 @@ const getGreeting = () => {
 
 
 const DashboardCard = () => {
+
+
+  
   const greeting = getGreeting();
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
@@ -43,6 +48,16 @@ const DashboardCard = () => {
   };
 
   const { data: user, error } = useSWR(id ? `http://localhost:5050/user/${id}` : null, fetcher);
+
+  const {data: totalOrder} = useSWR('http://localhost:5050/customers/total', async (url) => {
+    const response = await axios.get(url);
+    return response.data[0];
+  });
+
+  const {data: totalTransfer} = useSWR('http://localhost:5050/transfers/total', async (url) => {
+    const response = await axios.get(url);
+    return response.data[0];
+  });
 
    useEffect(() => {
     const intervalId = setInterval(() => {
@@ -65,7 +80,7 @@ const DashboardCard = () => {
 
   return (
     <div className="text-black">
-     <div className="flex items-center text-2xl justify-between">
+     <div className="flex items-center text-xl mb-10 justify-between">
         <div>
           {greeting},
           <span className="font-bold ml-2">
@@ -76,19 +91,47 @@ const DashboardCard = () => {
             !
           </span>
         </div>
-        <div className="ml-4 text-gray-500 text-xl">
+        <div className="ml-4 text-gray-500 text-lg">
           {currentTime}
         </div>
       </div>
-      <div className="mt-10 w-auto">
-        <Image
+      <div className="w-full">
+        {/* <Image
           src="/Front-Offo.jpg"
           alt="Picture of Offo Living Office"
           width={1500}
           height={1500}
           className="rounded-lg"
           priority={true}
-        />
+        /> */}
+        <div className='flex justify-between text-base md:flex-col gap-3 mt-20'>
+          {/* Order Box */}
+          <div className='mx-auto'>
+            <Link href='/order'>
+              <div className='flex flex-col items-center p-6 rounded-md border-2 w-[300px] bg-blue-gray-50 cursor-pointer hover:bg-blue-100 hover:text-blue-900 hover:border-blue-600'>
+                <div className='font-semibold text-4xl  '>
+                {totalOrder ? totalOrder.total_cust : <Spinner color="blue"/>}
+                </div>
+                <div className='text-black font-semibold'>
+                  Pesanan
+                </div>
+              </div>
+            </Link>
+          </div>
+          {/* Transfer stock box */}
+          <div className='mx-auto'>
+            <Link href='/stockTransfer'>
+              <div className='flex flex-col items-center p-6 rounded-md border-2 w-[300px] bg-blue-gray-50 cursor-pointer hover:bg-green-100 hover:text-green-900 hover:border-green-600'>
+                <div className='font-semibold text-4xl'>
+                {totalTransfer ? totalTransfer.total_transfer : <Spinner color="green"/>}
+                </div>
+                <div className='text-black font-semibold'>
+                  Transfer Stok
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
       </div>
     </div> 
   );
