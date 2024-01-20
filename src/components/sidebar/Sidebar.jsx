@@ -1,6 +1,7 @@
 'use client';
 
-import React from "react";
+import { useEffect, useState } from "react";
+import React, { use } from "react";
 import {
   Card,
   Typography,
@@ -31,6 +32,8 @@ import { destroyCookie, parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import useSWR, {mutate} from "swr";
+import axios from "axios";
  
 export function Sidebar({user}) {
   const [open, setOpen] = React.useState(0);
@@ -51,8 +54,8 @@ export function Sidebar({user}) {
     destroyCookie(null, 'username', { path: '/' });
     destroyCookie(null, 'role', { path: '/' });
     destroyCookie(null, 'id', { path: '/' });
-    
-    // Redirect to the login page or any other desired page
+
+    // Redirect to the login page 
     router.push('/');
   };
   
@@ -72,7 +75,25 @@ export function Sidebar({user}) {
     return 'bg-gray-200 font-semibold text-black p-0';
   }
   
-  // console.log("pathname", pathname);
+  const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
+    'http://localhost:5050/customers/total',
+    async (url) => {
+      const response = await axios.get(url);
+      return response.data[0];
+    }
+  );
+
+      mutate('http://localhost:5050/customers/total');
+      mutate('http://localhost:5050/transfers/total');
+  
+  const { data: totalTransfer, mutate: mutateTotalTransfer } = useSWR(
+    'http://localhost:5050/transfers/total',
+    async (url) => {
+      const response = await axios.get(url);
+      return response.data[0];
+    }
+  );
+
 
   return (
     <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden fixed z-30 overflow-auto bg-white">
@@ -108,6 +129,11 @@ export function Sidebar({user}) {
               <ShoppingCartIcon className="h-5 w-5" />
             </ListItemPrefix>
             Pesanan
+            <ListItemSuffix>
+              {totalOrder?.total_cust >= 1 && (
+                <Chip value={totalOrder?.total_cust} size="sm" variant="ghost" color="blue" className="rounded-full" />
+              )}
+            </ListItemSuffix>
           </ListItem>
         </Link>
 
@@ -128,6 +154,11 @@ export function Sidebar({user}) {
               <ArrowsRightLeftIcon className="h-5 w-5" />
             </ListItemPrefix>
             Transfer Stok
+            <ListItemSuffix>
+              {totalTransfer?.total_transfer >= 1 && (
+                <Chip value={totalTransfer?.total_transfer} size="sm" variant="ghost" color="green" className="rounded-full" />
+              )}
+            </ListItemSuffix>
           </ListItem>
         </Link>
 
