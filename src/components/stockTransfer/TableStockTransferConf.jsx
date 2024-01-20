@@ -17,6 +17,7 @@ import { Toaster, toast } from "sonner";
 import useSWR, {mutate} from "swr";
 import DialFormTransfer from "./DialFormTransfer";
 import ModalEditTransfer from "./ModalEditTransfer";
+import { usePathname } from "next/navigation";
 
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
@@ -33,7 +34,10 @@ export default function TableStockTransfeConf() {
       const response = await axios.get(url);
       return response.data.transfers;
     });
+
+    const pathname = usePathname();
   
+    const [currentPath, setCurrentPath] = useState(pathname);
     const [searchInput, setSearchInput] = useState("");
     const [filteredRows, setFilteredRows] = useState([]);
     const [sortOption, setSortOption] = useState("default");
@@ -42,7 +46,7 @@ export default function TableStockTransfeConf() {
     const cookies = parseCookies();
   
     const role = cookies.role;
-  
+
     useEffect(() => {
       if (!tableRows) return;
       // Filtering logic based on search input and status === 0
@@ -75,7 +79,6 @@ export default function TableStockTransfeConf() {
   
     if (error) return <p>Error fetching data...</p>;
     if (!tableRows) return <p>Loading...</p>;
-  
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);
 
@@ -116,7 +119,7 @@ export default function TableStockTransfeConf() {
                     <div className="font-normal">{nama_toko}</div>
                   </td>
                   <td className="p-3">
-                    <ModalLihatDetail Produk={nama_produk} Kode={kode_produk} Stok={stok} Harga={harga} Deskripsi={deskripsi}/>
+                    <ModalLihatDetail Produk={nama_produk} Kode={kode_produk} Stok={stok} Harga={harga} Deskripsi={deskripsi} pathname={currentPath}/>
                   </td>
                   <td className="p-3">
                     <div className="font-normal">{kuantitas}</div>
