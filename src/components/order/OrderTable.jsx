@@ -8,26 +8,21 @@ import { useState, useEffect } from "react";
 import { 
   TrashIcon,
   CheckIcon,
-  PencilSquareIcon 
+  PencilSquareIcon,
+  PrinterIcon, 
 } from "@heroicons/react/24/outline";
 import axios from "axios";
-// import { ModalLihatDetail } from "../inventory/ModalLihatDetail";
-// import ModalKonfirmasiTransfer from "./ModalKonfirmasiTransfer";
-// import ModalDeleteTransfer from "./ModalDeleteTransfer";
-// import ModalEditStok from "./ModalEditProduk";
-// import DialAddProduk from "./DialAddProduk";
 import { parseCookies } from "nookies";
 import { Toaster, toast } from "sonner";
 import useSWR, {mutate} from "swr";
 import { ModalLihatProduk } from "./ModalLihatProduk";
 import ModalLihatOrderCust from "./ModalLihatOrderCust";
 import ModalKonfirmasiOrder from "./ModalKonfirmasiOrder";
-// import DialFormTransfer from "./DialFormTransfer";
-// import ModalEditTransfer from "./ModalEditTransfer";
+import { useRouter } from "next/navigation";
 
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
-const TABLE_HEAD = ["Item Order", "Qty","Customer (Qty)", "Jadwal Kirim", ""];
+const TABLE_HEAD = ["Item Order", "Qty","Customer", "Jadwal Kirim", ""];
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -41,6 +36,7 @@ export default function OrderTable() {
       return response.data.customers;
     });
   
+    const router = useRouter();
     const [searchInput, setSearchInput] = useState("");
     const [filteredRows, setFilteredRows] = useState([]);
     const [sortOption, setSortOption] = useState("default");
@@ -96,6 +92,9 @@ export default function OrderTable() {
       return formattedDate;
     };
     
+    const handlePrintButton = (id_customer) => {
+      window.open(`/printDO/${id_customer}`, '_blank');
+    };
 
   return (
     <div>
@@ -143,15 +142,17 @@ export default function OrderTable() {
                     <div className="font-normal">{formatDate(jadwal_kirim)}</div>
                   </td>
                   <td className="p-3">
-                    <div className="flex justify-center gap-2 items-center sm:flex-col">
+                    <div className="flex justify-center gap-1 items-center sm:flex-col">
                       {/* <div> */}
                         {/* <ModalTambahStok name={nama_produk} produkId={id_customer} mutate={mutate}/> */}
-                        <PencilSquareIcon className="h-6 w-6 text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => toast.success("Berhasil mengedit transfer")}/>
-                        <TrashIcon className="h-6 w-6 text-red-500 hover:text-red-700 cursor-pointer" onClick={() => toast.success("Berhasil menghapus transfer")}/>
-          
+                        {/* <PencilSquareIcon className="h-6 w-6 text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => toast.success("Berhasil mengedit transfer")}/>
+                        <TrashIcon className="h-6 w-6 text-red-500 hover:text-red-700 cursor-pointer" onClick={() => toast.success("Berhasil menghapus transfer")}/> */}
+                        <Button onClick={() => handlePrintButton(id_customer)} variant="text" color="blue" size="sm">
+                          <PrinterIcon className="h-5 w-5" /> 
+                        </Button>
                         {/* <ModalEditTransfer id_customer={id_customer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantiti} edit_keterangan={keterangan}  mutate={mutate}/> */}
                         {/* <ModalDeleteTransfer id_customer={id_customer} mutate={mutate} nama_produk={nama_produk}/> */}
-                        <ModalKonfirmasiOrder mutate={mutate} id_customer={id_customer} nama_produk={nama_produk} id_produk={id_produk} harga={harga}/>
+                        <ModalKonfirmasiOrder nama_cust={nama_cust} mutate={mutate} id_customer={id_customer} nama_produk={nama_produk} id_produk={id_produk} harga={harga}/>
                       {/* </div> */}
                     </div>
                   </td>
