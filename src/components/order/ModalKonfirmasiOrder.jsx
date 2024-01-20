@@ -13,7 +13,7 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
  
-export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, id_produk, harga}) {
+export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, id_produk, harga, nama_cust}) {
   const [open, setOpen] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
@@ -73,7 +73,7 @@ export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, 
         <DialogHeader>
             <div className="flex flex-col">
                 <div>
-                    Konfirmasi Transfer
+                    Konfirmasi Order
                 </div>
                 <div className="text-sm text-red-600 mt-2 font-normal">
                     Setelah dikonfirmasi, tidak dapat dilakukan pengeditan lagi.
@@ -81,11 +81,15 @@ export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, 
             </div>
         </DialogHeader>
         <DialogBody>
-            Apakah barang 
+            Apakah produk 
              <span className="font-semibold">
                   {` ${nama_produk} `}
              </span>
-             sudah sampai di toko tujuan?
+             sudah sampai ke
+             <span className="font-semibold">
+                  {` ${nama_cust} `}
+             </span>
+             ?
         </DialogBody>
         <DialogFooter>
           <Button
@@ -96,7 +100,7 @@ export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, 
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleSubmit}>
+          <Button variant="filled" color="green" onClick={handleSubmit}>
             <span>Konfirmasi</span>
           </Button>
         </DialogFooter>
