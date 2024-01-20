@@ -10,7 +10,7 @@ import {
 import { InboxIcon } from "@heroicons/react/24/solid";
 import { parseCookies } from "nookies";
  
-export function ModalLihatDetail({Produk, Kode, Stok, Harga, Deskripsi}) {
+export function ModalLihatDetail({Produk, Kode, Stok, Harga, Deskripsi, pathname}) {
   const [open, setOpen] = React.useState(false);
   const cookies = parseCookies();
   const handleOpen = () => setOpen(!open);
@@ -27,9 +27,14 @@ export function ModalLihatDetail({Produk, Kode, Stok, Harga, Deskripsi}) {
   return (
     <>
        <div className="font-normal">
+        {pathname === "/stockTransfer"?
             <button size="sm" variant="text" color="black" className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
+                [{Kode}] {Produk}
+            </button>
+            :  <button size="sm" variant="text" color="black" className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
                 {Produk}
             </button>
+         }
         </div>
         <Dialog open={open} handler={handleOpen}>
             <div>
