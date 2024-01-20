@@ -70,11 +70,18 @@ export default function SidebarBurger() {
   const isActiveLink = (path) => {
     return pathname === path;
   }
+
+  const isHistory = (path) => {
+    return pathname === path || pathname === '/history/entered' || pathname === '/history/left';
+  }
   
   const styleActiveLink = () => {
     return 'bg-gray-200 font-semibold text-black';
   }
-  
+
+  const styleActiveLink2 = () => {
+    return 'bg-gray-200 font-semibold text-black p-0';
+  }
   // console.log("pathname", pathname);
  
   const handleOpen = (value) => {

@@ -59,9 +59,17 @@ export function Sidebar({user}) {
   const isActiveLink = (path) => {
     return pathname === path;
   }
+
+  const isHistory = (path) => {
+    return pathname === path || pathname === '/history/entered' || pathname === '/history/left';
+  }
   
   const styleActiveLink = () => {
     return 'bg-gray-200 font-semibold text-black';
+  }
+
+  const styleActiveLink2 = () => {
+    return 'bg-gray-200 font-semibold text-black p-0';
   }
   
   // console.log("pathname", pathname);
@@ -141,7 +149,7 @@ export function Sidebar({user}) {
             />
           }
         >
-          <ListItem className="p-0" selected={open === 2}>
+          <ListItem className={isHistory('/history') ? styleActiveLink2() : 'p-0'} selected={open === 2}>
             <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3 ">
               <ListItemPrefix>
                 <ArrowPathRoundedSquareIcon className="h-5 w-5 " />
