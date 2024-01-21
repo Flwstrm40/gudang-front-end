@@ -83,8 +83,8 @@ export function Sidebar({user}) {
     }
   );
 
-      mutate('http://localhost:5050/customers/total');
-      mutate('http://localhost:5050/transfers/total');
+    mutate('http://localhost:5050/customers/total');
+    mutate('http://localhost:5050/transfers/total');
   
   const { data: totalTransfer, mutate: mutateTotalTransfer } = useSWR(
     'http://localhost:5050/transfers/total',

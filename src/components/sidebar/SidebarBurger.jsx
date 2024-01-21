@@ -43,6 +43,8 @@ import { destroyCookie, parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import useSWR, {mutate} from "swr";
+import axios from "axios";
  
 export default function SidebarBurger() {
   const [open, setOpen] = React.useState(0);
@@ -90,6 +92,25 @@ export default function SidebarBurger() {
  
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
+
+  const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
+    'http://localhost:5050/customers/total',
+    async (url) => {
+      const response = await axios.get(url);
+      return response.data[0];
+    }
+  );
+
+    mutate('http://localhost:5050/customers/total');
+    mutate('http://localhost:5050/transfers/total');
+  
+  const { data: totalTransfer, mutate: mutateTotalTransfer } = useSWR(
+    'http://localhost:5050/transfers/total',
+    async (url) => {
+      const response = await axios.get(url);
+      return response.data[0];
+    }
+  );
  
   return (
     <>
@@ -150,6 +171,11 @@ export default function SidebarBurger() {
               <ShoppingCartIcon className="h-5 w-5" />
             </ListItemPrefix>
             Pesanan
+            <ListItemSuffix>
+              {totalOrder?.total_cust >= 1 && (
+                <Chip value={totalOrder?.total_cust} size="sm" variant="ghost" color="blue" className="rounded-full" />
+              )}
+            </ListItemSuffix>
           </ListItem>
         </Link>
 
@@ -170,6 +196,11 @@ export default function SidebarBurger() {
               <ArrowsRightLeftIcon className="h-5 w-5" />
             </ListItemPrefix>
             Transfer Stok
+            <ListItemSuffix>
+              {totalTransfer?.total_transfer >= 1 && (
+                <Chip value={totalTransfer?.total_transfer} size="sm" variant="ghost" color="green" className="rounded-full" />
+              )}
+            </ListItemSuffix>
           </ListItem>
         </Link>
 
