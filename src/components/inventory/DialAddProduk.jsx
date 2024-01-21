@@ -25,14 +25,14 @@ import {
               </IconButton>
             </SpeedDialHandler>
             <SpeedDialContent>
-              <Link href="/inventory/addInfo">
+              {/* <Link href="/inventory/addInfo">
                 <SpeedDialAction className="h-16 w-16 hover:bg-blue-500 hover:text-white">
                   <CogIcon className="h-5 w-5" />
                   <div color="blue-gray" className="text-xs font-normal">
                     Info
                   </div>
                 </SpeedDialAction>
-              </Link>
+              </Link> */}
               <Link href="/inventory/addProduct">
                 <SpeedDialAction className="h-16 w-16 hover:bg-blue-500 hover:text-white">
                   <Square3Stack3DIcon className="h-5 w-5" />
