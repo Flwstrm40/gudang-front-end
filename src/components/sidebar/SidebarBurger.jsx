@@ -122,7 +122,7 @@ export default function SidebarBurger() {
         )}
       </IconButton>
       <Drawer open={isDrawerOpen} onClose={closeDrawer}>
-      <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 fixed z-30 overflow-auto bg-white">
+      <div className="h-[calc(100vh)] w-full p-4 fixed z-30 overflow-auto bg-white">
     {/* // <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden overflow-auto bg-white"> */}
     {/* shadow-xl shadow--900/5 */}
       {/* {console.log(children)} */}
@@ -152,11 +152,11 @@ export default function SidebarBurger() {
             </svg>
           </IconButton>
       </div>
-      <hr className="my-2 border--100" />
+      <hr className="my-2 border" />
       <List>
         {/* Dashboard */}
         <Link href="/dashboard">
-          <ListItem className={isActiveLink('/dashboard') ? styleActiveLink() : ''}>
+          <ListItem className={isActiveLink('/dashboard') ? styleActiveLink() : ''} onClick={closeDrawer}>
             <ListItemPrefix>
               <HomeIcon className="h-5 w-5 " />
             </ListItemPrefix>
@@ -166,7 +166,7 @@ export default function SidebarBurger() {
 
         {/* Order */}
         <Link href="/order">
-          <ListItem className={isActiveLink('/order') ? styleActiveLink() : ''}>
+          <ListItem className={isActiveLink('/order') ? styleActiveLink() : ''} onClick={closeDrawer}>
             <ListItemPrefix>
               <ShoppingCartIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -181,7 +181,7 @@ export default function SidebarBurger() {
 
         {/* Inventory */}
         <Link href="/inventory">
-          <ListItem className={isActiveLink('/inventory') || isActiveLink('/inventory/addInfo') || isActiveLink('/inventory/addProduct') ? styleActiveLink() : ''}>
+          <ListItem onClick={closeDrawer} className={isActiveLink('/inventory') || isActiveLink('/inventory/addInfo') || isActiveLink('/inventory/addProduct') ? styleActiveLink() : ''}>
             <ListItemPrefix>
               <ClipboardDocumentListIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -191,7 +191,7 @@ export default function SidebarBurger() {
 
         {/* Stock Transfer */}
         <Link href="/stockTransfer">
-          <ListItem className={isActiveLink('/stockTransfer') || isActiveLink('/stockTransfer/formTransfer') ? styleActiveLink() : ''}>
+          <ListItem className={isActiveLink('/stockTransfer') || isActiveLink('/stockTransfer/formTransfer') ? styleActiveLink() : ''} onClick={closeDrawer}>
             <ListItemPrefix>
               <ArrowsRightLeftIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -235,7 +235,7 @@ export default function SidebarBurger() {
           <AccordionBody className="py-1">
             <List className="p-0 ">
               <Link href="/history/entered">
-                <ListItem  className={isActiveLink('/history/entered') ? styleActiveLink() : ''}>
+                <ListItem  className={isActiveLink('/history/entered') ? styleActiveLink() : ''} onClick={closeDrawer}>
                   <ListItemPrefix>
                     <ArrowDownRightIcon strokeWidth={3} className="h-3 w-5" />
                   </ListItemPrefix>
@@ -243,7 +243,7 @@ export default function SidebarBurger() {
                 </ListItem>
               </Link>
               <Link href="/history/left">
-                <ListItem  className={isActiveLink('/history/left') ? styleActiveLink() : ''}>
+                <ListItem  className={isActiveLink('/history/left') ? styleActiveLink() : ''} onClick={closeDrawer}>
                   <ListItemPrefix>
                     <ArrowUpLeftIcon strokeWidth={3} className="h-3 w-5" />
                   </ListItemPrefix>
@@ -256,7 +256,7 @@ export default function SidebarBurger() {
           
         {/* Profile */}
         <Link href="/profile">
-          <ListItem  className={isActiveLink('/profile') ? styleActiveLink() : ''}>
+          <ListItem  className={isActiveLink('/profile') ? styleActiveLink() : ''} onClick={closeDrawer}>
             <ListItemPrefix>
               <UserCircleIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -267,7 +267,7 @@ export default function SidebarBurger() {
         {/* Manajemen Akun */}
         {role == 'kepala gudang' &&  
         <Link href="/accountManagement">
-          <ListItem  className={isActiveLink('/accountManagement') ? styleActiveLink() : ''}>
+          <ListItem  className={isActiveLink('/accountManagement') ? styleActiveLink() : ''} onClick={closeDrawer}>
             <ListItemPrefix>
               <UsersIcon className="h-5 w-5" />
             </ListItemPrefix>

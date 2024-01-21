@@ -110,7 +110,7 @@ export function Sidebar({user}) {
           priority={true}
         />
       </div>
-      <hr className="my-2 border--100" />
+      <hr className="my-2 border" />
       <List>
         {/* Dashboard */}
         <Link href="/dashboard">
