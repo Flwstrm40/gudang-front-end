@@ -62,16 +62,16 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
   
         if (response.status === 200) {
           // Handle success, maybe redirect to inventory page
-          toast.success("Produk berhasil ditambahkan");
+          toast.success("Produk berhasil diedit");
           mutate();
           handleOpen();
         } else {
           // Handle error
-          toast.error("Gagal menambahkan produk");
+          toast.error("Gagal mengedit produk");
           console.error("Failed to add product");
         }
       } catch (error) {           
-          toast.error("Gagal menambahkan produk");
+          toast.error("Gagal mengedit produk");
           console.error("Error:", error);
       }
     };
