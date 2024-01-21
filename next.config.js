@@ -16,7 +16,8 @@ const nextConfig = {
   swcMinify: true,
   env: {
     // API: "http://localhost:5050",
-    API: "http://localhost:42879",
+    // API: "http://localhost:42879",
+    API: "https://gudang-back-end.vercel.app/",
   },
 };
 
