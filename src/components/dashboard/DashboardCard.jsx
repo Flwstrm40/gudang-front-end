@@ -59,6 +59,11 @@ const DashboardCard = () => {
     return response.data[0];
   });
 
+  const {data: totalProduk} = useSWR('http://localhost:5050/products/total', async (url) => {
+    const response = await axios.get(url);
+    return response.data[0];
+  });
+
    useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
@@ -95,24 +100,17 @@ const DashboardCard = () => {
           {currentTime}
         </div>
       </div>
+      
       <div className="w-full">
-        {/* <Image
-          src="/Front-Offo.jpg"
-          alt="Picture of Offo Living Office"
-          width={1500}
-          height={1500}
-          className="rounded-lg"
-          priority={true}
-        /> */}
-        <div className='flex justify-between text-base md:flex-col gap-3 mt-20'>
+        <div className='flex justify-between text-base xl:flex-col gap-3 mb-10 w-full'>
           {/* Order Box */}
           <div className='mx-auto'>
             <Link href='/order'>
-              <div className='flex flex-col items-center p-6 rounded-md border-2 w-[300px] bg-blue-gray-50 cursor-pointer hover:bg-blue-100 hover:text-blue-900 hover:border-blue-600'>
+              <div className='flex flex-col items-center p-6 rounded-md border-2 text-blue-900 w-[250px] bg-blue-gray-50 cursor-pointer hover:bg-blue-100 hover:text-blue-900 hover:border-blue-600'>
                 <div className='font-semibold text-4xl  '>
                 {totalOrder ? totalOrder.total_cust : <Spinner color="blue"/>}
                 </div>
-                <div className='text-black font-semibold'>
+                <div className=' font-semibold'>
                   Pesanan
                 </div>
               </div>
@@ -121,17 +119,48 @@ const DashboardCard = () => {
           {/* Transfer stock box */}
           <div className='mx-auto'>
             <Link href='/stockTransfer'>
-              <div className='flex flex-col items-center p-6 rounded-md border-2 w-[300px] bg-blue-gray-50 cursor-pointer hover:bg-green-100 hover:text-green-900 hover:border-green-600'>
+              <div className='flex flex-col items-center p-6 rounded-md text-green-900 border-2 w-[250px] bg-blue-gray-50 cursor-pointer hover:bg-green-100 hover:text-green-900 hover:border-green-600'>
                 <div className='font-semibold text-4xl'>
                 {totalTransfer ? totalTransfer.total_transfer : <Spinner color="green"/>}
                 </div>
-                <div className='text-black font-semibold'>
+                <div className=' font-semibold'>
                   Transfer Stok
                 </div>
               </div>
             </Link>
           </div>
+          {/* Transfer stock box */}
+          <div className='mx-auto'>
+            <Link href='/inventory'>
+              <div className='flex flex-col items-center p-6 text-deep-purple-900 rounded-md border-2 w-[250px] bg-blue-gray-50 cursor-pointer hover:bg-purple-100 hover:text-purple-900 hover:border-purple-600'>
+                <div className='font-semibold text-4xl'>
+                {totalProduk ? totalProduk.total_product : <Spinner color="purple"/>}
+                </div>
+                <div className=' font-semibold'>
+                  Produk
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
+
+        <Image
+          src="/Front-Offo.jpg"
+          alt="Picture of Offo Living Office"
+          width={500}
+          height={500}
+          className="rounded-lg w-auto mx-auto"
+          priority={true}
+        />
+
+        {/* <div>
+          <div className='w-full p-6 rounded-md border-2 bg-blue-gray-50 cursor-pointer hover:bg-blue-100 hover:text-blue-900 hover:border-blue-600 text-base'>
+            <div className='text-xl font-semibold text-center'>
+            Informasi
+            </div>
+          </div>
+        </div> */}
+        
       </div>
     </div> 
   );
