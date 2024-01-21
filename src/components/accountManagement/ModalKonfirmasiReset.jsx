@@ -24,7 +24,7 @@ export default function ModalKonfirmasiReset({id, username}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const resetPasswordRes = await axios.put(`http://localhost:5050/user/reset-password/${id}`, {
+        const resetPasswordRes = await axios.put(`${process.env.API}/user/reset-password/${id}`, {
           password: "admin"
         });
     

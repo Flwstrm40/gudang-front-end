@@ -26,7 +26,7 @@ export default function EditModalName({name, userId, mutate}) {
     const handleSave = async () => {
         try {
             // console.log("userId", userId)
-            const response = await axios.put(`http://localhost:5050/user/${userId}`, {
+            const response = await axios.put(`${process.env.API}/user/${userId}`, {
                 displayName: displayName,
             });
             // console.log("displayName", displayName)

@@ -24,7 +24,7 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function HistoryEnteredTable() {
-  const { data: tableRows, error, mutate } = useSWR('http://localhost:5050/inHistories', async (url) => {
+  const { data: tableRows, error, mutate } = useSWR(`${process.env.API}/inHistories`, async (url) => {
     const response = await axios.get(url);
     return response.data.inHistories;
   });

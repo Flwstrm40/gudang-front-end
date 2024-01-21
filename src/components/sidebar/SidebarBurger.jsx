@@ -94,18 +94,18 @@ export default function SidebarBurger() {
   const closeDrawer = () => setIsDrawerOpen(false);
 
   const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
-    'http://localhost:5050/customers/total',
+    `${process.env.API}/customers/total`,
     async (url) => {
       const response = await axios.get(url);
       return response.data[0];
     }
   );
 
-    mutate('http://localhost:5050/customers/total');
-    mutate('http://localhost:5050/transfers/total');
+    mutate(`${process.env.API}/customers/total`);
+    mutate(`${process.env.API}/transfers/total`);
   
   const { data: totalTransfer, mutate: mutateTotalTransfer } = useSWR(
-    'http://localhost:5050/transfers/total',
+    `${process.env.API}/transfers/total`,
     async (url) => {
       const response = await axios.get(url);
       return response.data[0];

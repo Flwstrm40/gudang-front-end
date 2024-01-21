@@ -8,12 +8,12 @@ import { Toaster, toast } from "sonner";
 import ModalKonfirmasiReset from "./ModalKonfirmasiReset";
 
 const AccountManagementCard = () => {
-  const {data: dataKepalaGudang, error} = useSWR(`http://localhost:5050/user/kepala-gudang`, async (url) => {
+  const {data: dataKepalaGudang, error} = useSWR(`${process.env.API}/user/kepala-gudang`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-  const {data: dataAdmin, errorAdmin} = useSWR(`http://localhost:5050/user/admin`, async (url) => {
+  const {data: dataAdmin, errorAdmin} = useSWR(`${process.env.API}/user/admin`, async (url) => {
     const response = await axios.get(url);
     return response.data.admins;
   });

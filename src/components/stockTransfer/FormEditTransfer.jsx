@@ -25,17 +25,17 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
     const [qtyAwal, setQtyAwal] = useState(edit_kuantitas);
     const [editKeterangan, setEditKeterangan] = useState(edit_keterangan);
 
-    const { data: products } = useSWR("http://localhost:5050/products", (url) =>
+    const { data: products } = useSWR(`${process.env.API}/products`, (url) =>
     axios.get(url).then((res) => res.data.products)
     );
 
-    const { data: stores } = useSWR("http://localhost:5050/stores", (url) =>
+    const { data: stores } = useSWR(`${process.env.API}/stores`, (url) =>
     axios.get(url).then((res) => res.data.stores)
     );
 
   // Use useSWR to fetch the stock data
   const { data: getStok } = useSWR(
-    idProduk ? `http://localhost:5050/products/getStock/${idProduk}` : null,
+    idProduk ? `${process.env.API}/products/getStock/${idProduk}` : null,
     (url) => axios.get(url).then((res) => res.data.stock)
   );
 
@@ -66,12 +66,12 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
 
     try {
       // Update stock first
-      await axios.put(`http://localhost:5050/products/${idProduk}`, {
+      await axios.put(`${process.env.API}/products/${idProduk}`, {
         stok: getStok + qtyAwal,
       });
 
       // Send a Put to transfer api
-      await axios.put(`http://localhost:5050/transfers/${id_transfer}`, {
+      await axios.put(`${process.env.API}/transfers/${id_transfer}`, {
         id_produk: parseInt(idProduk),
         id_toko: parseInt(idToko),
         kuantitas: parseInt(kuantitas),
@@ -81,7 +81,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
       });
 
       // send a put to transferStock api
-      await axios.put(`http://localhost:5050/products/transferStock/${idProduk}`, {
+      await axios.put(`${process.env.API}/products/transferStock/${idProduk}`, {
         stok : kuantitas,
       });
 

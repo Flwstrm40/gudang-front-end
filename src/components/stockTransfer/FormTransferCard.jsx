@@ -21,17 +21,17 @@ export default function FormTransferCard() {
     const [idProduk, setIdProduk] = useState(""); // Add state for idProduk
     const [idToko, setIdToko] = useState("");
 
-    const { data: products } = useSWR("http://localhost:5050/products", (url) =>
+    const { data: products } = useSWR(`${process.env.API}/products`, (url) =>
     axios.get(url).then((res) => res.data.products)
     );
 
-    const { data: stores } = useSWR("http://localhost:5050/stores", (url) =>
+    const { data: stores } = useSWR(`${process.env.API}/stores`, (url) =>
     axios.get(url).then((res) => res.data.stores)
     );
 
   // Use useSWR to fetch the stock data
   const { data: getStok } = useSWR(
-    idProduk ? `http://localhost:5050/products/getStock/${idProduk}` : null,
+    idProduk ? `${process.env.API}/products/getStock/${idProduk}` : null,
     (url) => axios.get(url).then((res) => res.data.stock)
   );
 
@@ -69,7 +69,7 @@ export default function FormTransferCard() {
   
       try {
         // Send a POST request to the new endpoint
-        const response = await axios.post("http://localhost:5050/transfers", {
+        const response = await axios.post(`${process.env.API}/transfers`, {
           id_produk: parseInt(idProduk),
           id_toko: parseInt(idToko),
           kuantitas: parseInt(kuantitas),

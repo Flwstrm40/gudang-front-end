@@ -47,19 +47,19 @@ const DashboardCard = () => {
     return data[0];
   };
 
-  const { data: user, error } = useSWR(id ? `http://localhost:5050/user/${id}` : null, fetcher);
+  const { data: user, error } = useSWR(id ? `${process.env.API}/user/${id}` : null, fetcher);
 
-  const {data: totalOrder} = useSWR('http://localhost:5050/customers/total', async (url) => {
+  const {data: totalOrder} = useSWR(`${process.env.API}/customers/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-  const {data: totalTransfer} = useSWR('http://localhost:5050/transfers/total', async (url) => {
+  const {data: totalTransfer} = useSWR(`${process.env.API}/transfers/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-  const {data: totalProduk} = useSWR('http://localhost:5050/products/total', async (url) => {
+  const {data: totalProduk} = useSWR(`${process.env.API}/products/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });

@@ -26,7 +26,7 @@ const ProfileCard = () => {
   };
 
    // Use SWR to fetch user data
-   const { data: userData, error, mutate } = useSWR(`http://localhost:5050/user/${id}`, fetcher);
+   const { data: userData, error, mutate } = useSWR(`${process.env.API}/user/${id}`, fetcher);
 
   if (error) {
     return <div>Error fetching user data</div>;

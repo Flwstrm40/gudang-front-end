@@ -23,7 +23,7 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function TableInventory() {
-  const { data: tableRows, error, mutate } = useSWR('http://localhost:5050/products', async (url) => {
+  const { data: tableRows, error, mutate } = useSWR(`${process.env.API}/products`, async (url) => {
     const response = await axios.get(url);
     return response.data.products;
   });

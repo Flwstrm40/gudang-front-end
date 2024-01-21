@@ -28,7 +28,7 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function HistoryLeftTable() {
-  const { data: tableRows, error, mutate } = useSWR('http://localhost:5050/outHistories', async (url) => {
+  const { data: tableRows, error, mutate } = useSWR(`${process.env.API}/outHistories`, async (url) => {
     const response = await axios.get(url);
     return response.data.outHistories;
   });

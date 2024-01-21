@@ -36,7 +36,7 @@ export default function AddInventoryCard() {
         }
     
         try {
-          const response = await axios.post("http://localhost:5050/infos", info);
+          const response = await axios.post(`${process.env.API}/infos`, info);
     
           if (response.status === 200) {
             // Handle success, maybe redirect to inventory page

@@ -21,7 +21,7 @@ export default function ModalDeleteTransfer({mutate, id_transfer, nama_produk}) 
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.delete(`http://localhost:5050/transfers/${id_transfer}`);
+      const res = await axios.delete(`${process.env.API}/transfers/${id_transfer}`);
 
       if (res.status === 200) {
         toast.success("Transfer berhasil dihapus.");

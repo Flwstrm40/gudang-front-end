@@ -41,7 +41,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
   // cek username apakah sudah digunakan oleh pengguna lain
   const checkUsernameAvailability = async () => {
     try {
-      const response = await axios.post(`http://localhost:5050/auth/cekUsername`, {
+      const response = await axios.post(`${process.env.API}/auth/cekUsername`, {
         username: username,
         userId: userId,
       });
@@ -60,7 +60,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
   // cek username dan password apakah sudah sesuai
   const handleContinue = async () => {
     try {
-      const response = await axios.post(`http://localhost:5050/auth/cekAkun`, {
+      const response = await axios.post(`${process.env.API}/auth/cekAkun`, {
         username: username,
         password: password,
       });
@@ -100,7 +100,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
         return;
       }
   
-      const response = await axios.put(`http://localhost:5050/user/${userId}`, {
+      const response = await axios.put(`${process.env.API}/user/${userId}`, {
         username: username,
         password: newPassword,
       });

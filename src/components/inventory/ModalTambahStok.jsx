@@ -53,7 +53,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
     
       try {
         // Assuming you have the product ID available in your component, replace ':id' with the actual product ID.
-        const response = await axios.put(`http://localhost:5050/products/addStock/${produkId}`, { stok: stock });
+        const response = await axios.put(`${process.env.API}/products/addStock/${produkId}`, { stok: stock });
     
         // Handle success, e.g., show a success toast or perform additional actions.
         console.log('Response:', response.data);
@@ -70,7 +70,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
           pj: role
         };
     
-        await axios.post('http://localhost:5050/inHistories', inHistoriesData);
+        await axios.post(`${process.env.API}/inHistories`, inHistoriesData);
     
         // Close the modal and reset the stock input
         handleOpen();

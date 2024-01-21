@@ -23,13 +23,13 @@ export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const customerRes = await axios.put(`http://localhost:5050/customers/${id_customer}`, {
+      const customerRes = await axios.put(`${process.env.API}/customers/${id_customer}`, {
         status_terima: '1',
       });
   
       if (customerRes.status === 200) {
         // Post data to outHistories
-        const outHistoriesRes = await axios.post('http://localhost:5050/outHistories', {
+        const outHistoriesRes = await axios.post(`${process.env.API}/outHistories`, {
           id_produk: id_produk,
           harga_jual: harga,
           tanggal: new Date().toISOString().split('T')[0], // Today's date

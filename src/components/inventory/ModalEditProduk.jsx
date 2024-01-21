@@ -58,7 +58,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
       }
   
       try {
-        const response = await axios.put(`http://localhost:5050/products/${id}`, product);
+        const response = await axios.put(`${process.env.API}/products/${id}`, product);
   
         if (response.status === 200) {
           // Handle success, maybe redirect to inventory page
@@ -79,7 +79,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
      // cek kode produk apakah sudah digunakan oleh produk lain
      const checkKodeProdukAvailability = async () => {
       try {
-          const response = await axios.post(`http://localhost:5050/products/cekKodeProduk`, {
+          const response = await axios.post(`${process.env.API}/products/cekKodeProduk`, {
             kode_produk: product.kode_produk,
           });
     

@@ -30,7 +30,7 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function TableStockTransfeConf() {
-    const { data: tableRows, error, mutate } = useSWR('http://localhost:5050/transfers', async (url) => {
+    const { data: tableRows, error, mutate } = useSWR(`${process.env.API}/transfers`, async (url) => {
       const response = await axios.get(url);
       return response.data.transfers;
     });
