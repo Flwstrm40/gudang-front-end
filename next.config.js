@@ -17,7 +17,7 @@ const nextConfig = {
   env: {
     // API: "http://localhost:5050",
     // API: "http://localhost:42879",
-    API: "https://gudang-back-end.vercel.app/",
+    API: "https://gudang-back-end.vercel.app",
   },
 };
 
