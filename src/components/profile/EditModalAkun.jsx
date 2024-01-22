@@ -13,6 +13,8 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { useEffect } from 'react';
+import { Spinner } from "@material-tailwind/react";
+import { set } from "date-fns";
 
  
 export default function EditModalAkun({uname, userId, mutate}) {
@@ -22,6 +24,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
   const [password, setPassword] = React.useState('');
   const [step1, setStep1] = React.useState(true);
   const [step2, setStep2] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   useEffect(() => {
     setUsername(uname);
@@ -59,6 +62,8 @@ export default function EditModalAkun({uname, userId, mutate}) {
  
   // cek username dan password apakah sudah sesuai
   const handleContinue = async () => {
+
+    setIsLoading(true);
     try {
       const response = await axios.post(`${process.env.API}/auth/cekAkun`, {
         username: username,
@@ -67,16 +72,21 @@ export default function EditModalAkun({uname, userId, mutate}) {
       if (response.data) {
         setStep1(false);
         setStep2(true);
+        setIsLoading(false);
       } else {
         toast.error('Password lama salah');
+        setIsLoading(false);
       }
     } catch (error) {
       console.error('Error fetching user data:', error.message);
       toast.error('Password lama salah');
+      setIsLoading(false);
     }
   }
 
   const handleSave = async () => {
+
+    setIsLoading(true);
     try {
       if (!newPassword || !username) {
         toast.error('Username atau password baru tidak boleh kosong');
@@ -95,8 +105,8 @@ export default function EditModalAkun({uname, userId, mutate}) {
       }
 
       // password baru harus lebih dari 6 karakter
-      if (newPassword.length < 6) {
-        toast.error('Password baru harus terdiri dari 6/lebih karakter');
+      if (newPassword.length < 5) {
+        toast.error('Password baru harus terdiri dari 5/lebih karakter');
         return;
       }
   
@@ -113,12 +123,15 @@ export default function EditModalAkun({uname, userId, mutate}) {
         setStep2(false);
         setPassword('');
         setNewPassword('');
+        setIsLoading(false);
       } else {
         toast.error('Username/Password gagal diubah');
+        setIsLoading(false);
       }
     } catch (error) {
       console.error('Error fetching user data:', error.message);
       toast.error('Username sudah digunakan oleh user lain');
+      setIsLoading(false);
     }
   };
   
@@ -173,7 +186,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
               Batalkan
             </Button>
             <Button variant="gradient" color="blue" onClick={handleContinue}>
-              Lanjutkan
+              {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Lanjutkan"}
             </Button>
           </DialogFooter>
         </div>}
@@ -202,7 +215,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
               Batalkan
             </Button>
             <Button variant="gradient" color="blue" onClick={handleSave}>
-              Simpan
+              {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Simpan"}
             </Button>
           </DialogFooter>
         </div>}

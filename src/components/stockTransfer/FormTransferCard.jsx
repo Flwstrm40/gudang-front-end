@@ -15,10 +15,12 @@ import { Toaster, toast } from "sonner";
 import { TooltipIcon } from "@/components/tooltip/Tooltip";
 import useSWR from "swr";
 import Select from "react-select";
+import { Spinner } from "@material-tailwind/react";
   
 export default function FormTransferCard() {
     const router = useRouter();
-    const [idProduk, setIdProduk] = useState(""); // Add state for idProduk
+    const [idProduk, setIdProduk] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [idToko, setIdToko] = useState("");
 
     const { data: products } = useSWR(`${process.env.API}/products`, (url) =>
@@ -66,7 +68,8 @@ export default function FormTransferCard() {
         toast.error("Qty tidak boleh lebih besar dari stok yang ada.");
         return;
       }
-  
+      
+      setIsLoading(true);
       try {
         // Send a POST request to the new endpoint
         const response = await axios.post(`${process.env.API}/transfers`, {
@@ -82,10 +85,12 @@ export default function FormTransferCard() {
           response.data.message || "Berhasil melakukan transfer stok produk"
         );
         router.push("/stockTransfer");
+        setIsLoading(false);
       } catch (error) {
         toast.error(
           error.response.data.error || "Gagal melakukan transfer stok produk"
         );
+        setIsLoading(false);
       }
     };
     
@@ -198,7 +203,7 @@ export default function FormTransferCard() {
               (*) Sistem tidak dapat mengembalikan stok yang sudah ditransfer
             </div>
             <Button className="mt-3" fullWidth color="blue" type="submit">
-              Transfer
+              {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Transfer"}
             </Button>
           </form>
         </div>

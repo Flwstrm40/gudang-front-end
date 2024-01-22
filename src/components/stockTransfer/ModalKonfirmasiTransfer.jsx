@@ -12,9 +12,11 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
- 
+import { Spinner } from "@material-tailwind/react"; 
+
 export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk, harga}) {
   const [open, setOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
 
@@ -23,6 +25,7 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const transferRes = await axios.put(`${process.env.API}/transfers/${id_transfer}`, {
         status: 1,
       });
@@ -43,15 +46,19 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
           toast.success("Transfer berhasil dikonfirmasi.");
           mutate();
           handleOpen();
+          setIsLoading(false);
         } else {
           toast.error("Gagal menambahkan data ke riwayat keluar.");
+          setIsLoading(false);
         }
       } else {
         toast.error("Gagal mengkonfirmasi transfer.");
+        setIsLoading(false);
       }
     } catch (error) {
       toast.error("Terjadi kesalahan.");
       console.log(error);
+      setIsLoading(false);
     }
   };
   
@@ -96,8 +103,8 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleSubmit}>
-            <span>Konfirmasi</span>
+          <Button variant="filled" color="green" onClick={handleSubmit}>
+            <span> {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Konfirmasi"}</span>
           </Button>
         </DialogFooter>
       </Dialog>

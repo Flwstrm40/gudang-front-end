@@ -147,7 +147,7 @@ export default function HistoryLeftTable() {
             </div>
           ) : (
             paginatedRows.map(({ id_history_keluar, id_produk, harga_jual, tipe, kuantitas, kuantiti, tanggal, jam, keterangan, nama_produk, kode_produk, pj, nama_cust, nama_toko, harga, no_hp, alamat, pembayaran, tanggal_order, jadwal_kirim, sales_jualan }) => (
-              <Card key={id_history_keluar} className="border p-4 rounded-md text-sm text-black" shadow={false}>
+              <Card key={id_history_keluar} className="border p-4 rounded-md text-sm text-black hover:bg-blue-50" shadow={false}>
                 <div className="flex justify-between gap-3">
                   <div className="font-semibold text-md mb-2">[{kode_produk}] {nama_produk}</div>
                   <div className="mb-2 text-blue-gray-700">{formatDate(tanggal)}</div>

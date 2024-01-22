@@ -131,7 +131,7 @@ export default function HistoryEnteredTable() {
             </div>
           ) : (
             paginatedRows.map(({ id_history_masuk, id_produk, stok_masuk, tanggal, jam, keterangan, nama_produk, kode_produk, pj }) => (
-              <Card key={id_history_masuk} className="border p-4 rounded-md text-sm text-black" shadow={false}>
+              <Card key={id_history_masuk} className="border p-4 rounded-md text-sm text-black hover:bg-blue-50" shadow={false}>
                 <div className="flex justify-between gap-3">
                   <div className="font-semibold text-md mb-2">[{kode_produk}] {nama_produk}</div>
                   <div className="mb-2 text-blue-gray-700">{formatDate(tanggal)}</div>

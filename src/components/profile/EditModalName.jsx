@@ -12,10 +12,13 @@ import {
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
+import { Spinner } from "@material-tailwind/react";
+import { set } from "date-fns";
  
 export default function EditModalName({name, userId, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [displayName, setDisplayName] = React.useState('');
+    const [isLoading, setIsLoading] = React.useState(false);
  
     useEffect(() => {
         setDisplayName(name);
@@ -24,6 +27,7 @@ export default function EditModalName({name, userId, mutate}) {
     
 
     const handleSave = async () => {
+        setIsLoading(true);
         try {
             // console.log("userId", userId)
             const response = await axios.put(`${process.env.API}/user/${userId}`, {
@@ -36,12 +40,15 @@ export default function EditModalName({name, userId, mutate}) {
                 mutate();
                 handleOpen();
                 // router.replace('/profile');
+                setIsLoading(false);
             } else {
                 toast.error('Display Name gagal diubah');
+                setIsLoading(false);
             }
         } catch (error) {
             console.error('Error fetching user data:', error.message);
             toast.error('Display Name gagal diubah');
+            setIsLoading(false);
         }
     }
 
@@ -95,7 +102,7 @@ export default function EditModalName({name, userId, mutate}) {
                 Batalkan
             </Button>
             <Button variant="gradient" color="blue" onClick={handleSave}>
-                Simpan
+                {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Simpan"}
             </Button>
             </DialogFooter>
         </Dialog>

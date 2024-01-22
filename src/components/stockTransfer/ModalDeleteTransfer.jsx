@@ -12,25 +12,31 @@ import {
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
+import { set } from "date-fns";
+import { Spinner } from "@material-tailwind/react";
  
 export default function ModalDeleteTransfer({mutate, id_transfer, nama_produk}) {
   const [open, setOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
  
   const handleOpen = () => setOpen(!open);
  
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const res = await axios.delete(`${process.env.API}/transfers/${id_transfer}`);
 
       if (res.status === 200) {
         toast.success("Transfer berhasil dihapus.");
         mutate();
         handleOpen();
+        setIsLoading(false);
       }
     } catch (error) {
       toast.error("Terjadi kesalahan.");
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -74,7 +80,7 @@ export default function ModalDeleteTransfer({mutate, id_transfer, nama_produk}) 
             <span>Cancel</span>
           </Button>
           <Button variant="gradient" color="red" onClick={handleDelete}>
-            <span>Hapus</span>
+            <span> {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Hapus"}</span>
           </Button>
         </DialogFooter>
       </Dialog>

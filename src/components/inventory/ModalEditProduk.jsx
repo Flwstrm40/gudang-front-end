@@ -14,11 +14,13 @@ import {
     PlusIcon
 } from "@heroicons/react/24/solid";
 import axios from "axios";
-import { Toaster, toast } from 'sonner'
+import { Toaster, toast } from 'sonner';
+import { Spinner } from "@material-tailwind/react";
  
 export default function ModalEditStok({kode_produk, nama_produk, harga, deskripsi, id_produk, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState({
       kode_produk: kode_produk,
       nama_produk: nama_produk,
@@ -57,6 +59,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
         }
       }
   
+      setIsLoading(true);
       try {
         const response = await axios.put(`${process.env.API}/products/${id}`, product);
   
@@ -65,14 +68,17 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
           toast.success("Produk berhasil diedit");
           mutate();
           handleOpen();
+          setIsLoading(false);
         } else {
           // Handle error
           toast.error("Gagal mengedit produk");
           console.error("Failed to add product");
+          setIsLoading(false);
         }
       } catch (error) {           
           toast.error("Gagal mengedit produk");
           console.error("Error:", error);
+          setIsLoading(false);
       }
     };
 
@@ -212,7 +218,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
           </Button>
           {/* <Button variant="gradient" color="blue" onClick={handleSubmit}> */}
           <Button variant="gradient" color="blue" onClick={handleSubmit}>
-            Simpan
+            {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Simpan"}
           </Button>
         </DialogFooter>
       </Dialog>

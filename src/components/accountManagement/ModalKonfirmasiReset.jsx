@@ -13,9 +13,12 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
+import { set } from "date-fns";
+import { Spinner } from "@material-tailwind/react";
  
 export default function ModalKonfirmasiReset({id, username}) {
   const [open, setOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
 
@@ -23,6 +26,7 @@ export default function ModalKonfirmasiReset({id, username}) {
  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
         const resetPasswordRes = await axios.put(`${process.env.API}/user/reset-password/${id}`, {
           password: "admin"
@@ -31,12 +35,14 @@ export default function ModalKonfirmasiReset({id, username}) {
         if (resetPasswordRes.status === 200) {
           toast.success("Password berhasil direset.");
           handleOpen();
+          setIsLoading(false);
         } else {
           toast.error("Gagal mereset password.");
         }
       } catch (error) {
         toast.error("Terjadi kesalahan, gagal mereset password.");
         console.error(error);
+        setIsLoading(false);
       }
   };
   
@@ -79,7 +85,7 @@ export default function ModalKonfirmasiReset({id, username}) {
             <span>Cancel</span>
           </Button>
           <Button variant="gradient" color="green" onClick={handleSubmit}>
-            <span>Konfirmasi</span>
+            <span> {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Konfirmasi"}</span> 
           </Button>
         </DialogFooter>
       </Dialog>

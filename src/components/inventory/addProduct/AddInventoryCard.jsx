@@ -13,10 +13,12 @@ import axios from "axios";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import { TooltipIcon } from "@/components/tooltip/Tooltip";
+import { Spinner } from "@material-tailwind/react";
   
 export default function AddInventoryCard() {
     const router = useRouter();
 
+    const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState({
         kode_produk: "",
         nama_produk: "",
@@ -63,7 +65,8 @@ export default function AddInventoryCard() {
         if (!isKodeProdukAvailable) {
             return;
         }
-    
+        
+        setIsLoading(true);
         try {
           const response = await axios.post("http://localhost:5050/products", product);
     
@@ -71,15 +74,18 @@ export default function AddInventoryCard() {
             // Handle success, maybe redirect to inventory page
             toast.success("Produk berhasil ditambahkan");
             // Tunggu 1 detik sebelum navigasi
-              router.push("/inventory");
+            router.push("/inventory");
+            setIsLoading(false);
           } else {
             // Handle error
             toast.error("Gagal menambahkan produk");
             console.error("Failed to add product");
+            setIsLoading(false);
           }
         } catch (error) {           
             toast.error("Gagal menambahkan produk");
             console.error("Error:", error);
+            setIsLoading(false);
         }
       };
     
@@ -195,7 +201,7 @@ export default function AddInventoryCard() {
             (*) Prouk yang sudah ditambahkan tidak dapat dihapus
           </div>
           <Button className="mt-3" fullWidth color="blue" type="submit">
-            Tambah
+            {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Tambah"}
           </Button>
 
         </form>

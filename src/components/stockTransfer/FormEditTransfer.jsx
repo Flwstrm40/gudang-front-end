@@ -15,6 +15,7 @@ import { Toaster, toast } from "sonner";
 import { TooltipIcon } from "@/components/tooltip/Tooltip";
 import useSWR,{mutate} from "swr";
 import Select from "react-select";
+import { Spinner } from "@material-tailwind/react";
   
 export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuantitas, edit_keterangan, mutate, handleOpen}) {
 
@@ -24,6 +25,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
     const [editKuantitas, setEditKuantitas] = useState(edit_kuantitas);
     const [qtyAwal, setQtyAwal] = useState(edit_kuantitas);
     const [editKeterangan, setEditKeterangan] = useState(edit_keterangan);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { data: products } = useSWR(`${process.env.API}/products`, (url) =>
     axios.get(url).then((res) => res.data.products)
@@ -65,6 +67,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
     }
 
     try {
+      setIsLoading(true);
       // Update stock first
       await axios.put(`${process.env.API}/products/${idProduk}`, {
         stok: getStok + qtyAwal,
@@ -90,10 +93,12 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
       );
       mutate();
       handleOpen();
+      setIsLoading(false);
     } catch (error) {
       toast.error(
         error.response.data.error || "Gagal melakukan edit transfer produk"
       );
+      setIsLoading(false);
     }
   };
 
@@ -137,7 +142,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
                 <Input
                   size="md"
                   placeholder="XX-XXX"
-                  className=" !border-t-blue-gray-200 focus:!border-gray-700 w-full"
+                  className=" !border-t-blue-gray-200 focus:!border-gray-700 w-full text-gray-500"
                   labelProps={{
                     className: "before:content-none after:content-none",
                   }}
@@ -204,15 +209,15 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
               (*) Wajib diisi
             </div>
             <div className="mt-2 text-xs text-red-800">
-              (*) Sistem tidak dapat mengembalikan stok yang sudah ditransfer
+              (*) Sistem tidak dapat mengembalikan stok setelah transfer dikonfirmasi
             </div>
             <div className="flex gap-1 justify-end">
 
                 <Button variant="text" color="gray" onClick={handleOpen}>
                     Batalkan
                 </Button>
-                <Button variant="gradient" color="blue" type="submit">
-                    Simpan
+                <Button variant="filled" color="blue" type="submit">
+                    {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : 'Simpan'}
                 </Button>
             </div>
           </form>

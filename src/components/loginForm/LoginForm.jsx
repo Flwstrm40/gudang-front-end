@@ -22,11 +22,14 @@ import { useRouter } from 'next/navigation'
 import { TooltipIcon } from "../tooltip/Tooltip";
 import Image from 'next/image';
 import { Toaster, toast } from 'sonner'
+import { Spinner } from '@material-tailwind/react';
+import { set } from 'date-fns';
    
   export default function LoginForm() {
         const router = useRouter()
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
+        const [isLoading, setIsLoading] = useState(false);
 
         const pathname = usePathname();
         // console.log("pathname", pathname)
@@ -62,6 +65,7 @@ import { Toaster, toast } from 'sonner'
           // console.log('Username:', username);
           // console.log('Password:', password);
           // console.log(process.env.PORT)
+          setIsLoading(true);
           try {
             const response = await axios.post( `${process.env.API}/auth/login` , {
               username,
@@ -74,11 +78,13 @@ import { Toaster, toast } from 'sonner'
               router.push('/dashboard');
             } else {
               // Autentikasi gagal, tangani kesalahan atau tampilkan pesan kesalahan
+              setIsLoading(false);
               console.error('Authentication failed');
               console.error('Error:', response.data.message);
               toast.error('Username/Password salah');
             }
           } catch (error) {
+            setIsLoading(false);
             console.error('Error during authentication:', error.message);
             toast.error('Username/Password salah');
           }
@@ -146,7 +152,7 @@ import { Toaster, toast } from 'sonner'
           </CardBody>
           <CardFooter className="pt-0 mt-16">
             <Button variant="gradient" color="blue" fullWidth onClick={handleLogin}>
-              Login
+              {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : 'Login'}
             </Button>
           </CardFooter>
         </Card>

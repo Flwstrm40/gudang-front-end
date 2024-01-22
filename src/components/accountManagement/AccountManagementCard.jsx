@@ -21,6 +21,8 @@ const AccountManagementCard = () => {
   // console.log(dataKepalaGudang);
   // console.log(dataAdmin);
 
+  if (!dataKepalaGudang || !dataAdmin) return <div>Loading...</div>;
+
     return ( 
       <div className="text-black text-sm">
         {/* Kepala Gudang */}

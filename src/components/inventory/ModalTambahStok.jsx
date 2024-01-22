@@ -16,11 +16,14 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
+import { Spinner } from "@material-tailwind/react";
+import { set } from "date-fns";
  
 export default function ModalTambahStok({name, produkId, mutate}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
     const [keterangan, setKeterangan] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const cookies = parseCookies();
 
     const role = cookies.role;
@@ -50,7 +53,8 @@ export default function ModalTambahStok({name, produkId, mutate}) {
         toast.error('Stok tidak boleh negatif');
         return;
       }
-    
+      
+      setIsLoading(true);
       try {
         // Assuming you have the product ID available in your component, replace ':id' with the actual product ID.
         const response = await axios.put(`${process.env.API}/products/addStock/${produkId}`, { stok: stock });
@@ -76,10 +80,12 @@ export default function ModalTambahStok({name, produkId, mutate}) {
         handleOpen();
         setKeterangan('');
         setStock('');
+        setIsLoading(false);
       } catch (error) {
         // Handle errors, e.g., show an error toast or perform additional error handling.
         toast.error('Gagal menambahkan stok');
         console.error('Error:', error.message);
+        setIsLoading(false);
       }
     };
     
@@ -135,7 +141,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
             Batalkan
           </Button>
           <Button variant="gradient" color="blue" onClick={handleSubmit}>
-            Tambah
+            {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Tambah"}
           </Button>
         </DialogFooter>
       </Dialog>

@@ -15,7 +15,7 @@ export default function ModalDetailHistoryMasuk({stok_masuk, tanggal, jam, keter
  
   return (
     <>
-        <button className="font-semibold hover:bg-blue-gray-50 rounded-md pl-4 p-2" onClick={handleOpen}>
+        <button className="font-semibold hover:bg-blue-100 rounded-md pl-4 p-2" onClick={handleOpen}>
             <div className="flex items-center gap-2">
                 <div>
                     Detail 
