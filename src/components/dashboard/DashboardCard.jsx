@@ -72,12 +72,12 @@ const DashboardCard = () => {
     return () => clearInterval(intervalId);
   }, []); 
  
-  useEffect(() => {
-    if (user) {
-      setName(user.displayName);
-      setUserName(user.username);
-    }
-  }, [user, router, cookies.token]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setName(user.displayName);
+  //     setUserName(user.username);
+  //   }
+  // }, [user, router, cookies.token]);
  
  
  
@@ -90,7 +90,7 @@ const DashboardCard = () => {
           {greeting},
           <span className="font-bold ml-2">
             {/* if name null, display username */}
-            {name ? name : username}
+            {user?.displayName ? user?.displayName : user?.username}
           </span>
           <span>
             !
