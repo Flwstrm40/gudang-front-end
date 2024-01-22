@@ -55,11 +55,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
         // Assuming you have the product ID available in your component, replace ':id' with the actual product ID.
         const response = await axios.put(`${process.env.API}/products/addStock/${produkId}`, { stok: stock });
     
-        // Handle success, e.g., show a success toast or perform additional actions.
-        console.log('Response:', response.data);
-        toast.success('Stok berhasil ditambahkan');
-        mutate();
-    
+        
         // Post to inHistories endpoint
         const inHistoriesData = {
           id_produk: produkId,
@@ -69,10 +65,14 @@ export default function ModalTambahStok({name, produkId, mutate}) {
           keterangan: keterangan,
           pj: role
         };
-    
+        
         await axios.post(`${process.env.API}/inHistories`, inHistoriesData);
-    
-        // Close the modal and reset the stock input
+        
+        // Handle success, e.g., show a success toast or perform additional actions.
+        console.log('Response:', response.data);
+        toast.success('Stok berhasil ditambahkan');
+        mutate();
+
         handleOpen();
         setKeterangan('');
         setStock('');
