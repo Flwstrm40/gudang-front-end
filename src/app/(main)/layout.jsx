@@ -33,7 +33,7 @@ const RootLayout = ({ children }) => {
   // console.log("tipe", typeof window);
   return (
     <>
-      {!pathname.startsWith('/printDO') ? isBrowser &&  (
+      {!pathname.startsWith('/print') ? isBrowser &&  (
         <div className='flex'>
          <Toaster position="top-right" closeButton={true} richColors={true}/>
         <SidebarMock/>
