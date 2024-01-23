@@ -16,7 +16,7 @@ export default function Pagination({ activePage, pageCount, onPageChange }) {
   };
 
   return (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center gap-4">
       <IconButton
         size="sm"
         variant="outlined"

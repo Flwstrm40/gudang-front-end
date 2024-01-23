@@ -18,6 +18,7 @@ import useSWR, {mutate} from "swr";
 import DialFormTransfer from "./DialFormTransfer";
 import ModalEditTransfer from "./ModalEditTransfer";
 import { usePathname } from "next/navigation";
+import RowsPerPage from "../pagination/RowsPerPage";
 
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
@@ -42,13 +43,15 @@ export default function TableStockTransfeConf() {
     const [filteredRows, setFilteredRows] = useState([]);
     const [sortOption, setSortOption] = useState("default");
     const [activePage, setActivePage] = useState(1);
-    const pageSize = 6; // Number of rows per page
+    const [pageSize, setPageSize] = useState(6);
     const cookies = parseCookies();
   
     const role = cookies.role;
 
     useEffect(() => {
       if (!tableRows) return;
+
+      setActivePage(1);
       // Filtering logic based on search input and status === 0
       const filtered = tableRows.filter(({ nama_toko, nama_produk, asal, kuantitas }) =>
         nama_toko.toLowerCase().includes(searchInput.toLowerCase()) ||
@@ -141,14 +144,21 @@ export default function TableStockTransfeConf() {
         </table>
       </Card>
       <div className="mt-4 justify-between flex items-center">
-        <div>
-          {filteredRows.length > 0 && (
-            <Pagination
-              activePage={activePage}
-              pageCount={Math.ceil(filteredRows.length / pageSize)}
-              onPageChange={(pageNumber) => setActivePage(pageNumber)}
-            />
-            )}     
+        <div className="flex justify-start gap-4 items-center md:flex-col">
+            <div>
+              {filteredRows.length > 0 && (
+                <Pagination
+                activePage={activePage}
+                pageCount={Math.ceil(filteredRows.length / pageSize)}
+                onPageChange={(pageNumber) => setActivePage(pageNumber)}
+                />
+                )}     
+            </div>
+            <div>
+              {filteredRows.length > 0 && (
+                <RowsPerPage pageSize={pageSize} setPageSize={setPageSize} setActivePage={setActivePage}/>
+                )}
+            </div>
         </div>
         <div>
           <DialFormTransfer />

@@ -12,6 +12,8 @@ import DialAddProduk from "./DialAddProduk";
 import { parseCookies } from "nookies";
 import { Toaster, toast } from "sonner";
 import useSWR, {mutate} from "swr";
+import { Select, Option } from "@material-tailwind/react";
+import RowsPerPage from "../pagination/RowsPerPage";
 
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
@@ -32,7 +34,7 @@ export default function TableInventory() {
   const [filteredRows, setFilteredRows] = useState([]);
   const [sortOption, setSortOption] = useState("default");
   const [activePage, setActivePage] = useState(1);
-  const pageSize = 6; // Number of rows per page
+  const [pageSize, setPageSize] = useState(6);
   const cookies = parseCookies();
 
   const role = cookies.role;
@@ -40,6 +42,8 @@ export default function TableInventory() {
 
   useEffect(() => {
     if (!tableRows) return;
+
+    setActivePage(1);
     // Filtering logic based on search input
     const filtered = tableRows.filter(({ kode_produk, nama_produk, stok }) =>
       kode_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
@@ -127,15 +131,23 @@ export default function TableInventory() {
         </table>
       </Card>
       <div className="mt-4 justify-between flex items-center">
-        <div>
-          {filteredRows.length > 0 && (
-            <Pagination
+        <div className="flex justify-start gap-4 items-center md:flex-col">
+          <div>
+            {filteredRows.length > 0 && (
+              <Pagination
               activePage={activePage}
               pageCount={Math.ceil(filteredRows.length / pageSize)}
               onPageChange={(pageNumber) => setActivePage(pageNumber)}
-            />
-            )}     
+              />
+              )}     
+          </div>
+          <div>
+            {filteredRows.length > 0 && (
+              <RowsPerPage pageSize={pageSize} setPageSize={setPageSize} setActivePage={setActivePage}/>
+              )}
+          </div>
         </div>
+
         <div>
           {role === "kepala gudang" && 
           <DialAddProduk/>}
