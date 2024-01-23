@@ -151,7 +151,7 @@ import { set } from 'date-fns';
             </div>
           </CardBody>
           <CardFooter className="pt-0 mt-16">
-            <Button variant="gradient" color="blue" fullWidth onClick={handleLogin}>
+            <Button variant="filled" color="blue" fullWidth onClick={handleLogin}>
               {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : 'Login'}
             </Button>
           </CardFooter>
