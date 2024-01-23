@@ -18,6 +18,7 @@ import RadioFilterType from "./RadioFilterType";
 import { set } from "date-fns";
 import ModalDetailHistoryKeluarTipe0 from "./ModalDetailHistoryKeluarTipe0";
 import ModalDetailHistoryKeluarTipe1 from "./ModalDetailHistoryKeluarTipe1";
+import RowsPerPage from "@/components/pagination/RowsPerPage";
 
 // tipe 0 = id_customernya null, tipe 1 = id_transfernya null
 
@@ -46,7 +47,7 @@ export default function HistoryLeftTable() {
   ]);
   const [isOpened, setIsOpened] = useState(false);
 
-  const pageSize = 6; // Number of rows per page
+  const [pageSize, setPageSize] = useState(6);
   const cookies = parseCookies();
 
   const handleOpen = () => {
@@ -77,6 +78,7 @@ export default function HistoryLeftTable() {
   useEffect(() => {
     if (!tableRows) return;
 
+    setActivePage(1);
     const filtered = tableRows.filter(({ kode_produk, nama_produk, kuantitas, nama_cust, nama_toko, kuantiti, tanggal, tipe, jam }) => {
       const lowerCasedSearch = searchInput.toLowerCase();
       const rowDate = new Date(tanggal);
@@ -178,7 +180,7 @@ export default function HistoryLeftTable() {
           )}
         </div>
       </div>
-      <div className="mt-5 justify-end flex items-center">
+      <div className="mt-5 justify-start gap-4 flex items-center">
         <div>
           {filteredRows.length > 0 && (
             <Pagination
@@ -189,6 +191,9 @@ export default function HistoryLeftTable() {
             )}     
         </div>
         <div>
+            {filteredRows.length > 0 && (
+              <RowsPerPage pageSize={pageSize} setPageSize={setPageSize} setActivePage={setActivePage}/>
+              )}
         </div>
       </div>
     </div>

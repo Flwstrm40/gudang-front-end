@@ -15,7 +15,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { DateRangePicker } from 'react-date-range';
 import ModalDetailHistoryMasuk from "./ModalDetailHistoryMasuk";
 import { constants } from "crypto";
-
+import RowsPerPage from "@/components/pagination/RowsPerPage";
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -41,7 +41,7 @@ export default function HistoryEnteredTable() {
   ]);
   const [isOpened, setIsOpened] = useState(false);
 
-  const pageSize = 6; // Number of rows per page
+  const [pageSize, setPageSize] = useState(6);
   const cookies = parseCookies();
 
   const handleOpen = () => {
@@ -64,6 +64,7 @@ export default function HistoryEnteredTable() {
     // console.log("dateRange[0].startDate:", dateRange[0].startDate);
     // console.log("dateRange[0].endDate:", dateRange[0].endDate);
   
+    setActivePage(1);
     const filtered = tableRows.filter(({ kode_produk, nama_produk, stok_masuk, pj, tanggal }) => {
       const lowerCasedSearch = searchInput.toLowerCase();
       // console.log("Row:", { kode_produk, nama_produk, stok_masuk, pj, tanggal });
@@ -160,7 +161,7 @@ export default function HistoryEnteredTable() {
           )}
         </div>
       </div>
-      <div className="mt-5 justify-end flex items-center">
+      <div className="mt-5 justify-start gap-4 flex items-center">
         <div>
           {filteredRows.length > 0 && (
             <Pagination
@@ -171,6 +172,9 @@ export default function HistoryEnteredTable() {
             )}     
         </div>
         <div>
+            {filteredRows.length > 0 && (
+              <RowsPerPage pageSize={pageSize} setPageSize={setPageSize} setActivePage={setActivePage}/>
+              )}
         </div>
       </div>
     </div>
