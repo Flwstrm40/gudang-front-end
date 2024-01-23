@@ -34,7 +34,7 @@ import {
                   </div>
                 </SpeedDialAction>
               </Link> */}
-               <Link href="#">
+               <Link href="/print/inventory" target="_blank">
                 <SpeedDialAction className="h-16 w-16 hover:bg-blue-500 hover:text-white">
                   <PrinterIcon className="h-5 w-5" />
                   <div color="blue-gray" className="text-xs font-normal">
@@ -46,7 +46,7 @@ import {
                 <SpeedDialAction className="h-16 w-16 hover:bg-blue-500 hover:text-white">
                   <Square3Stack3DIcon className="h-5 w-5" />
                   <div color="blue-gray" className="text-xs font-normal">
-                    Produk
+                    Tambah
                   </div>
                 </SpeedDialAction>
               </Link>
