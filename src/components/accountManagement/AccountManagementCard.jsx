@@ -6,6 +6,8 @@ import axios from "axios";
 import { KeyIcon } from "@heroicons/react/24/solid";
 import { Toaster, toast } from "sonner";
 import ModalKonfirmasiReset from "./ModalKonfirmasiReset";
+import DialAddUser from "./DialAddUser";
+import ModalDeleteAkun from "./ModalDeleteAkun";
 
 const AccountManagementCard = () => {
   const {data: dataKepalaGudang, error} = useSWR(`${process.env.API}/user/kepala-gudang`, async (url) => {
@@ -13,7 +15,7 @@ const AccountManagementCard = () => {
     return response.data[0];
   });
 
-  const {data: dataAdmin, errorAdmin} = useSWR(`${process.env.API}/user/admin`, async (url) => {
+  const {data: dataAdmin, errorAdmin, mutate} = useSWR(`${process.env.API}/user/admin`, async (url) => {
     const response = await axios.get(url);
     return response.data.admins;
   });
@@ -78,12 +80,22 @@ const AccountManagementCard = () => {
                 </div>
               </div>
 
-              <div>
-               <ModalKonfirmasiReset id={id} username={username} />
+              <div className="flex">
+                <div>
+                  <ModalKonfirmasiReset id={id} username={username} />
+                </div>
+                <div>
+                  <ModalDeleteAkun mutate={mutate} id_user={id} username={username} />
+                </div>
               </div>
             </div>
           </Card>
         ))}
+        <div className="justify-end flex mt-5">
+          <div>
+            <DialAddUser />
+          </div>
+        </div>
 
 
       </div>

@@ -50,7 +50,7 @@ export default function ModalKonfirmasiReset({id, username}) {
 
   return (
     <>
-     <Button color="red" variant="text" className="py-2 px-4" onClick={handleOpen}>
+     <Button color="green" variant="text" className="py-2 px-4" onClick={handleOpen}>
             <KeyIcon className="h-5 w-5"/>
         </Button>
       <Dialog
