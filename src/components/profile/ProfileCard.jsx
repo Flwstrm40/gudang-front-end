@@ -51,8 +51,8 @@ const ProfileCard = () => {
       <div className="mt-10 flex gap-10 md:flex-col md:items-center">
         <div>
           <Image
-            src="/RanC.png"
-            // src="/ProfPicNone.png"
+            // src="/RanC.png"
+            src="/ProfPicNone.png"
             alt="Foto Profil"
             width={100}
             height={100}

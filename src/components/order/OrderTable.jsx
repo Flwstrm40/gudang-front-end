@@ -150,9 +150,9 @@ export default function OrderTable() {
                         {/* <ModalTambahStok name={nama_produk} produkId={id_customer} mutate={mutate}/> */}
                         {/* <PencilSquareIcon className="h-6 w-6 text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => toast.success("Berhasil mengedit transfer")}/>
                         <TrashIcon className="h-6 w-6 text-red-500 hover:text-red-700 cursor-pointer" onClick={() => toast.success("Berhasil menghapus transfer")}/> */}
-                        <Button onClick={() => handlePrintButton(id_customer)} variant="text" color="blue" size="sm">
+                        {/* <Button onClick={() => handlePrintButton(id_customer)} variant="text" color="blue" size="sm">
                           <PrinterIcon className="h-5 w-5" /> 
-                        </Button>
+                        </Button> */}
                         {/* <ModalEditTransfer id_customer={id_customer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantiti} edit_keterangan={keterangan}  mutate={mutate}/> */}
                         {/* <ModalDeleteTransfer id_customer={id_customer} mutate={mutate} nama_produk={nama_produk}/> */}
                         <ModalKonfirmasiOrder nama_cust={nama_cust} mutate={mutate} id_customer={id_customer} nama_produk={nama_produk} id_produk={id_produk} harga={harga}/>
