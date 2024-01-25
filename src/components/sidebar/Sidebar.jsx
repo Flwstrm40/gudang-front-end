@@ -35,7 +35,7 @@ import Image from "next/image";
 import useSWR, {mutate} from "swr";
 import axios from "axios";
  
-export function Sidebar({user}) {
+export function Sidebar() {
   const [open, setOpen] = React.useState(0);
   const router = useRouter();
   const cookies = parseCookies();
@@ -82,9 +82,6 @@ export function Sidebar({user}) {
       return response.data[0];
     }
   );
-
-    mutate(`${process.env.API}/customers/total`);
-    mutate(`${process.env.API}/transfers/total`);
   
   const { data: totalTransfer, mutate: mutateTotalTransfer } = useSWR(
     `${process.env.API}/transfers/total`,

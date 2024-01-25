@@ -30,7 +30,7 @@ export default function ModalDetailHistoryKeluarTipe1({stok_keluar, harga_jual, 
 
   return (
     <>
-        <button className="font-semibold hover:bg-blue-100 rounded-md pl-4 p-2" onClick={handleOpen}>
+        <button className="font-semibold hover:bg-blue-500 rounded-md pl-4 p-2 ease-in duration-200 hover:text-white" onClick={handleOpen}>
             <div className="flex items-center gap-2">
                 <div>
                     Detail 
