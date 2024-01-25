@@ -84,7 +84,7 @@ export default function ModalKonfirmasiReset({id, username}) {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleSubmit}>
+          <Button variant="filled" color="green" onClick={handleSubmit}>
             <span> {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Konfirmasi"}</span> 
           </Button>
         </DialogFooter>
