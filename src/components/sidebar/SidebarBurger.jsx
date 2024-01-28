@@ -124,7 +124,7 @@ export default function SidebarBurger() {
         </IconButton>
       </div>
       <Drawer open={isDrawerOpen} onClose={closeDrawer}>
-      <div className="h-[calc(100vh)] w-full fixed p-4 static z-30 overflow-auto bg-white">
+      <div className="h-[calc(100vh)] w-full fixed p-4 z-30 overflow-auto bg-white">
     {/* // <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden overflow-auto bg-white"> */}
     {/* shadow-xl shadow--900/5 */}
       {/* {console.log(children)} */}
