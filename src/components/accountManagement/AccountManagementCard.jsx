@@ -31,7 +31,7 @@ const AccountManagementCard = () => {
         <div className="text-lg font-semibold mb-5">
           Kepala Gudang
         </div>
-        <Card shadow={false} className="border p-4 rounded-md text-sm text-black hover:bg-blue-50">
+        <Card shadow={false} className="border p-4 rounded-md text-sm text-black hover:bg-blue-50 ease-in duration-100">
           <div className="flex gap-5 justify-between items-center">
             <div className="flex gap-5">
               <div>
@@ -61,7 +61,7 @@ const AccountManagementCard = () => {
           Admin
         </div>
         {dataAdmin?.map(({id, username, displayName}) => (
-          <Card key={id} shadow={false} className="mb-3 border p-4 rounded-md text-sm text-black hover:bg-blue-50">
+          <Card key={id} shadow={false} className="mb-3 border p-4 rounded-md text-sm text-black hover:bg-blue-50 ease-in duration-100">
             <div className="flex gap-5 justify-between items-center">
               <div className="flex gap-5">
                 <div>
