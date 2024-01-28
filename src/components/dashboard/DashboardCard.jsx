@@ -129,7 +129,7 @@ const DashboardCard = () => {
               </div>
             </Link>
           </div>
-          {/* Transfer stock box */}
+          {/* Product box */}
           <div className='mx-auto'>
             <Link href='/inventory'>
               <div className='flex flex-col items-center p-6 text-deep-purple-900 rounded-md border-2 w-[250px] bg-blue-gray-50 cursor-pointer hover:bg-purple-100 hover:text-purple-900 hover:border-purple-600'>
