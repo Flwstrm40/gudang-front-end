@@ -140,7 +140,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
           <Button variant="text" color="gray" onClick={handleOpen}>
             Batalkan
           </Button>
-          <Button variant="gradient" color="blue" onClick={handleSubmit}>
+          <Button variant="filled" color="blue" onClick={handleSubmit}>
             {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Tambah"}
           </Button>
         </DialogFooter>
