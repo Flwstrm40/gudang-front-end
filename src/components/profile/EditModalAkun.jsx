@@ -185,7 +185,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
             <Button variant="text" color="gray" onClick={handleBack}>
               Batalkan
             </Button>
-            <Button variant="gradient" color="blue" onClick={handleContinue}>
+            <Button variant="filled" color="blue" onClick={handleContinue}>
               {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Lanjutkan"}
             </Button>
           </DialogFooter>
@@ -214,7 +214,7 @@ export default function EditModalAkun({uname, userId, mutate}) {
             <Button variant="text" color="gray" onClick={handleBack}>
               Batalkan
             </Button>
-            <Button variant="gradient" color="blue" onClick={handleSave}>
+            <Button variant="filled" color="blue" onClick={handleSave}>
               {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Simpan"}
             </Button>
           </DialogFooter>
