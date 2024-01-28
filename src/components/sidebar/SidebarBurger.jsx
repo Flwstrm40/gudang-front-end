@@ -60,10 +60,10 @@ export default function SidebarBurger() {
 
   const handleLogout = () => {
     // Destroy the 'token' cookie
-    destroyCookie(null, 'token', { path: '/dashboard' });
-    destroyCookie(null, 'username', { path: '/dashboard' });
-    destroyCookie(null, 'role', { path: '/dashboard' });
-    destroyCookie(null, 'id', { path: '/dashboard' });
+    destroyCookie(null, 'token', { path: '/' });
+    destroyCookie(null, 'username', { path: '/' });
+    destroyCookie(null, 'role', { path: '/' });
+    destroyCookie(null, 'id', { path: '/' });
     
     // Redirect to the login page or any other desired page
     router.push('/');
@@ -114,15 +114,17 @@ export default function SidebarBurger() {
  
   return (
     <>
-      <IconButton variant="text" size="lg" onClick={openDrawer} className="hidden lg:inline z-50">
-        {isDrawerOpen ? (
-          <XMarkIcon className="h-8 w-8 stroke-2" />
-        ) : (
-          <Bars3Icon className="h-8 w-8 stroke-2" />
-        )}
-      </IconButton>
+      <div className="w-full bg-blue-500">
+        <IconButton variant="text" size="lg" onClick={openDrawer} className="hidden lg:inline text-white">
+          {isDrawerOpen ? (
+            <XMarkIcon className="h-8 w-8 stroke-2" />
+            ) : (
+              <Bars3Icon className="h-8 w-8 stroke-2" />
+              )}
+        </IconButton>
+      </div>
       <Drawer open={isDrawerOpen} onClose={closeDrawer}>
-      <div className="h-[calc(100vh)] w-full p-4 fixed z-30 overflow-auto bg-white">
+      <div className="h-[calc(100vh)] w-full fixed p-4 static z-30 overflow-auto bg-white">
     {/* // <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden overflow-auto bg-white"> */}
     {/* shadow-xl shadow--900/5 */}
       {/* {console.log(children)} */}

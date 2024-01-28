@@ -35,11 +35,11 @@ const RootLayout = ({ children }) => {
     <>
       {!pathname.startsWith('/print') ? isBrowser &&  (
         <div className='flex'>
-         <Toaster position="top-right" closeButton={true} richColors={true}/>
-        <SidebarMock/>
-        <Sidebar/>
-        <SidebarBurger/>
+          <Toaster position="top-right" closeButton={true} richColors={true}/>
+          <SidebarMock/>
+          <Sidebar/>
         <div className='bg-gray-200 w-full min-h-screen'>
+          <SidebarBurger/>
           <Card className="w-[95%] h-auto m-auto mt-5 mb-5">
             <div className="mt-10 ml-7 mr-7 mb-10 text-xl">
               {children}
