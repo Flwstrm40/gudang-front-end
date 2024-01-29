@@ -29,7 +29,7 @@ export function ModalLihatDetail({Produk, Kode, Stok, Harga, Deskripsi, pathname
        <div className="font-normal">
         {pathname === "/stockTransfer"?
             <button size="sm" variant="text" color="black" className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
-                [{Kode}] {Produk}
+                 [{Kode}] {Produk ? Produk.substr(0, 18) + "..." : ""}
             </button>
             :  <button size="sm" variant="text" color="black" className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
                 {Produk}
