@@ -19,6 +19,16 @@ const nextConfig = {
     // API: "http://localhost:42879",
     API: "https://gudang-back-end.vercel.app",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https' || 'http',
+        hostname: 'localhost' || 'gudang-back-end.vercel.app',
+        port: '' || '5050',
+        pathname: '/src/uploads/**',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
