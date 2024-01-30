@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  div,
+  Tooltip,
 } from "@material-tailwind/react";
 import { InboxIcon } from "@heroicons/react/24/solid";
 import { parseCookies } from "nookies";
@@ -28,15 +28,34 @@ export function ModalLihatDetail({Produk, Kode, Stok, Harga, Deskripsi, pathname
     <>
        <div className="font-normal">
         {pathname === "/stockTransfer"?
-            <button size="sm" variant="text" color="black" className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
-                 [{Kode}] {Produk ? Produk.substr(0, 18) + "..." : ""}
-            </button>
-            :  <button size="sm" variant="text" color="black" className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
-                {Produk}
-            </button>
+            <Tooltip 
+                content= {<>[{Kode}] {Produk}</>}
+                animate={{
+                    mount: { scale: 1, y: 0 },
+                    unmount: { scale: 0, y: 25 },
+                }}
+                className="bg-blue-gray-900 text-blue-gray-50"
+            >
+                <button className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
+                    [{Kode}] {Produk ? (Produk.length > 20 ? Produk.substr(0, 18) + "..." : Produk) : ""}
+                </button>
+            </Tooltip>
+            :  
+            <Tooltip 
+                content={<>{Produk}</>}
+                animate={{
+                    mount: { scale: 1, y: 0 },
+                    unmount: { scale: 0, y: 25 },
+                }}
+                className="bg-blue-gray-900 text-blue-gray-50"
+            >
+                <button size="sm" variant="text" color="black" className="hover:bg-blue-gray-100 p-2 rounded-md" onClick={handleOpen}>
+                {Produk ? (Produk.length > 50 ? Produk.substr(0, 50) + "..." : Produk) : ""}
+                </button>
+            </Tooltip>
          }
         </div>
-        <Dialog open={open} handler={handleOpen}>
+        <Dialog open={open} handler={handleOpen} className="overflow-auto max-h-[90%]">
             <div>
             <div className="flex justify-between ml-5 mr-5 text-xl my-2 font-semibold text-blue-gray-800">
                 <div>
