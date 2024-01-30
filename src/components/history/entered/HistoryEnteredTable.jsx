@@ -141,11 +141,11 @@ export default function HistoryEnteredTable() {
                   <div className="flex justify-start gap-4">
                     <div>
                       <div> Stok Masuk </div>
-                      <div> Konfirmator </div>
+                      <div> Keterangan </div>
                     </div>
                     <div>
                       <div> : {stok_masuk}</div>
-                      <div> : {pj} </div>
+                      <div> : {keterangan ? keterangan : "-"} </div>
                     </div>
                   </div>
                   

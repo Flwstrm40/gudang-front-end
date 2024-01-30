@@ -33,11 +33,12 @@ export default function ModalDetailHistoryMasuk({stok_masuk, tanggal, jam, keter
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },
         }}
+        className="overflow-auto max-h-[90%]"
       >
         <DialogHeader>[{kode_produk}] {nama_produk}</DialogHeader>
         <DialogBody>
             <div className="flex gap-5">
-                <div>
+                <div style={{ minWidth: '150px' }}>
                     <div>
                         Tanggal (Jam)
                     </div>
@@ -45,13 +46,13 @@ export default function ModalDetailHistoryMasuk({stok_masuk, tanggal, jam, keter
                         Stok Masuk
                     </div>
                     <div>
-                        Penanggung Jawab
+                        Konfirmator
                     </div>
                     <div>
                         Keterangan
                     </div>
                 </div>
-                <div>
+                <div style={{ minWidth: '250px' }}>
                     <div>
                         : {tanggal} ({jam} WIB)
                     </div>
