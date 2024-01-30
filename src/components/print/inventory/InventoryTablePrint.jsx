@@ -51,7 +51,7 @@ export default function InventoryTablePrint() {
             <table className="min-w-full bg-white border border-gray-300">
                 <thead>
                     <tr>
-                        <th className="py-2 px-4 border-b border-r">Kode Produk</th>
+                        <th className="py-2 px-4 border-b border-r">Kode</th>
                         <th className="py-2 px-4 border-b border-r">Produk</th>
                         <th className="py-2 px-4 border-b border-r">Stok</th>
                         <th className="py-2 px-4 border-b border-r">Status</th>
