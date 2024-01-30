@@ -73,11 +73,11 @@ import { set } from 'date-fns';
             });
       
             if (response.status === 200) {
-              // Autentikasi berhasil, lakukan navigasi ke halaman dashboard atau halaman lainnya
+              // Autentikasi berhasil, navigasi ke halaman dashboard 
               handleSuccessfulLogin(response.data);
               router.push('/dashboard');
             } else {
-              // Autentikasi gagal, tangani kesalahan atau tampilkan pesan kesalahan
+              // Autentikasi gagal
               setIsLoading(false);
               console.error('Authentication failed');
               console.error('Error:', response.data.message);
@@ -123,31 +123,32 @@ import { set } from 'date-fns';
       <>
         <Toaster position="top-right" closeButton={true} richColors={true}/>
         <Card className="w-96">
-          <CardHeader
+          {/* <CardHeader
             variant="gradient"
             color="white"
             className="mb-4 grid h-28 place-items-center border-2 border-gray-200"
           >
-            {/* <Typography variant="h3" color="white">
+            <div>
               Sistem Gudang
-            </Typography> */}
-            <Image
-              src="/Logo-Offo.png"
-              alt="Logo Offo"
-              width={200}
-              height={200}
-              priority={true}
-              className="w-auto h-auto"
-            />
-          </CardHeader>
+            </div>
+           
+          </CardHeader> */}
           <CardBody className="flex flex-col gap-4">
-            <Input label="Username" size="lg" onChange={(e) => setUsername(e.target.value)} value={username}/>
-            <Input type="password" label="Password" size="lg" onChange={(e) => setPassword(e.target.value)} value={password}/>
+            <Image
+                src="/Logo-Offo.png"
+                alt="Logo Offo"
+                width={1000}
+                height={1000}
+                priority={true}
+                className="w-auto h-auto mb-16"
+              />
+            <Input label="Username" size="lg" color="blue" onChange={(e) => setUsername(e.target.value)} value={username}/>
+            <Input type="password" label="Password" size="lg" color="blue" onChange={(e) => setPassword(e.target.value)} value={password}/>
             <div className="flex justify-center text-sm">
               <div className="mr-2">
                 Lupa Username/Password? 
               </div>
-              <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Manajer" />
+              <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Kepala Gudang" />
             </div>
           </CardBody>
           <CardFooter className="pt-0 mt-16">
