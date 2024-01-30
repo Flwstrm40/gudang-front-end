@@ -76,7 +76,7 @@ export function Sidebar() {
   }
   
   const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
-    `${process.env.API}/customers/total`,
+    `${process.env.API}/orders/total`,
     async (url) => {
       const response = await axios.get(url);
       return response.data[0];
@@ -91,6 +91,9 @@ export function Sidebar() {
     }
   );
 
+  mutate(`${process.env.API}/orders/total`);
+  mutate(`${process.env.API}/transfers/total`);
+
 
   return (
     <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden fixed z-30 overflow-auto bg-white">
@@ -101,8 +104,8 @@ export function Sidebar() {
         <Image
           src="/Logo-Offo.png"
           alt="Logo"
-          width={150}
-          height={50}
+          width={1500}
+          height={500}
           className="object-contain w-auto h-auto"
           priority={true}
         />
@@ -127,8 +130,8 @@ export function Sidebar() {
             </ListItemPrefix>
             Pesanan
             <ListItemSuffix>
-              {totalOrder?.total_cust >= 1 && (
-                <Chip value={totalOrder?.total_cust} size="sm" variant="ghost" color="blue" className="rounded-full" />
+              {totalOrder?.total_orders >= 1 && (
+                <Chip value={totalOrder?.total_orders} size="sm" variant="ghost" color="blue" className="rounded-full" />
               )}
             </ListItemSuffix>
           </ListItem>

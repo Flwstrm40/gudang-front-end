@@ -49,7 +49,7 @@ const DashboardCard = () => {
 
   const { data: user, error } = useSWR(id ? `${process.env.API}/user/${id}` : null, fetcher);
 
-  const {data: totalOrder} = useSWR(`${process.env.API}/customers/total`, async (url) => {
+  const {data: totalOrder} = useSWR(`${process.env.API}/orders/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
@@ -108,7 +108,7 @@ const DashboardCard = () => {
             <Link href='/order'>
               <div className='flex flex-col items-center p-6 rounded-md border-2 text-blue-900 w-[250px] bg-blue-gray-50 cursor-pointer hover:bg-blue-100 hover:text-blue-900 hover:border-blue-600'>
                 <div className='font-semibold text-4xl  '>
-                {totalOrder ? totalOrder.total_cust : <Spinner color="blue"/>}
+                {totalOrder ? totalOrder.total_orders : <Spinner color="blue"/>}
                 </div>
                 <div className=' font-semibold'>
                   Pesanan
