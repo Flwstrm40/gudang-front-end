@@ -147,7 +147,7 @@ const ProfileCard = () => {
             {Avatar && (
             <label 
               htmlFor="fileInput" 
-              className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 cursor-pointer"
+              className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 cursor-pointer ease-in duration-100"
             >
               <PencilSquareIcon className="h-8 w-8 text-white bg-blue-gray-500 rounded-md p-2" />
             </label>
@@ -167,9 +167,9 @@ const ProfileCard = () => {
               {selectedFile && open && (
                 <>
                   <div className="flex gap-1 items-center mt-5 justify-center">
-                    <div className="text-blue-gray-800 text-xs ">{selectedFile.name.substr(0, 13)}...</div>
+                    <div className="text-blue-gray-800 text-xs ">{selectedFile.name.substr(0, 11)}...</div>
                     <div>
-                      <XMarkIcon onClick={handleCancel} className="h-5 w-5 text-red-600 cursor-pointer hover:bg-red-50 hover:rounded-md" />
+                      <XMarkIcon onClick={handleCancel} className="h-5 w-5 text-red-600 cursor-pointer hover:bg-red-50 hover:rounded-md ease-in duration-100" />
                     </div>
                   </div>
                   <div className="text-xs text-blue-gray-600 text-center">
