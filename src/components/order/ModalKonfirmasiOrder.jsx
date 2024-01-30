@@ -13,39 +13,60 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
  
-export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, id_produk, harga, nama_cust}) {
+export default function ModalKonfirmasiOrder({mutate, order_id, nama_produk, harga, nama_cust, harga_per_item_setelah_ppn, qty, remarks}) {
   const [open, setOpen] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
 
   const handleOpen = () => setOpen(!open);
  
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const customerRes = await axios.put(`${process.env.API}/customers/${id_customer}`, {
+  //       status_terima: '1',
+  //     });
+  
+  //     if (customerRes.status === 200) {
+  //       // Post data to outHistories
+  //       const outHistoriesRes = await axios.post(`${process.env.API}/outHistories`, {
+  //         id_produk: id_produk,
+  //         harga_jual: harga,
+  //         tanggal: new Date().toISOString().split('T')[0], // Today's date
+  //         jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
+  //         tipe: 1,
+  //         pj: role,
+  //         id_customer: id_customer,
+  //       });
+  
+  //       if (outHistoriesRes.status === 200) {
+  //         toast.success("Order berhasil dikonfirmasi.");
+  //         mutate();
+  //         handleOpen();
+  //       } else {
+  //         toast.error("Gagal menambahkan data ke riwayat keluar.");
+  //       }
+  //     } else {
+  //       toast.error("Gagal mengkonfirmasi Order.");
+  //     }
+  //   } catch (error) {
+  //     toast.error("Terjadi kesalahan.");
+  //     console.log(error);
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const customerRes = await axios.put(`${process.env.API}/customers/${id_customer}`, {
-        status_terima: '1',
+      const orderRes = await axios.put(`${process.env.API}/orders/${order_id}`, {
+        status_terima: 1,
       });
-  
-      if (customerRes.status === 200) {
-        // Post data to outHistories
-        const outHistoriesRes = await axios.post(`${process.env.API}/outHistories`, {
-          id_produk: id_produk,
-          harga_jual: harga,
-          tanggal: new Date().toISOString().split('T')[0], // Today's date
-          jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
-          tipe: 1,
-          pj: role,
-          id_customer: id_customer,
-        });
-  
-        if (outHistoriesRes.status === 200) {
-          toast.success("Order berhasil dikonfirmasi.");
-          mutate();
-          handleOpen();
-        } else {
-          toast.error("Gagal menambahkan data ke riwayat keluar.");
-        }
+
+      if (orderRes.status === 200) {
+        toast.success("Order berhasil dikonfirmasi.");
+        mutate();
+        handleOpen();
       } else {
         toast.error("Gagal mengkonfirmasi Order.");
       }
@@ -54,12 +75,11 @@ export default function ModalKonfirmasiOrder({mutate, id_customer, nama_produk, 
       console.log(error);
     }
   };
-  
 
 
   return (
     <>
-      <Button onClick={handleOpen} variant="text" color="green" size="sm">
+      <Button onClick={handleOpen} variant="text" color="green" size="sm" className="p-2">
         <CheckIcon className="h-5 w-5" /> 
       </Button>
       <Dialog

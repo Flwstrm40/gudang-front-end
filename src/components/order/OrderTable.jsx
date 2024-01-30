@@ -10,6 +10,7 @@ import {
   CheckIcon,
   PencilSquareIcon,
   PrinterIcon, 
+  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { parseCookies } from "nookies";
@@ -20,10 +21,11 @@ import ModalLihatOrderCust from "./ModalLihatOrderCust";
 import ModalKonfirmasiOrder from "./ModalKonfirmasiOrder";
 import { useRouter } from "next/navigation";
 import RowsPerPage from "../pagination/RowsPerPage";
+import ButtonTooltip from "../tooltip/ButtonTooltip";
 
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
-const TABLE_HEAD = ["Item Order", "Qty","Customer", "Jadwal Kirim", ""];
+const TABLE_HEAD = ["Item(s) Order", "Qty","Customer", "Jadwal Kirim", ""];
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -32,10 +34,12 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function OrderTable() {
-    const { data: tableRows, error, mutate } = useSWR(`${process.env.API}/customers`, async (url) => {
-      const response = await axios.get(url);
-      return response.data.customers;
-    });
+  const { data: orders, error, mutate } = useSWR("http://localhost:5050/orders/details", async (url) => {
+    const response = await axios.get(url);
+    return response.data;
+  });
+
+    // console.log(orders)
   
     const router = useRouter();
     const [searchInput, setSearchInput] = useState("");
@@ -48,43 +52,38 @@ export default function OrderTable() {
     const role = cookies.role;
   
     useEffect(() => {
-      // console.log(tableRows)
-      if (!tableRows) return;
-
+      if (!orders) return;
+  
       setActivePage(1);
-      // Filtering logic based on search input and status === 0
-      const filtered = tableRows.filter(({ kode_produk, nama_produk, kuantiti }) =>
+      const filtered = orders.filter(({ nama_produk, kode_produk, qty, nama_cust, jadwal_kirim }) =>
         kode_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
         nama_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
-        kuantiti.toString().includes(searchInput)
+        nama_cust.toLowerCase().includes(searchInput.toLowerCase()) ||
+        qty.toString().includes(searchInput)
       );
-
-      // console.log(filtered)
   
-      // Only include rows with status === 0
-      const statusFilteredRows = filtered.filter(({ status_terima }) => status_terima === '0');
-      
-
-      // console.log(statusFilteredRows)
-      // Sorting logic based on the selected option
+      const statusFilteredRows = filtered.filter(({ status_terima }) => status_terima === 0);
+  
       let sortedRows = [...statusFilteredRows];
       if (sortOption === "quantityAsc") {
-        sortedRows = sortedRows.sort((a, b) => a.kuantiti - b.kuantiti);
+        sortedRows = sortedRows.sort((a, b) => a.qty - b.qty);
       } else if (sortOption === "quantityDesc") {
-        sortedRows = sortedRows.sort((a, b) => b.kuantiti - a.kuantiti);
+        sortedRows = sortedRows.sort((a, b) => b.qty - a.qty);
       } else if (sortOption === "productAsc") {
         sortedRows = sortedRows.sort((a, b) => a.nama_produk.localeCompare(b.nama_produk));
       } else if (sortOption === "productDesc") {
         sortedRows = sortedRows.sort((a, b) => b.nama_produk.localeCompare(a.nama_produk));
       } else if (sortOption === "default") {
-        sortedRows = sortedRows.sort((a, b) => a.id_customer - b.id_customer);
+        sortedRows = sortedRows.sort((a, b) => a.order_id - b.order_id);
       }
   
       setFilteredRows(sortedRows);
-    }, [searchInput, tableRows, sortOption]);
+    }, [searchInput, orders, sortOption]);
+
+    // console.log(filteredRows)
   
     if (error) return <p>Error fetching data...</p>;
-    if (!tableRows) return <p>Loading...</p>;
+    if (!orders) return <p>Loading...</p>;
   
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);
@@ -94,98 +93,111 @@ export default function OrderTable() {
       const formattedDate = new Intl.DateTimeFormat('id-ID', options).format(new Date(dateString));
       return formattedDate;
     };
+
+    const formatDate2 = (dateString) => {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = new Intl.DateTimeFormat('id-ID', options).format(new Date(dateString));
+      return formattedDate;
+    };
     
     const handlePrintButton = (id_customer) => {
       window.open(`/printDO/${id_customer}`, '_blank');
     };
 
-  return (
-    <div>
-      <Toaster position="top-right" closeButton={true} richColors={true}/>
-      <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
-        <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Barang/Asal/Tujuan di sini..."} />
-        <SortBy onChange={(value) => setSortOption(value)} />
-      </div>
-      <Card className="h-full w-full overflow-auto text-black">
-        <table className="w-full min-w-max table-auto text-center text-sm">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head) => (
-                <th key={head} className="border-b border-blue-gray-100 bg-blue-500 p-4 ">
-                  <div className="font-normal leading-none text-white">
-                    {head}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedRows.length === 0 ? (
+    return (
+      <div>
+        <Toaster position="top-right" closeButton={true} richColors={true}/>
+        <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
+          <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Item/Qty/Customer di sini..."} />
+          <SortBy onChange={(value) => setSortOption(value)} />
+        </div>
+        <Card className="h-full w-full overflow-auto text-black">
+          <table className="w-full min-w-max table-auto text-center text-sm">
+            <thead>
               <tr>
-                <td colSpan={TABLE_HEAD.length} className="text-center text-gray-600 mt-4 py-3 text-md">
-                  Tidak ada Pesanan yang masuk.
-                </td>
-              </tr>
-            ) : (
-              paginatedRows.map(({ id_customer, jadwal_kirim, id_produk, nama_produk, kode_produk, stok, harga, deskripsi, kuantiti, nama_cust, no_hp, alamat, pembayaran, tanggal_order, sales_jualan }) => (
-                <tr key={id_customer} className="even:bg-blue-gray-50/50">
-                  {/* <td className="p-3">
-                    <div className="font-normal">{asal}</div>
-                  </td> */}
-                  <td className="p-3">
-                    <ModalLihatProduk nama_produk={nama_produk} kode_produk={kode_produk} Stok={stok} Harga={harga} Deskripsi={deskripsi} kuantiti={kuantiti}/>
-                  </td>
-                  <td className="p-3">
-                    <div className="font-normal">{kuantiti}</div>
-                  </td>
-                  <td className="p-3">
-                    <ModalLihatOrderCust nama_cust={nama_cust} no_hp={no_hp} alamat={alamat} sales_jualan={sales_jualan} kuantiti={kuantiti} pembayaran={pembayaran} tanggal_order={formatDate(tanggal_order)} jadwal_kirim={formatDate(jadwal_kirim)} harga={harga}/>
-                  </td>
-                  <td className="p-3">
-                    <div className="font-normal">{formatDate(jadwal_kirim)}</div>
-                  </td>
-                  <td className="p-3">
-                    <div className="flex justify-center gap-1 items-center sm:flex-col">
-                      {/* <div> */}
-                        {/* <ModalTambahStok name={nama_produk} produkId={id_customer} mutate={mutate}/> */}
-                        {/* <PencilSquareIcon className="h-6 w-6 text-blue-500 hover:text-blue-700 cursor-pointer" onClick={() => toast.success("Berhasil mengedit transfer")}/>
-                        <TrashIcon className="h-6 w-6 text-red-500 hover:text-red-700 cursor-pointer" onClick={() => toast.success("Berhasil menghapus transfer")}/> */}
-                        {/* <Button onClick={() => handlePrintButton(id_customer)} variant="text" color="blue" size="sm">
-                          <PrinterIcon className="h-5 w-5" /> 
-                        </Button> */}
-                        {/* <ModalEditTransfer id_customer={id_customer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantiti} edit_keterangan={keterangan}  mutate={mutate}/> */}
-                        {/* <ModalDeleteTransfer id_customer={id_customer} mutate={mutate} nama_produk={nama_produk}/> */}
-                        <ModalKonfirmasiOrder nama_cust={nama_cust} mutate={mutate} id_customer={id_customer} nama_produk={nama_produk} id_produk={id_produk} harga={harga}/>
-                      {/* </div> */}
+                {TABLE_HEAD.map((head) => (
+                  <th key={head} className="border-b border-blue-gray-100 bg-blue-500 p-4 ">
+                    <div className="font-normal leading-none text-white">
+                      {head}
                     </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedRows.length === 0 ? (
+                <tr>
+                  <td colSpan={TABLE_HEAD.length} className="text-center text-gray-600 mt-4 py-3 text-md">
+                    Tidak ada Pesanan yang masuk.
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </Card>
-      <div className="mt-4 justify-between flex items-center">
-        <div className="flex justify-start gap-4 items-center md:flex-col">
-            <div>
-              {filteredRows.length > 0 && (
-                <Pagination
-                activePage={activePage}
-                pageCount={Math.ceil(filteredRows.length / pageSize)}
-                onPageChange={(pageNumber) => setActivePage(pageNumber)}
-                />
-                )}     
-            </div>
-            <div>
-              {filteredRows.length > 0 && (
-                <RowsPerPage pageSize={pageSize} setPageSize={setPageSize} setActivePage={setActivePage}/>
-                )}
-            </div>
-        </div>
-        <div>
-          {/* <DialFormTransfer /> */}
+              ) : (
+                paginatedRows.map(({ order_id, jadwal_kirim, kode_produk, nama_produk, qty, harga_per_item_setelah_ppn, nama_cust, no_telp, alamat, total_harga, total_dp1, metode_bayar_dp1, total_dp2, metode_bayar_dp2, balance_due, status_terima, remarks, tanggal_order, nama_sales }) => (
+                  <tr key={order_id} className="even:bg-blue-gray-50/50">
+                    <td className="p-3">
+                      <div className="font-normal">
+                        <ButtonTooltip
+                          content={nama_produk.replace(/,/g, '; ')}
+                          textButton={
+                            nama_produk.replace(/,/g, '; ').length > 30
+                              ? `${nama_produk.replace(/,/g, '; ').substr(0, 30)}...`
+                              : nama_produk.replace(/,/g, '; ')
+                          }
+                        />
+                      </div>
+                    </td>
+
+
+                    <td className="p-3">
+                      <div className="font-normal">
+                        <ButtonTooltip content={qty.replace(/,/g, '; ')} textButton={qty.replace(/,/g, '; ').length > 10 ? `${qty.replace(/,/g, '; ').substr(0, 30)}...` : qty.replace(/,/g, '; ')} />
+                      </div>
+                    </td>
+                    <td className="p-3">
+                      <div className="font-normal">{nama_cust}</div>
+                      {/* <ModalLihatOrderCust nama_cust={nama_cust} no_hp={no_hp} alamat={alamat} sales_jualan={sales_jualan} kuantiti={qty} pembayaran={pembayaran} tanggal_order={formatDate(tanggal_order)} jadwal_kirim={formatDate(jadwal_kirim)} harga={harga}/> */}
+                    </td>
+                    <td className="p-3">
+                      <div className="font-normal">{formatDate(jadwal_kirim)}</div>
+                    </td>
+                    <td className="p-3">
+                      <div className="flex justify-center gap-1 items-center sm:flex-col">
+                        {/* <DocumentTextIcon className="h-6 w-6 text-blue-500 cursor-pointer" onClick={() => router.push(`/order/${order_id}`)}/> */}
+                        <ModalLihatOrderCust  nama_cust={nama_cust} no_telp={no_telp} alamat={alamat} tanggal_order={formatDate2(tanggal_order)} 
+                                              jadwal_kirim={formatDate2(jadwal_kirim)} total_harga={total_harga} total_dp1={total_dp1} 
+                                              metode_bayar_dp1={metode_bayar_dp1} total_dp2={total_dp2} metode_bayar_dp2={metode_bayar_dp2} balance_due={balance_due} 
+                                              status_terima={status_terima} kode_produk={kode_produk} nama_produk={nama_produk} nama_sales={nama_sales}
+                                              harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} qty={qty} remarks={remarks} />
+                        <ModalKonfirmasiOrder nama_cust={nama_cust} mutate={mutate} order_id={order_id} nama_produk={nama_produk} kode_produk={kode_produk} harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} harga={total_harga} qty={qty} remarks={remarks}/>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </Card>
+        <div className="mt-4 justify-between flex items-center">
+          <div className="flex justify-start gap-4 items-center md:flex-col">
+              <div>
+                {filteredRows.length > 0 && (
+                  <Pagination
+                  activePage={activePage}
+                  pageCount={Math.ceil(filteredRows.length / pageSize)}
+                  onPageChange={(pageNumber) => setActivePage(pageNumber)}
+                  />
+                  )}     
+              </div>
+              <div>
+                {filteredRows.length > 0 && (
+                  <RowsPerPage pageSize={pageSize} setPageSize={setPageSize} setActivePage={setActivePage}/>
+                  )}
+              </div>
+          </div>
+          <div>
+            {/* <DialFormTransfer /> */}
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
