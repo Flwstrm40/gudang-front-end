@@ -19,10 +19,11 @@ import DialFormTransfer from "./DialFormTransfer";
 import ModalEditTransfer from "./ModalEditTransfer";
 import { usePathname } from "next/navigation";
 import RowsPerPage from "../pagination/RowsPerPage";
+import ButtonTooltip from "../tooltip/ButtonTooltip";
 
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
-const TABLE_HEAD = ["Tujuan", "Barang", "Qty", ""];
+const TABLE_HEAD = ["Tujuan", "Produk", "Qty", ""];
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -119,7 +120,9 @@ export default function TableStockTransfeConf() {
                     <div className="font-normal">{asal}</div>
                   </td> */}
                   <td className="p-3">
-                    <div className="font-normal">{nama_toko}</div>
+                    <div className="font-normal">
+                      <ButtonTooltip content={nama_toko} textButton={nama_toko.length > 20 ? `${nama_toko.substr(0, 20)}...` : nama_toko} />
+                    </div>
                   </td>
                   <td className="p-3">
                     <ModalLihatDetail Produk={nama_produk} Kode={kode_produk} Stok={stok} Harga={harga} Deskripsi={deskripsi} pathname={currentPath}/>
