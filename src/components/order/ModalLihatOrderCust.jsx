@@ -27,6 +27,7 @@ export default function ModalLihatOrderCust({
   harga_per_item_setelah_ppn,
   qty,
   remarks,
+  sales_order,
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -83,7 +84,7 @@ export default function ModalLihatOrderCust({
         }}
         className="overflow-auto max-h-[90%]"
       >
-        <DialogHeader>Detail Order</DialogHeader>
+        <DialogHeader>{`Detail Order [${sales_order}]`} </DialogHeader>
         <DialogBody>
           <div className="flex gap-5">
             <div style={{ minWidth: '250px' }}>

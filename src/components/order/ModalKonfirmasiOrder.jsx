@@ -13,7 +13,29 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
  
-export default function ModalKonfirmasiOrder({mutate, order_id, nama_produk, harga, nama_cust, harga_per_item_setelah_ppn, qty, remarks}) {
+export default function ModalKonfirmasiOrder({
+  mutate, 
+  order_id,
+  nama_cust,
+  no_telp,
+  alamat,
+  tanggal_order,
+  jadwal_kirim,
+  total_harga,
+  total_dp1,
+  metode_bayar_dp1,
+  total_dp2,
+  metode_bayar_dp2,
+  balance_due,
+  status_terima,
+  kode_produk,
+  nama_sales,
+  nama_produk,
+  harga_per_item_setelah_ppn,
+  qty,
+  remarks,
+  sales_order,
+  }) {
   const [open, setOpen] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
@@ -56,25 +78,80 @@ export default function ModalKonfirmasiOrder({mutate, order_id, nama_produk, har
   // };
 
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const orderRes = await axios.put(`${process.env.API}/orders/${order_id}`, {
         status_terima: 1,
       });
-
+  
       if (orderRes.status === 200) {
-        toast.success("Order berhasil dikonfirmasi.");
-        mutate();
-        handleOpen();
+        // add 1 day to tanggal_order and jadwal_kirim
+        const newTanggalOrder = new Date(tanggal_order);
+        newTanggalOrder.setDate(newTanggalOrder.getDate() + 1); 
+  
+        const newJadwalKirim = new Date(jadwal_kirim);
+        newJadwalKirim.setDate(newJadwalKirim.getDate() + 1); 
+  
+        // Post data to orderHistories
+        const orderHistoryData = {
+          order_id: order_id,
+          sales_order: sales_order,
+          nama_cust: nama_cust,
+          no_telp: no_telp,
+          alamat: alamat,
+          nama_sales: nama_sales,
+          tanggal_order: newTanggalOrder.toISOString().split('T')[0], // Format tanggal ISO tanpa waktu
+          jadwal_kirim: newJadwalKirim.toISOString().split('T')[0], // Format tanggal ISO tanpa waktu
+          total_dp1: total_dp1,
+          metode_bayar_dp1: metode_bayar_dp1,
+          total_dp2: total_dp2,
+          metode_bayar_dp2: metode_bayar_dp2,
+          balance_due: balance_due,
+          status_terima: 1,
+          kode_produk: kode_produk,
+          nama_produk: nama_produk,
+          harga_per_item_setelah_ppn: harga_per_item_setelah_ppn,
+          qty: qty,
+          remarks: remarks,
+        };
+  
+        const orderHistoryRes = await axios.post(`${process.env.API}/orderHistories`, orderHistoryData);
+  
+        if (orderHistoryRes.status === 200) {
+          // Post data to outHistories
+          const outHistoryData = {
+            harga_jual: total_harga, 
+            tanggal: new Date().toISOString().split('T')[0], // Today's date
+            jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
+            tipe: 1,
+            pj: role,
+            order_id: order_id, // Pastikan id_customer sesuai dengan yang Anda perlukan
+          };
+  
+          const outHistoriesRes = await axios.post(`${process.env.API}/outHistories`, outHistoryData);
+  
+          if (outHistoriesRes.status === 200) {
+            toast.success("Order berhasil dikonfirmasi.");
+          } else {
+            toast.error("Gagal menambahkan data ke riwayat keluar.");
+          }
+  
+          mutate();
+          handleOpen();
+        } else {
+          toast.error("Gagal menambahkan data ke riwayat pesanan.");
+        }
       } else {
         toast.error("Gagal mengkonfirmasi Order.");
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan.");
+      toast.error("Terjadi kesalahan, silakan coba lagi nanti.");
       console.log(error);
     }
   };
+  
 
 
   return (

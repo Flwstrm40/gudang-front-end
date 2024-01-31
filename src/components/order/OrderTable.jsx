@@ -132,7 +132,7 @@ export default function OrderTable() {
                   </td>
                 </tr>
               ) : (
-                paginatedRows.map(({ order_id, jadwal_kirim, kode_produk, nama_produk, qty, harga_per_item_setelah_ppn, nama_cust, no_telp, alamat, total_harga, total_dp1, metode_bayar_dp1, total_dp2, metode_bayar_dp2, balance_due, status_terima, remarks, tanggal_order, nama_sales }) => (
+                paginatedRows.map(({ order_id, jadwal_kirim, kode_produk, nama_produk, qty, harga_per_item_setelah_ppn, nama_cust, no_telp, alamat, total_harga, total_dp1, metode_bayar_dp1, total_dp2, metode_bayar_dp2, balance_due, status_terima, remarks, tanggal_order, nama_sales, sales_order }) => (
                   <tr key={order_id} className="even:bg-blue-gray-50/50">
                     <td className="p-3">
                       <div className="font-normal">
@@ -167,8 +167,12 @@ export default function OrderTable() {
                                               jadwal_kirim={formatDate2(jadwal_kirim)} total_harga={total_harga} total_dp1={total_dp1} 
                                               metode_bayar_dp1={metode_bayar_dp1} total_dp2={total_dp2} metode_bayar_dp2={metode_bayar_dp2} balance_due={balance_due} 
                                               status_terima={status_terima} kode_produk={kode_produk} nama_produk={nama_produk} nama_sales={nama_sales}
-                                              harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} qty={qty} remarks={remarks} />
-                        <ModalKonfirmasiOrder nama_cust={nama_cust} mutate={mutate} order_id={order_id} nama_produk={nama_produk} kode_produk={kode_produk} harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} harga={total_harga} qty={qty} remarks={remarks}/>
+                                              harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} qty={qty} remarks={remarks} sales_order={sales_order} />
+                        <ModalKonfirmasiOrder order_id={order_id} nama_cust={nama_cust} no_telp={no_telp} alamat={alamat} tanggal_order={tanggal_order} 
+                                              jadwal_kirim={jadwal_kirim} total_dp1={total_dp1} metode_bayar_dp1={metode_bayar_dp1} total_dp2={total_dp2} 
+                                              metode_bayar_dp2={metode_bayar_dp2} balance_due={balance_due} status_terima={status_terima} 
+                                              kode_produk={kode_produk} nama_produk={nama_produk} nama_sales={nama_sales} total_harga={total_harga}
+                                              harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} qty={qty} remarks={remarks} mutate={mutate} sales_order={sales_order}/>
                       </div>
                     </td>
                   </tr>
