@@ -100,7 +100,7 @@ import { set } from 'date-fns';
           // Set cookie di sisi server dan klien dengan path ke '/dashboard'
           setCookie(null, 'token', data.token, {
             maxAge: 3600, // Expire in 1 hour
-            path: '/', // Set path ke '/'
+            path: '/', 
           });
       
           setCookie(null, 'username', data.username, {
@@ -144,8 +144,8 @@ import { set } from 'date-fns';
               />
             <Input label="Username" size="lg" color="blue" onChange={(e) => setUsername(e.target.value)} value={username}/>
             <Input type="password" label="Password" size="lg" color="blue" onChange={(e) => setPassword(e.target.value)} value={password}/>
-            <div className="flex justify-center text-sm">
-              <div className="mr-2">
+            <div className="flex justify-end text-sm items-center">
+              <div className="mr-2 text-xs">
                 Lupa Username/Password? 
               </div>
               <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Kepala Gudang" />
