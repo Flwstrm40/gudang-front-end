@@ -16,6 +16,7 @@ import { DateRangePicker } from 'react-date-range';
 import ModalDetailHistoryMasuk from "./ModalDetailHistoryMasuk";
 import { constants } from "crypto";
 import RowsPerPage from "@/components/pagination/RowsPerPage";
+import { Tooltip } from "@material-tailwind/react";
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -134,7 +135,27 @@ export default function HistoryEnteredTable() {
             paginatedRows.map(({ id_history_masuk, id_produk, stok_masuk, tanggal, jam, keterangan, nama_produk, kode_produk, pj }) => (
               <Card key={id_history_masuk} className="border p-4 rounded-md text-sm text-black hover:bg-blue-50 ease-in duration-100" shadow={false}>
                 <div className="flex justify-between gap-3">
-                  <div className="font-semibold text-md mb-2">[{kode_produk}] {nama_produk}</div>
+                  <div className="font-semibold text-md mb-2 cursor-default">
+                    <Tooltip
+                        content={kode_produk ? `${`[${kode_produk}] ${nama_produk}`}` : `[]`}
+                        animate={{
+                          mount: { scale: 1, y: 0 },
+                          unmount: { scale: 0, y: 25 },
+                        }}
+                        className="text-white bg-blue-700 font-semibold"
+                      >
+                      {  kode_produk
+                            ? `${
+                                `[${kode_produk}] ${nama_produk}`.length > 75
+                                  ? `${`[${kode_produk}] ${nama_produk}`.substring(0, 75)}...`
+                                  : `[${kode_produk}] ${nama_produk}`
+                              }`
+                            : `${
+                                `[]`
+                              }`}
+
+                    </Tooltip>
+                  </div>
                   <div className="mb-2 text-blue-gray-700">{formatDate(tanggal)}</div>
                 </div>
                 <div className="text-blue-gray-700 flex flex-col gap-2">
@@ -144,7 +165,27 @@ export default function HistoryEnteredTable() {
                       <div> Keterangan </div>
                     </div>
                     <div>
-                      <div> : {stok_masuk}</div>
+                      <div className="cursor-default">
+                      <Tooltip
+                                content={stok_masuk ? `${stok_masuk}` : `[]`}
+                                animate={{
+                                  mount: { scale: 1, y: 0 },
+                                  unmount: { scale: 0, y: 25 },
+                                }}
+                                className="text-white bg-blue-500 font-normal"
+                              >
+                            {
+                              stok_masuk 
+                                ? `${
+                                   stok_masuk
+                                  }`
+                                : `${
+                                    `[]`
+                                  }`
+                            }
+
+                          </Tooltip>
+                      </div>
                       <div> : {keterangan ? keterangan : "-"} </div>
                     </div>
                   </div>
