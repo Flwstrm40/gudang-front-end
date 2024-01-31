@@ -22,7 +22,7 @@ export function TooltipIcon({message}) {
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={2}
-        className="h-5 w-5 cursor-pointer text-blue-gray-500"
+        className="h-5 w-5 cursor-pointer text-blue-gray-500 hover:text-blue-800"
       >
         <path
           strokeLinecap="round"
