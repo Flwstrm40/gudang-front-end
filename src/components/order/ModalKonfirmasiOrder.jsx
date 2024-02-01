@@ -82,6 +82,10 @@ export default function ModalKonfirmasiOrder({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // change qty from string to array of integers
+      const qtyArray = qty.split(',').map(qty => parseInt(qty.trim(), 10));
+      const totalQty = qtyArray.reduce((total, qty) => total + qty, 0);
+
       const orderRes = await axios.put(`${process.env.API}/orders/${order_id}`, {
         status_terima: 1,
       });
@@ -125,6 +129,7 @@ export default function ModalKonfirmasiOrder({
             harga_jual: total_harga, 
             tanggal: new Date().toISOString().split('T')[0], // Today's date
             jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
+            stok_keluar: totalQty,
             tipe: 1,
             pj: role,
             order_id: order_id, // Pastikan id_customer sesuai dengan yang Anda perlukan

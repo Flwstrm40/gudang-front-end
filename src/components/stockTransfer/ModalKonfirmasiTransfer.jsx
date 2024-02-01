@@ -14,7 +14,7 @@ import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
 import { Spinner } from "@material-tailwind/react"; 
 
-export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk, harga}) {
+export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk, harga, stok_keluar}) {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const cookies = parseCookies();
@@ -37,6 +37,7 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
           harga_jual: harga,
           tanggal: new Date().toISOString().split('T')[0], // Today's date
           jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
+          stok_keluar: stok_keluar,
           tipe: 0,
           pj: role,
           id_transfer: id_transfer,
