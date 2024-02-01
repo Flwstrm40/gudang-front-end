@@ -93,24 +93,24 @@ export default function SidebarBurger() {
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
 
-  const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
-    `${process.env.API}/orders/total`,
-    async (url) => {
-      const response = await axios.get(url);
-      return response.data[0];
-    }
-  );
+  // const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
+  //   `${process.env.API}/orders/total`,
+  //   async (url) => {
+  //     const response = await axios.get(url);
+  //     return response.data[0];
+  //   }
+  // );
 
-    mutate(`${process.env.API}/orders/total`);
-    mutate(`${process.env.API}/transfers/total`);
+  //   mutate(`${process.env.API}/orders/total`);
+  //   mutate(`${process.env.API}/transfers/total`);
   
-  const { data: totalTransfer, mutate: mutateTotalTransfer } = useSWR(
-    `${process.env.API}/transfers/total`,
-    async (url) => {
-      const response = await axios.get(url);
-      return response.data[0];
-    }
-  );
+  // const { data: totalTransfer, mutate: mutateTotalTransfer } = useSWR(
+  //   `${process.env.API}/transfers/total`,
+  //   async (url) => {
+  //     const response = await axios.get(url);
+  //     return response.data[0];
+  //   }
+  // );
  
   return (
     <>
@@ -173,11 +173,11 @@ export default function SidebarBurger() {
               <ShoppingCartIcon className="h-5 w-5" />
             </ListItemPrefix>
             Pesanan
-            <ListItemSuffix>
+            {/* <ListItemSuffix>
               {totalOrder?.total_orders >= 1 && (
                 <Chip value={totalOrder?.total_orders} size="sm" variant="ghost" color="blue" className="rounded-full" />
               )}
-            </ListItemSuffix>
+            </ListItemSuffix> */}
           </ListItem>
         </Link>
 
@@ -198,11 +198,11 @@ export default function SidebarBurger() {
               <ArrowsRightLeftIcon className="h-5 w-5" />
             </ListItemPrefix>
             Transfer Stok
-            <ListItemSuffix>
+            {/* <ListItemSuffix>
               {totalTransfer?.total_transfer >= 1 && (
                 <Chip value={totalTransfer?.total_transfer} size="sm" variant="ghost" color="green" className="rounded-full" />
               )}
-            </ListItemSuffix>
+            </ListItemSuffix> */}
           </ListItem>
         </Link>
 
