@@ -38,17 +38,18 @@ export default function ModalDetailHistoryKeluarTipe0({stok_keluar, tanggal, jam
         </button>
       <Dialog
         open={open}
-        size="md"
+        size="lg"
         handler={handleOpen}
         animate={{
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },
         }}
+        className="overflow-auto max-h-[90%]"
       >
         <DialogHeader>[{kode_produk}] {nama_produk}</DialogHeader>
         <DialogBody>
             <div className="flex gap-5">
-                <div>
+                <div style={{ minWidth: '250px' }}>
                     <div>
                         Tanggal (Jam)
                     </div>
@@ -58,9 +59,9 @@ export default function ModalDetailHistoryKeluarTipe0({stok_keluar, tanggal, jam
                     <div>
                         Tujuan
                     </div>
-                    <div>
+                    {/* <div>
                         Total Harga (@Harga)
-                    </div>
+                    </div> */}
                     <div>
                         Konfirmator
                     </div>
@@ -68,7 +69,7 @@ export default function ModalDetailHistoryKeluarTipe0({stok_keluar, tanggal, jam
                         Keterangan
                     </div>
                 </div>
-                <div>
+                <div style={{ minWidth: '250px' }}>
                     <div>
                         : {tanggal} ({jam} WIB)
                     </div>
@@ -78,9 +79,9 @@ export default function ModalDetailHistoryKeluarTipe0({stok_keluar, tanggal, jam
                     <div>
                         : {nama_toko}
                     </div>
-                    <div>
+                    {/* <div>
                       : {formatCurrency(totalHarga)} (@{formatCurrency(harga_jual? harga_jual : harga)})
-                    </div>
+                    </div> */}
                     <div>
                         : {pj}
                     </div>
