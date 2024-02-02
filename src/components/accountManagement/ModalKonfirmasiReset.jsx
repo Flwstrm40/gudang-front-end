@@ -15,6 +15,7 @@ import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
 import { set } from "date-fns";
 import { Spinner } from "@material-tailwind/react";
+import { Tooltip } from "@material-tailwind/react";
  
 export default function ModalKonfirmasiReset({id, username}) {
   const [open, setOpen] = React.useState(false);
@@ -50,9 +51,18 @@ export default function ModalKonfirmasiReset({id, username}) {
 
   return (
     <>
-     <Button color="green" variant="text" className="py-2 px-4" onClick={handleOpen}>
+      <Tooltip
+          content="Reset Password"
+          animate={{
+            mount: { scale: 1, y: 0 },
+            unmount: { scale: 0, y: 25 },
+          }}
+          className="bg-green-800 text-blue-gray-50"
+      >
+        <Button color="green" variant="text" className="py-2 px-4" onClick={handleOpen}>
             <KeyIcon className="h-5 w-5"/>
         </Button>
+      </Tooltip>
       <Dialog
         open={open}
         handler={handleOpen}
@@ -82,7 +92,7 @@ export default function ModalKonfirmasiReset({id, username}) {
             onClick={handleOpen}
             className="mr-1"
           >
-            <span>Cancel</span>
+            <span>Batalkan</span>
           </Button>
           <Button variant="filled" color="green" onClick={handleSubmit}>
             <span> {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Konfirmasi"}</span> 

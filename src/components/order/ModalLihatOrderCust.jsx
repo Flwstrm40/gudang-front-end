@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Tooltip,
 } from "@material-tailwind/react";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 
@@ -70,9 +71,18 @@ export default function ModalLihatOrderCust({
   return (
     <>
       <div className="font-normal">
-        <Button size="sm" variant="text" color="blue" className="p-2" onClick={handleOpen}>
-          <DocumentTextIcon className="h-6 w-6 text-blue-500 cursor-pointer" />
-        </Button>
+        <Tooltip
+            content="Detail Pesanan"
+            animate={{
+              mount: { scale: 1, y: 0 },
+              unmount: { scale: 0, y: 25 },
+            }}
+            className="bg-blue-800 text-blue-gray-50"
+        >
+          <Button size="sm" variant="text" color="blue" className="p-2" onClick={handleOpen}>
+            <DocumentTextIcon className="h-6 w-6 text-blue-500 cursor-pointer" />
+          </Button>
+        </Tooltip>
       </div>
       <Dialog
         open={open}
@@ -84,7 +94,7 @@ export default function ModalLihatOrderCust({
         }}
         className="overflow-auto max-h-[90%]"
       >
-        <DialogHeader>{`Detail Order [${sales_order}]`} </DialogHeader>
+        <DialogHeader>{`Detail Pesanan [${sales_order}]`} </DialogHeader>
         <DialogBody>
           <div className="flex gap-5">
             <div style={{ minWidth: '250px' }}>

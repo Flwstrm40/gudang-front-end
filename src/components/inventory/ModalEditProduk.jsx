@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner';
 import { Spinner } from "@material-tailwind/react";
+import { Tooltip } from "@material-tailwind/react";
  
 export default function ModalEditStok({kode_produk, nama_produk, harga, deskripsi, id_produk, mutate}) {
     const [open, setOpen] = React.useState(false);
@@ -115,9 +116,18 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
     return (
         <>
         {/* <Toaster position="top-right" closeButton={true} richColors={true}/> */}
-        <Button onClick={handleOpen} size="sm" color="green" variant="text">
-            <PencilSquareIcon className="h-4 w-4" />
-        </Button>
+        <Tooltip
+          content="Edit Produk"
+          animate={{
+            mount: { scale: 1, y: 0 },
+            unmount: { scale: 0, y: 25 },
+          }}
+          className="bg-green-800 text-blue-gray-50"
+        >
+          <Button onClick={handleOpen} size="sm" color="green" variant="text">
+              <PencilSquareIcon className="h-4 w-4" />
+          </Button>
+        </Tooltip>
     <Dialog open={open} size="lg" handler={handleOpen}>
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">

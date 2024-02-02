@@ -15,6 +15,7 @@ import { Toaster, toast } from 'sonner'
 import { Spinner } from "@material-tailwind/react";
 import { set } from "date-fns";
 import { usePathname } from "next/navigation";
+import { Tooltip } from "@material-tailwind/react";
  
 export default function EditModalName({name, userId, mutate, onClose}) {
     const pathname = usePathname();
@@ -66,10 +67,19 @@ export default function EditModalName({name, userId, mutate, onClose}) {
     return (
         <>
         { pathname === '/profile' &&
-            <Button onClick={handleOpen} size="sm" color="blue-gray" variant="text">
-                <PencilSquareIcon className="h-4 w-4" />
-                {/* Edit Display Name */}
-            </Button>
+            <Tooltip
+                content="Edit Display Name"
+                animate={{
+                mount: { scale: 1, y: 0 },
+                unmount: { scale: 0, y: 25 },
+                }}
+                className="bg-blue-gray-800 text-blue-gray-50"
+            >
+                <Button onClick={handleOpen} size="sm" color="blue-gray" variant="text">
+                    <PencilSquareIcon className="h-4 w-4" />
+                    {/* Edit Display Name */}
+                </Button>
+            </Tooltip>
         }
         <Dialog open={open} size="lg" handler={handleOpen} className="overflow-auto max-h-[90%]">
             <div className="flex items-center justify-between lg:w-3">

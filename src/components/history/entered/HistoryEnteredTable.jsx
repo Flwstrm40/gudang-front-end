@@ -176,10 +176,10 @@ export default function HistoryEnteredTable() {
                               >
                             {
                               stok_masuk 
-                                ? `${
+                                ? `: ${
                                    stok_masuk
                                   }`
-                                : `${
+                                : `: ${
                                     `[]`
                                   }`
                             }

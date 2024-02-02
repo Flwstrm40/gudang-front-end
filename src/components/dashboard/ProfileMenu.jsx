@@ -91,9 +91,16 @@ export default function ProfileMenu({ photoURL, displayName, username, mutate, i
         <MenuList className="p-1">
           <div className="mx-4 mt-2">
             <div className="font-semibold text-blue-gray-900 text-base">
-              {displayName}
+              {displayName?
+                displayName?.length > 20 
+                  ? displayName?.slice(0, 20) + "..." : displayName
+                : "-"
+              }
+              
             </div>
-            <div className="text-blue-gray-400 text-xs">{username}</div>
+            <div className="text-blue-gray-400 text-xs">
+              {username.length > 20 ? username.slice(0, 20) + "..." : username}
+            </div>
           </div>
           <hr className="my-2 mx-4 border" />
           {profileMenuItems.map(({ label, icon, action }, key) => {

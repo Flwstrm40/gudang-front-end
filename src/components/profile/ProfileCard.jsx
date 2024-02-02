@@ -137,7 +137,7 @@ const ProfileCard = () => {
         <div className="flex flex-col items-center">
           <div className="relative overflow-hidden flex items-center rounded-[50%] h-50 w-50 hover:opacity-70">
             <Avatar 
-              src={userData.profilePhoto ? `${process.env.API}/${userData.profilePhoto}` : "/RanC.png"} 
+              src={userData.profilePhoto ? `${process.env.API}/${userData.profilePhoto}` : "/ProfPicNone.png"} 
               size="xxl"  
               alt="Foto Profil"
               withBorder={true}

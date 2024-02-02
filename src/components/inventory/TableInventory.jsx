@@ -14,6 +14,7 @@ import { Toaster, toast } from "sonner";
 import useSWR, {mutate} from "swr";
 import { Select, Option } from "@material-tailwind/react";
 import RowsPerPage from "../pagination/RowsPerPage";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
@@ -98,7 +99,14 @@ export default function TableInventory() {
             {paginatedRows.length === 0 ? (
               <tr>
                 <td colSpan={TABLE_HEAD.length} className="text-center text-gray-600 mt-4 py-3 text-md">
-                  Tidak ada Produk yang tersedia.
+                  <div className="flex flex-col gap-5 items-center">
+                      <div>
+                        <XCircleIcon className="h-52 w-h-52 text-blue-gray-500" />
+                      </div>
+                      <div className="text-base">
+                        Tidak ada Produk yang tersedia.
+                      </div>
+                    </div>
                 </td>
               </tr>
             ) : (

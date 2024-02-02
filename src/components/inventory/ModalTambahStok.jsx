@@ -18,6 +18,7 @@ import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
 import { Spinner } from "@material-tailwind/react";
 import { set } from "date-fns";
+import { Tooltip } from "@material-tailwind/react";
  
 export default function ModalTambahStok({name, produkId, mutate}) {
     const [open, setOpen] = React.useState(false);
@@ -46,7 +47,11 @@ export default function ModalTambahStok({name, produkId, mutate}) {
     };
 
     const handleSubmit = async () => {
-      if (stock === 0 || stock === '') {
+      if (!keterangan){
+        toast.error('Harap isi semua kolom yang diperlukan.');
+        return;
+      }
+      else if (stock === 0 || stock === '') {
         toast.error('Stok tidak boleh kosong');
         return;
       } else if (stock < 0) {
@@ -95,9 +100,18 @@ export default function ModalTambahStok({name, produkId, mutate}) {
     return (
         <>
         {/* <Toaster position="top-right" closeButton={true} richColors={true}/> */}
-        <Button onClick={handleOpen} size="sm" variant="text" color="blue">
-            <PlusIcon className="h-4 w-4" />
-        </Button>
+        <Tooltip
+          content="Tambah Stok"
+          animate={{
+            mount: { scale: 1, y: 0 },
+            unmount: { scale: 0, y: 25 },
+          }}
+          className="bg-blue-800 text-blue-gray-50"
+        >
+          <Button onClick={handleOpen} size="sm" variant="text" color="blue">
+              <PlusIcon className="h-4 w-4" />
+          </Button>
+        </Tooltip>
     <Dialog open={open} size="lg" handler={handleOpen}>
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
@@ -127,11 +141,11 @@ export default function ModalTambahStok({name, produkId, mutate}) {
           <div className="grid gap-6">
             <Input label="Username" disabled value={name}/>
             <div className="-mb-1 text-blue-gray-800">
-              Tambah Stok
+              Tambah Stok (*)
             </div>
             <Input type="number" label="Stok" value={stock} onChange={handleStockChange} min={0}/>
             <div className="-mb-1 text-blue-gray-800">
-              Keterangan
+              Keterangan (*)
             </div>
             <Textarea value={keterangan} label="keterangan" onChange={(e) => setKeterangan(e.target.value)}/>
           </div>

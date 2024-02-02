@@ -5,7 +5,7 @@ import Search from "../search/Search";
 import SortBy from "../sortBy/SortBy";
 import Pagination from "../pagination/Pagination";
 import { useState, useEffect } from "react";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { ModalLihatDetail } from "../inventory/ModalLihatDetail";
 import ModalKonfirmasiTransfer from "./ModalKonfirmasiTransfer";
@@ -90,7 +90,7 @@ export default function TableStockTransfeConf() {
     <div>
       <Toaster position="top-right" closeButton={true} richColors={true}/>
       <div className="text-xl flex sm:flex-col gap-4 justify-center mb-5">
-        <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Barang/Asal/Tujuan di sini..."} />
+        <Search value={searchInput} onChange={(e) => setSearchInput(e.target.value)} label={"Cari Poduk/Tujuan/Qty di sini..."} />
         <SortBy onChange={(value) => setSortOption(value)} />
       </div>
       <Card className="h-full w-full overflow-auto text-black">
@@ -110,7 +110,14 @@ export default function TableStockTransfeConf() {
             {paginatedRows.length === 0 ? (
               <tr>
                 <td colSpan={TABLE_HEAD.length} className="text-center text-gray-600 mt-4 py-3 text-md">
-                  Tidak ada transfer yang sedang dilakukan.
+                  <div className="flex flex-col gap-5 items-center">
+                      <div>
+                        <XCircleIcon className="h-52 w-h-52 text-blue-gray-500" />
+                      </div>
+                      <div className="text-base">
+                        Tidak ada transfer yang sedang dilakukan.
+                      </div>
+                    </div>
                 </td>
               </tr>
             ) : (

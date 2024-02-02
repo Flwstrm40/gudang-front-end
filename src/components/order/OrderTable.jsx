@@ -6,11 +6,8 @@ import SortBy from "../sortBy/SortBy";
 import Pagination from "../pagination/Pagination";
 import { useState, useEffect } from "react";
 import { 
-  TrashIcon,
-  CheckIcon,
-  PencilSquareIcon,
-  PrinterIcon, 
-  DocumentTextIcon,
+  ShoppingCartIcon,
+  XCircleIcon,
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { parseCookies } from "nookies";
@@ -128,7 +125,14 @@ export default function OrderTable() {
               {paginatedRows.length === 0 ? (
                 <tr>
                   <td colSpan={TABLE_HEAD.length} className="text-center text-gray-600 mt-4 py-3 text-md">
-                    Tidak ada Pesanan yang masuk.
+                    <div className="flex flex-col gap-5 items-center">
+                      <div>
+                        <XCircleIcon className="h-52 w-h-52 text-blue-gray-500" />
+                      </div>
+                      <div className="text-base">
+                        Tidak ada Pesanan yang masuk.
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ) : (

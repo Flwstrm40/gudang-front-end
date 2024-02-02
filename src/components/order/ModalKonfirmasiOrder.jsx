@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
+import { Tooltip } from "@material-tailwind/react";
  
 export default function ModalKonfirmasiOrder({
   mutate, 
@@ -161,9 +162,18 @@ export default function ModalKonfirmasiOrder({
 
   return (
     <>
-      <Button onClick={handleOpen} variant="text" color="green" size="sm" className="p-2">
-        <CheckIcon className="h-5 w-5" /> 
-      </Button>
+      <Tooltip
+            content="Konfirmasi Pesanan"
+            animate={{
+              mount: { scale: 1, y: 0 },
+              unmount: { scale: 0, y: 25 },
+            }}
+            className="bg-green-800 text-blue-gray-50"
+        >
+          <Button onClick={handleOpen} variant="text" color="green" size="sm" className="p-2">
+            <CheckIcon className="h-5 w-5" /> 
+          </Button>
+        </Tooltip>
       <Dialog
         open={open}
         handler={handleOpen}
@@ -200,7 +210,7 @@ export default function ModalKonfirmasiOrder({
             onClick={handleOpen}
             className="mr-1"
           >
-            <span>Cancel</span>
+            <span>Batalkan</span>
           </Button>
           <Button variant="filled" color="green" onClick={handleSubmit}>
             <span>Konfirmasi</span>

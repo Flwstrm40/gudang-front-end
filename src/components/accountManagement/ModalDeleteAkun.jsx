@@ -14,6 +14,7 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { set } from "date-fns";
 import { Spinner } from "@material-tailwind/react";
+import { Tooltip } from "@material-tailwind/react";
  
 export default function ModalDeleteAkun({mutate, id_user, username}) {
   const [open, setOpen] = React.useState(false);
@@ -43,9 +44,18 @@ export default function ModalDeleteAkun({mutate, id_user, username}) {
 
   return (
     <>
-      <Button onClick={handleOpen} variant="text" color="red" size="sm">
-        <TrashIcon className="h-5 w-5" /> 
-      </Button>
+      <Tooltip
+          content="Hapus Akun"
+          animate={{
+            mount: { scale: 1, y: 0 },
+            unmount: { scale: 0, y: 25 },
+          }}
+          className="bg-red-800 text-blue-gray-50"
+      >
+        <Button onClick={handleOpen} variant="text" color="red" size="sm">
+          <TrashIcon className="h-5 w-5" /> 
+        </Button>
+      </Tooltip>
       <Dialog
         open={open}
         handler={handleOpen}
@@ -77,7 +87,7 @@ export default function ModalDeleteAkun({mutate, id_user, username}) {
             onClick={handleOpen}
             className="mr-1"
           >
-            <span>Cancel</span>
+            <span>Batalkan</span>
           </Button>
           <Button variant="gradient" color="red" onClick={handleDelete}>
             <span> {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Hapus"}</span>
