@@ -229,9 +229,6 @@ export default function CardLineChart() {
     }
   };
   
-  
-  
-
   return (
     <div>
       <div className="flex justify-end mb-3">
@@ -239,7 +236,7 @@ export default function CardLineChart() {
         <select
           onChange={handleYearChange}
           defaultValue={selectedYear}
-          className="text-base px-3 py-1 border-2 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          className="text-base px-3 py-1 border-2 cursor-pointer rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >
           {years.map(year => (
             <option key={year} value={year}>{year}</option>
