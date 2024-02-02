@@ -49,19 +49,19 @@ const DashboardCard = () => {
     return data[0];
   };
 
-  const { data: user, error, mutate, isValidating: userLoading } = useSWR(id ? `${process.env.API}/user/${id}` : null, fetcher);
+  const { data: user, error, mutate} = useSWR(id ? `${process.env.API}/user/${id}` : null, fetcher);
 
-  const {data: totalOrder, isValidating: orderLoading} = useSWR(`${process.env.API}/orders/total`, async (url) => {
+  const {data: totalOrder} = useSWR(`${process.env.API}/orders/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-  const {data: totalTransfer, isValidating: transferLoading} = useSWR(`${process.env.API}/transfers/total`, async (url) => {
+  const {data: totalTransfer} = useSWR(`${process.env.API}/transfers/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-  const {data: totalProduk, isValidating: productLoading} = useSWR(`${process.env.API}/products/total`, async (url) => {
+  const {data: totalProduk} = useSWR(`${process.env.API}/products/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
@@ -74,7 +74,7 @@ const DashboardCard = () => {
   //   return () => clearInterval(intervalId);
   // }, []); 
 
-  if (userLoading || orderLoading || transferLoading || productLoading) {
+  if (!user || !totalOrder || !totalTransfer || !totalProduk)  {
     return <div>Loading...</div>;
   }
   
