@@ -91,9 +91,14 @@ export function Sidebar() {
     }
   );
 
-  mutate(`${process.env.API}/orders/total`);
-  mutate(`${process.env.API}/transfers/total`);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     mutate(`${process.env.API}/orders/total`);
+  //     mutate(`${process.env.API}/transfers/total`);
+  //   }, 1000); // Refresh data every 5 seconds
 
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div className="h-[calc(100vh)] w-full max-w-[18rem] p-4 lg:hidden fixed z-30 overflow-auto bg-white">
