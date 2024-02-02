@@ -9,6 +9,7 @@ import useSWR, {mutate} from 'swr';
 import Link from 'next/link';
 import { Spinner } from '@material-tailwind/react';
 import LineChartDashboard from '../chart/LineChartDashboard';
+import ProfileMenu from './ProfileMenu';
 
 const getGreeting = () => {
   const currentHour = new Date().getHours();
@@ -30,7 +31,7 @@ const DashboardCard = () => {
 
   
   const greeting = getGreeting();
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  // const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
    // Get the router instance
    const router = useRouter();
@@ -48,47 +49,41 @@ const DashboardCard = () => {
     return data[0];
   };
 
-  const { data: user, error } = useSWR(id ? `${process.env.API}/user/${id}` : null, fetcher);
+  const { data: user, error, mutate, isValidating: userLoading } = useSWR(id ? `${process.env.API}/user/${id}` : null, fetcher);
 
-  const {data: totalOrder} = useSWR(`${process.env.API}/orders/total`, async (url) => {
+  const {data: totalOrder, isValidating: orderLoading} = useSWR(`${process.env.API}/orders/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-  const {data: totalTransfer} = useSWR(`${process.env.API}/transfers/total`, async (url) => {
+  const {data: totalTransfer, isValidating: transferLoading} = useSWR(`${process.env.API}/transfers/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-  const {data: totalProduk} = useSWR(`${process.env.API}/products/total`, async (url) => {
+  const {data: totalProduk, isValidating: productLoading} = useSWR(`${process.env.API}/products/total`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });
 
-   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString());
-    }, 1000);
+  //  useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setCurrentTime(new Date().toLocaleTimeString());
+  //   }, 1000);
 
-    return () => clearInterval(intervalId);
-  }, []); 
- 
-  // useEffect(() => {
-  //   if (user) {
-  //     setName(user.displayName);
-  //     setUserName(user.username);
-  //   }
-  // }, [user, router, cookies.token]);
- 
- 
- 
-  //  console.log('Username:', name);
+  //   return () => clearInterval(intervalId);
+  // }, []); 
+
+  if (userLoading || orderLoading || transferLoading || productLoading) {
+    return <div>Loading...</div>;
+  }
+  
 
   return (
     <div className="text-black">
      <div className="flex items-center text-xl mb-10 justify-between">
         <div>
-          {greeting},
+          {greeting}, 
           <span className="font-bold ml-2">
             {/* if name null, display username */}
             {user?.displayName ? user?.displayName : user?.username}
@@ -98,7 +93,7 @@ const DashboardCard = () => {
           </span>
         </div>
         <div className="ml-4 text-gray-500 text-lg">
-          {currentTime}
+          <ProfileMenu mutate={mutate} id={user.id} photoURL={user?.profilePhoto ? `${process.env.API}/${user?.profilePhoto}` : "ProfPicNone.png"} username={user?.username} displayName={user?.displayName}/>
         </div>
       </div>
       
@@ -158,16 +153,6 @@ const DashboardCard = () => {
           className="rounded-lg w-auto mx-auto"
           priority={true}
         /> */}
-
-
-
-        {/* <div>
-          <div className='w-full p-6 rounded-md border-2 bg-blue-gray-50 cursor-pointer hover:bg-blue-100 hover:text-blue-900 hover:border-blue-600 text-base'>
-            <div className='text-xl font-semibold text-center'>
-            Informasi
-            </div>
-          </div>
-        </div> */}
         
       </div>
     </div> 
