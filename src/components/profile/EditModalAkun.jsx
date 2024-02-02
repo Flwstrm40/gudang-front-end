@@ -15,10 +15,12 @@ import { Toaster, toast } from 'sonner'
 import { useEffect } from 'react';
 import { Spinner } from "@material-tailwind/react";
 import { set } from "date-fns";
+import { usePathname } from "next/navigation";
 
  
-export default function EditModalAkun({uname, userId, mutate}) {
-  const [open, setOpen] = React.useState(false);
+export default function EditModalAkun({uname, userId, mutate, onClose}) {
+  const pathname = usePathname();
+  const [open, setOpen] = React.useState(pathname === '/profile' ? false : true);
   const [username, setUsername] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -30,7 +32,10 @@ export default function EditModalAkun({uname, userId, mutate}) {
     setUsername(uname);
   }, [uname]);
  
-  const handleOpen = () => setOpen(!open);
+  const handleOpen = () => {
+    setOpen(!open);
+    {onClose ? onClose() : null}
+  }
 
   const handleBack = () => {
     setUsername(uname);
@@ -138,11 +143,13 @@ export default function EditModalAkun({uname, userId, mutate}) {
 
   return (
     <div className="overflow-y-auto">
-      <Button onClick={handleOpen} size="md" color="blue">
-        {/* <PencilSquareIcon className="h-5 w-5" /> */}
-        Edit Akun
-      </Button>
-    <Dialog open={open} size="lg" handler={handleOpen}>
+      { pathname === '/profile' &&
+        <Button onClick={handleOpen} size="md" color="blue">
+          {/* <PencilSquareIcon className="h-5 w-5" /> */}
+          Edit Akun
+        </Button>
+     }
+    <Dialog open={open} size="lg" handler={handleOpen} className="overflow-auto max-h-[90%]">
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
             {" "}

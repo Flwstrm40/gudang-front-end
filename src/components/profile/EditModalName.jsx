@@ -14,16 +14,21 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { Spinner } from "@material-tailwind/react";
 import { set } from "date-fns";
+import { usePathname } from "next/navigation";
  
-export default function EditModalName({name, userId, mutate}) {
-    const [open, setOpen] = React.useState(false);
+export default function EditModalName({name, userId, mutate, onClose}) {
+    const pathname = usePathname();
+    const [open, setOpen] = React.useState(pathname === '/profile' ? false : true);
     const [displayName, setDisplayName] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
  
     useEffect(() => {
         setDisplayName(name);
     }, [name]);
-    const handleOpen = () => setOpen(!open);
+    const handleOpen = () => {
+        setOpen(!open)
+        {onClose ? onClose() : null}
+    };
     
 
     const handleSave = async () => {
@@ -60,11 +65,13 @@ export default function EditModalName({name, userId, mutate}) {
     
     return (
         <>
-        <Button onClick={handleOpen} size="sm" color="blue-gray" variant="text">
-            <PencilSquareIcon className="h-4 w-4" />
-            {/* Edit Display Name */}
-        </Button>
-        <Dialog open={open} size="lg" handler={handleOpen}>
+        { pathname === '/profile' &&
+            <Button onClick={handleOpen} size="sm" color="blue-gray" variant="text">
+                <PencilSquareIcon className="h-4 w-4" />
+                {/* Edit Display Name */}
+            </Button>
+        }
+        <Dialog open={open} size="lg" handler={handleOpen} className="overflow-auto max-h-[90%]">
             <div className="flex items-center justify-between lg:w-3">
             <DialogHeader className="flex flex-col items-start">
                 {" "}
