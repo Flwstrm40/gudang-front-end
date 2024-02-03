@@ -31,7 +31,7 @@ export default function ModalEditTransfer({id_transfer, id_produk, id_toko, edit
           <PencilSquareIcon className="h-4 w-4" />
         </Button>
       </Tooltip>
-      <Dialog open={open} size="lg" handler={handleOpen}>
+      <Dialog open={open} size="lg" handler={handleOpen} className="overflow-auto max-h-[90%]">
         <DialogBody>
             <FormEditCard id_transfer={id_transfer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={edit_kuantitas} edit_keterangan={edit_keterangan} handleOpen={handleOpen} mutate={mutate}/>
         </DialogBody>

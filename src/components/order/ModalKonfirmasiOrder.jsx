@@ -181,6 +181,7 @@ export default function ModalKonfirmasiOrder({
           mount: { scale: 1, y: 0 },
           unmount: { scale: 0.9, y: -100 },
         }}
+        className="overflow-auto max-h-[90%]"
       >
         <DialogHeader>
             <div className="flex flex-col">
