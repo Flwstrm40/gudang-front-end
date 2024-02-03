@@ -31,7 +31,7 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function OrderTable() {
-  const { data: orders, error, mutate } = useSWR("http://localhost:5050/orders/details", async (url) => {
+  const { data: orders, error, mutate } = useSWR(`${process.env.API}/orders/details`, async (url) => {
     const response = await axios.get(url);
     return response.data;
   });
