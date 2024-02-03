@@ -121,42 +121,56 @@ import { set } from 'date-fns';
 
     return (
       <>
-        <Toaster position="top-right" closeButton={true} richColors={true}/>
-        <Card className="w-96">
-          {/* <CardHeader
-            variant="gradient"
-            color="white"
-            className="mb-4 grid h-28 place-items-center border-2 border-gray-200"
-          >
+          <div>
             <div>
-              Sistem Gudang
-            </div>
-           
-          </CardHeader> */}
-          <CardBody className="flex flex-col gap-4">
-            <Image
-                src="/Logo-Offo.png"
+              <Image
+                src="/Login-bg.jpg"
+                // src="/Front-Offo.jpg"
                 alt="Logo Offo"
-                width={1000}
-                height={1000}
+                width={10000}
+                height={10000}
                 priority={true}
-                className="w-auto h-auto mb-16"
-              />
-            <Input label="Username" size="lg" color="blue" onChange={(e) => setUsername(e.target.value)} value={username}/>
-            <Input type="password" label="Password" size="lg" color="blue" onChange={(e) => setPassword(e.target.value)} value={password}/>
-            <div className="flex justify-end text-sm items-center">
-              <div className="mr-2 text-xs">
-                Lupa Username/Password? 
-              </div>
-              <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Kepala Gudang" />
+                className="w-full h-full overflow-hidden object-cover fixed z-0 top-0 left-0"
+                />
             </div>
-          </CardBody>
-          <CardFooter className="pt-0 mt-16">
-            <Button variant="filled" color="blue" fullWidth onClick={handleLogin} disabled={isLoading ? true : false}>
-              {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : 'Login'}
-            </Button>
-          </CardFooter>
-        </Card>
+
+            <Toaster position="top-right" closeButton={true} richColors={true}/>
+            <Card className="w-96">
+              {/* <CardHeader
+                variant="gradient"
+                color="white"
+                className="mb-4 grid h-28 place-items-center border-2 border-gray-200"
+                >
+                <div>
+                  Sistem Gudang
+                  </div>
+              
+                </CardHeader> */}
+              <CardBody className="flex flex-col gap-4">
+                <Image
+                    src="/Logo-Offo.png"
+                    alt="Logo Offo"
+                    width={1000}
+                    height={1000}
+                    priority={true}
+                    className="w-auto h-auto mb-16"
+                    />
+                <Input label="Username" size="lg" color="blue" onChange={(e) => setUsername(e.target.value)} value={username}/>
+                <Input type="password" label="Password" size="lg" color="blue" onChange={(e) => setPassword(e.target.value)} value={password}/>
+                <div className="flex justify-end text-sm items-center">
+                  <div className="mr-2 text-xs">
+                    Lupa Username/Password? 
+                  </div>
+                  <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Kepala Gudang" />
+                </div>
+              </CardBody>
+              <CardFooter className="pt-0 mt-16">
+                <Button variant="filled" color="blue" fullWidth onClick={handleLogin} disabled={isLoading ? true : false}>
+                  {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : 'Login'}
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
       </>
     );
   }
