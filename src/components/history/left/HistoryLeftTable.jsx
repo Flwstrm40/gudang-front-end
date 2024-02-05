@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import useSWR, {mutate} from "swr";
-import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 // import { isSameDay, isWithinInterval, addDays, addMonths } from 'date-fns';
@@ -21,7 +21,6 @@ import ModalDetailHistoryKeluarTipe1 from "./ModalDetailHistoryKeluarTipe1";
 import RowsPerPage from "@/components/pagination/RowsPerPage";
 import { Tooltip } from "@material-tailwind/react";
 
-// s_tipe 0 = id_customernya null, s_tipe 1 = id_transfernya null
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -135,10 +134,11 @@ export default function HistoryLeftTable() {
         </Button>
       </div>
       {isOpened && (
-        <div className="mb-3 flex justify-center gap-8 xl:flex-col xl:items-center "> {/* Adjust the margin as needed */}
+        <div className="mb-3 flex justify-center gap-8 xl:flex-col xl:items-center"> 
           <DateRangePicker
             onChange={(ranges) => setDateRange([ranges.selection])}
             ranges={dateRange}
+            className="border rounded-lg p-2 bg-white"
           />
           <div className="flex flex-col justify-between items-start xl:items-center">
             <RadioFilterType onChange={handleTypeChange}/>

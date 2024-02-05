@@ -1,5 +1,4 @@
-'use client';
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Button,
   Dialog,
@@ -12,13 +11,12 @@ import {
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { Toaster, toast } from 'sonner'
-import { useEffect } from 'react';
 import { Spinner } from "@material-tailwind/react";
 import { set } from "date-fns";
 import { usePathname } from "next/navigation";
 
- 
 export default function EditModalAkun({uname, userId, mutate, onClose}) {
+  const dialogRef = useRef(null); // Reference to the dialog element
   const pathname = usePathname();
   const [open, setOpen] = React.useState(pathname === '/profile' ? false : true);
   const [username, setUsername] = React.useState('');
@@ -31,7 +29,24 @@ export default function EditModalAkun({uname, userId, mutate, onClose}) {
   useEffect(() => {
     setUsername(uname);
   }, [uname]);
- 
+
+  useEffect(() => {
+    // Add event listener when the component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Clean up the event listener when the component unmounts
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    // Check if the click occurred outside the dialog
+    if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+      handleOpen(); // Close the dialog
+    }
+  };
+
   const handleOpen = () => {
     setOpen(!open);
     {onClose ? onClose() : null}
@@ -67,7 +82,6 @@ export default function EditModalAkun({uname, userId, mutate, onClose}) {
  
   // cek username dan password apakah sudah sesuai
   const handleContinue = async () => {
-
     setIsLoading(true);
     try {
       const response = await axios.post(`${process.env.API}/auth/cekAkun`, {
@@ -75,6 +89,7 @@ export default function EditModalAkun({uname, userId, mutate, onClose}) {
         password: password,
       });
       if (response.data) {
+        toast.info('Silakan tulis username dan password baru anda');
         setStep1(false);
         setStep2(true);
         setIsLoading(false);
@@ -90,7 +105,6 @@ export default function EditModalAkun({uname, userId, mutate, onClose}) {
   }
 
   const handleSave = async () => {
-
     setIsLoading(true);
     try {
       if (!newPassword || !username) {
@@ -139,17 +153,28 @@ export default function EditModalAkun({uname, userId, mutate, onClose}) {
       setIsLoading(false);
     }
   };
-  
 
   return (
     <div className="overflow-y-auto">
       { pathname === '/profile' &&
         <Button onClick={handleOpen} size="md" color="blue">
-          {/* <PencilSquareIcon className="h-5 w-5" /> */}
-          Edit Akun
+          <div className="flex gap-2 items-center justify-center">
+            <div>
+              <PencilSquareIcon className="h-5 w-5" />
+            </div>
+            <div>
+              Edit Akun
+            </div>
+          </div>
         </Button>
      }
-    <Dialog open={open} size="lg" handler={handleOpen} className="overflow-auto max-h-[90%]">
+    <Dialog 
+      ref={dialogRef} // Assign the ref to the dialog
+      open={open} 
+      size="lg" 
+      handler={handleOpen} 
+      className="overflow-auto max-h-[90%]"
+    >
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
             {" "}

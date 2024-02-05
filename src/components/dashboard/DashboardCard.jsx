@@ -83,11 +83,17 @@ const DashboardCard = () => {
     <div className="text-black">
      <div className="flex items-center text-xl mb-10 justify-between">
         <div>
-          {greeting}, 
-          <span className="font-bold ml-2">
-            {/* if name null, display username */}
-            {user?.displayName ? user?.displayName : user?.username}
-          </span>
+          {greeting}
+          {user?.displayName &&
+            <>
+              <span>
+                ,
+              </span>
+              <span className="font-bold ml-2">
+                {/* if name null, display username */}
+                {user?.displayName}
+              </span>
+            </>}
           <span>
             !
           </span>

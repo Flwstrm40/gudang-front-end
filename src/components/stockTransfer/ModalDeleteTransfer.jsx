@@ -15,11 +15,20 @@ import { Toaster, toast } from 'sonner'
 import { set } from "date-fns";
 import { Spinner } from "@material-tailwind/react";
 import { Tooltip } from "@material-tailwind/react";
+import useSWR from "swr";
  
 export default function ModalDeleteTransfer({mutate, id_transfer, nama_produk}) {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
  
+  const { data: totalTransfer } = useSWR(
+    `${process.env.API}/transfers/total`,
+    async (url) => {
+      const response = await axios.get(url);
+      return response.data[0];
+    }
+  );
+  
   const handleOpen = () => setOpen(!open);
  
   const handleDelete = async (e) => {

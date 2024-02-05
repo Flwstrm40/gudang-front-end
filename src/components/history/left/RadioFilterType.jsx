@@ -8,7 +8,7 @@ export default function RadioFilterType({ onChange }) {
       };
 
   return (
-    <div>
+    <div className="border rounded-lg bg-white">
       <List>
       <ListItem className="p-0">
           <label

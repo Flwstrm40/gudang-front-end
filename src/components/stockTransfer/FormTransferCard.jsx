@@ -124,7 +124,7 @@ export default function FormTransferCard() {
                   Transfer Stok Produk
                 </div>
                 <div color="gray" className="mt-1 font-normal">
-                  Transfer stok produk ke toko lain
+                  Transfer stok produk ke toko
                 </div>
               </div>
             </div>
@@ -200,7 +200,7 @@ export default function FormTransferCard() {
               (*) Wajib diisi
             </div>
             <div className="mt-2 text-xs text-red-800">
-              (*) Sistem tidak dapat mengembalikan stok yang sudah ditransfer
+              (*) Sistem tidak dapat mengembalikan stok setelah transfer dikonfirmasi
             </div>
             <Button className="mt-3" fullWidth color="blue" type="submit">
               {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Transfer"}

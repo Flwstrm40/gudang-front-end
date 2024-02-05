@@ -14,12 +14,21 @@ import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
 import { Spinner } from "@material-tailwind/react"; 
 import { Tooltip } from "@material-tailwind/react";
+import useSWR from "swr";
 
 export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk, harga, stok_keluar}) {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
+
+  const { data: totalTransfer } = useSWR(
+    `${process.env.API}/transfers/total`,
+    async (url) => {
+      const response = await axios.get(url);
+      return response.data[0];
+    }
+  );
 
   const handleOpen = () => setOpen(!open);
  

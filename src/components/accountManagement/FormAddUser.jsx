@@ -107,7 +107,6 @@ export default function FormAddUser() {
                 </div>
               </div>
             </div>
-            <TooltipIcon message="Stok dari gudang yang ditransfer akan dianggap berkurang di stok gudang" />
           </div>
           <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit}>
             <div className="mb-1 flex md:flex-col gap-6">

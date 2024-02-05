@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import useSWR, {mutate} from "swr";
-import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 // import { isSameDay, isWithinInterval, addDays, addMonths } from 'date-fns';
@@ -115,10 +115,11 @@ export default function HistoryEnteredTable() {
         </Button>
       </div>
       {isOpened && (
-        <div className="mb-3 flex justify-center gap-8 items-end xl:flex-col xl:items-center "> {/* Adjust the margin as needed */}
+        <div className="mb-3 flex justify-center gap-8 items-end xl:flex-col xl:items-center overflow-auto xl:my-auto"> {/* Adjust the margin as needed */}
           <DateRangePicker
             onChange={(ranges) => setDateRange([ranges.selection])}
             ranges={dateRange}
+            className="border rounded-lg p-2 bg-white"
           />
           <Button variant="text" color="red" onClick={hanldeReset}>
             Reset

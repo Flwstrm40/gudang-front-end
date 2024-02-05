@@ -10,6 +10,7 @@ import Skeleton from 'react-loading-skeleton';
 import { Toaster } from 'sonner';
 import SidebarBurger from '@/components/sidebar/SidebarBurger';
 import { usePathname } from 'next/navigation';
+import useSWR, {mutate} from 'swr';
 
 const poppins = Poppins({
   weight: ['400', '700'],
@@ -40,7 +41,7 @@ const RootLayout = ({ children }) => {
           <Sidebar/>
         <div className='bg-gray-200 w-full min-h-screen'>
           <SidebarBurger/>
-          <Card className="w-[95%] h-auto m-auto mt-5 mb-5">
+          <Card className="w-[96%] h-auto m-auto mt-5 mb-5">
             <div className="mt-10 ml-7 mr-7 mb-10 text-xl">
               {children}
             </div>    

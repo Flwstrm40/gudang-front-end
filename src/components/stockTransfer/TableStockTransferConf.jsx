@@ -36,6 +36,14 @@ export default function TableStockTransfeConf() {
       const response = await axios.get(url);
       return response.data.transfers;
     });
+    
+    const { data: totalTransfer } = useSWR(
+      `${process.env.API}/transfers/total`,
+      async (url) => {
+        const response = await axios.get(url);
+        return response.data[0];
+      }
+    );
 
     const pathname = usePathname();
   

@@ -36,6 +36,15 @@ export default function OrderTable() {
     return response.data;
   });
 
+    
+  const { data: totalOrder } = useSWR(
+    `${process.env.API}/orders/total`,
+    async (url) => {
+      const response = await axios.get(url);
+      return response.data[0];
+    }
+  );
+
     // console.log(orders)
   
     const router = useRouter();

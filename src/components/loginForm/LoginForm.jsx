@@ -130,22 +130,12 @@ import { set } from 'date-fns';
                 width={10000}
                 height={10000}
                 priority={true}
-                className="w-full h-full overflow-hidden object-cover fixed z-0 top-0 left-0"
+                className="w-full h-full overflow-hidden object-cover fixed z-0 top-0 left-0 opacity-75 sm:hidden"
                 />
             </div>
 
             <Toaster position="top-right" closeButton={true} richColors={true}/>
             <Card className="w-96">
-              {/* <CardHeader
-                variant="gradient"
-                color="white"
-                className="mb-4 grid h-28 place-items-center border-2 border-gray-200"
-                >
-                <div>
-                  Sistem Gudang
-                  </div>
-              
-                </CardHeader> */}
               <CardBody className="flex flex-col gap-4">
                 <Image
                     src="/Logo-Offo.png"
@@ -174,6 +164,3 @@ import { set } from 'date-fns';
       </>
     );
   }
-  {/* <div className="-ml-2.5">
-    <Checkbox label="Remember Me" />
-  </div> */}
