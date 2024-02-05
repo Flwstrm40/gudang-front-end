@@ -203,7 +203,7 @@ export default function HistoryEnteredTable() {
           )}
         </div>
       </div>
-      <div className="mt-5 justify-start gap-4 flex items-center">
+      <div className="mt-5 justify-start gap-4 flex items-center md:flex-col">
         <div>
           {filteredRows.length > 0 && (
             <Pagination

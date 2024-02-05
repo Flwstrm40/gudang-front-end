@@ -7,7 +7,7 @@ export default function SortBy({ onChange }) {
   };
 
   return (
-    <div className="w-72">
+    <div className="w-72 md:w-full">
       <Select
         label="Sort By"
         animate={{

@@ -24,8 +24,10 @@ import Image from 'next/image';
 import { Toaster, toast } from 'sonner'
 import { Spinner } from '@material-tailwind/react';
 import { set } from 'date-fns';
+import CarouselDefault from '../carousel/Carousel';
+
    
-  export default function LoginForm() {
+export default function LoginForm() {
         const router = useRouter()
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
@@ -123,15 +125,7 @@ import { set } from 'date-fns';
       <>
           <div>
             <div>
-              <Image
-                src="/Login-bg.jpg"
-                // src="/Front-Offo.jpg"
-                alt="Logo Offo"
-                width={10000}
-                height={10000}
-                priority={true}
-                className="w-full h-full overflow-hidden object-cover fixed z-0 top-0 left-0 opacity-75 sm:hidden"
-                />
+              <CarouselDefault />
             </div>
 
             <Toaster position="top-right" closeButton={true} richColors={true}/>
@@ -163,4 +157,4 @@ import { set } from 'date-fns';
           </div>
       </>
     );
-  }
+}

@@ -62,11 +62,12 @@ export default function TableStockTransfeConf() {
 
       setActivePage(1);
       // Filtering logic based on search input and status === 0
-      const filtered = tableRows.filter(({ nama_toko, nama_produk, asal, kuantitas }) =>
+      const filtered = tableRows.filter(({ nama_toko, nama_produk, asal, kuantitas, kode_produk }) =>
         nama_toko.toLowerCase().includes(searchInput.toLowerCase()) ||
         nama_produk.toLowerCase().includes(searchInput.toLowerCase()) ||
         asal.toLowerCase().includes(searchInput.toLowerCase()) ||
-        kuantitas.toString().includes(searchInput)
+        kuantitas.toString().includes(searchInput) ||
+        kode_produk.toLowerCase().includes(searchInput.toLowerCase())
       );
   
       // Only include rows with status === 0

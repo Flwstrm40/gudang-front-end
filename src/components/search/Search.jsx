@@ -3,29 +3,28 @@ import { Input, Button } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 
 const Search = ({Value, onChange, label}) => {
-  // const [searchText, setSearchText] = useState("");
+  useEffect(() => {
+    // Add event listener untuk menangkap tombol yang ditekan
+    const handleKeyDown = (e) => {
+      // Periksa apakah tombol yang ditekan adalah "k" dan apakah Ctrl ditekan bersamaan
+      if ((e.key === 'M' || e.key === 'm') && e.ctrlKey) {
+        // Aktifkan fungsi pencarian
+        document.getElementById('search-input').focus();
+      }
+    };
 
-  // const handleSearch = () => {
-  //   console.log(searchText);
-  // }
+    // Tambahkan event listener ke window saat komponen dimount
+    window.addEventListener('keydown', handleKeyDown);
 
-  // useEffect(() => {
-  //   // Add event listener ketika user menekan tombol Enter
-  //   const handleKeyPress = (e) => {
-  //     if (e.key === 'Enter' && searchText !== "" && document.activeElement.id === "search-input") {
-  //       // If Enter key is pressed, call the handleLogin function
-  //       handleSearch(e);
-  //     }
-  //   };
-  //   document.addEventListener('keydown', handleKeyPress);
-  //   return () => {
-  //     document.removeEventListener('keydown', handleKeyPress);
-  //   };
-  // }, [searchText]);
+    // Bersihkan event listener saat komponen unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return ( 
-      <div className="w-[70%]">
-        <div className="relative flex w-full gap-2 md:w-max">
+      <div className="w-[70%] md:w-full">
+        <div className="relative flex w-full gap-2 ">
           <Input
             id="search-input"
             type="text"
@@ -34,14 +33,19 @@ const Search = ({Value, onChange, label}) => {
             className="pr-20"
             value={Value}
             onChange={onChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                // handleSearch();
+              }
+            }}
           />
           <Button
             size="sm"
             color="blue"
-            className="!absolute right-1 top-1 rounded"
+            className="!absolute right-1 top-1 rounded lg:hidden"
             // onClick={handleSearch}
           >
-            Cari
+            CTRL + M
           </Button>
         </div>
       </div>
