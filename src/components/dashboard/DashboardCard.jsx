@@ -82,7 +82,7 @@ const DashboardCard = () => {
   return (
     <div className="text-black">
      <div className="flex items-center text-xl mb-10 justify-between">
-        <div>
+        <div className='max-w-[65%]'>
           {greeting}
           {user?.displayName &&
             <>

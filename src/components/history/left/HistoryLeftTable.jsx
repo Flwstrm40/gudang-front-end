@@ -159,6 +159,7 @@ export default function HistoryLeftTable() {
               s_id_history_keluar,
               s_id_produk,
               s_harga_jual,
+              s_stok_keluar,
               s_tipe,
               s_tanggal,
               s_jam,
@@ -247,8 +248,8 @@ export default function HistoryLeftTable() {
                               s_tipe === 1
                                 ? `${
                                     qty?.replace(/,/g, '; ').length > 50
-                                      ? `: ${qty?.replace(/,/g, '; ').substring(0, 50)}...`
-                                      : `: ${qty?.replace(/,/g, '; ')}`
+                                      ? `: ${qty?.replace(/,/g, '; ').substring(0, 50)}... (${s_stok_keluar})`
+                                      : `: ${qty?.replace(/,/g, '; ')} (${s_stok_keluar})`
                                   }`
                                 : `${
                                     kuantitas?.length > 50
