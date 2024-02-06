@@ -1,7 +1,16 @@
 import { Carousel } from "@material-tailwind/react";
 import Image from "next/image";
- 
+import { useEffect, useState } from "react";
+
 export default function CarouselDefault() {
+  const [activeIndex, setActiveIndex] = useState(2);
+
+  const images = ["/Login-bg.jpg", "/Dark.jpg", "/Ikan.jpg", "/bedDark.jpg", "/Office.jpg", "/DinningTable.jpg"];
+
+  const handleIndexChange = (index) => {
+    setActiveIndex(index);
+  };
+
   return (
     <Carousel
       navigation={({ setActiveIndex, activeIndex, length }) => (
@@ -12,39 +21,27 @@ export default function CarouselDefault() {
               className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
                 activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
               }`}
-              onClick={() => setActiveIndex(i)}
+              onClick={() => handleIndexChange(i)}
             />
           ))}
         </div>
       )}
+      className="h-screen max-h-screen w-full top-0 left-0 overflow-hidden fixed"
+      autoplay={true}
+      onChange={handleIndexChange} 
+      loop={true} 
     >
-      <Image
-                src="/Login-bg.jpg"
-                // src="/Front-Offo.jpg"
-                alt="Logo Offo"
-                width={3000}
-                height={3000}
-                priority={true}
-                className="w-full h-full overflow-hidden object-cover z-0 top-0 left-0 opacity-100 fixed sm:hidden"
-                />
-      <Image
-                src="/Dark.jpg"
-                // src="/Front-Offo.jpg"
-                alt="Logo Offo"
-                width={3000}
-                height={3000}
-                priority={true}
-                className="w-full h-full overflow-hidden object-cover z-0 top-0 left-0 opacity-100 fixed sm:hidden"
-                />
-       <Image
-                src="/Ikan.jpg"
-                // src="/Front-Offo.jpg"
-                alt="Logo Offo"
-                width={3000}
-                height={3000}
-                priority={true}
-                className="w-full h-full overflow-hidden object-cover z-0 top-0 left-0 opacity-100 fixed sm:hidden"
-                />
+      {images.map((image, index) => (
+        <Image
+          key={index}
+          src={image}
+          alt={`Slide ${index}`}
+          width={3000}
+          height={3000}
+          priority={true}
+          className="h-screen w-full object-cover"
+        />
+      ))}
     </Carousel>
   );
 }

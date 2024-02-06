@@ -123,37 +123,38 @@ export default function LoginForm() {
 
     return (
       <>
-          <div>
-            <div>
+          <div className='flex justify-between items-center'>
+            <div className='sm:hidden'>
               <CarouselDefault />
             </div>
-
-            <Toaster position="top-right" closeButton={true} richColors={true}/>
-            <Card className="w-96">
-              <CardBody className="flex flex-col gap-4">
-                <Image
-                    src="/Logo-Offo.png"
-                    alt="Logo Offo"
-                    width={1000}
-                    height={1000}
-                    priority={true}
-                    className="w-auto h-auto mb-16"
-                    />
-                <Input label="Username" size="lg" color="blue" onChange={(e) => setUsername(e.target.value)} value={username}/>
-                <Input type="password" label="Password" size="lg" color="blue" onChange={(e) => setPassword(e.target.value)} value={password}/>
-                <div className="flex justify-end text-sm items-center">
-                  <div className="mr-2 text-xs">
-                    Lupa Username/Password? 
+            <div className='w-full mx-auto'>
+              <Toaster position="top-right" closeButton={true} richColors={true}/>
+              <Card className="w-96">
+                <CardBody className="flex flex-col gap-4">
+                  <Image
+                      src="/Logo-Offo.png"
+                      alt="Logo Offo"
+                      width={1000}
+                      height={1000}
+                      priority={true}
+                      className="w-auto h-auto mb-16"
+                      />
+                  <Input label="Username" size="lg" color="blue" onChange={(e) => setUsername(e.target.value)} value={username}/>
+                  <Input type="password" label="Password" size="lg" color="blue" onChange={(e) => setPassword(e.target.value)} value={password}/>
+                  <div className="flex justify-end text-sm items-center">
+                    <div className="mr-2 text-xs">
+                      Lupa Username/Password? 
+                    </div>
+                    <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Kepala Gudang" />
                   </div>
-                  <TooltipIcon message="Jika Username/Password lupa, silakan lapor ke Kepala Gudang" />
-                </div>
-              </CardBody>
-              <CardFooter className="pt-0 mt-16">
-                <Button variant="filled" color="blue" fullWidth onClick={handleLogin} disabled={isLoading ? true : false}>
-                  {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : 'Login'}
-                </Button>
-              </CardFooter>
-            </Card>
+                </CardBody>
+                <CardFooter className="pt-0 mt-16">
+                  <Button variant="filled" color="blue" fullWidth onClick={handleLogin} disabled={isLoading ? true : false}>
+                    {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : 'Login'}
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
           </div>
       </>
     );
