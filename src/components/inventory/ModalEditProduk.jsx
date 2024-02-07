@@ -49,6 +49,11 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
           return;
       }
 
+      if(product.harga < 0){
+        toast.error("Harga tidak boleh negatif");
+        return;
+      }
+
       // check if current kode_produk is the same as the one in the database
       const isSameKodeProduk = product.kode_produk === kode_produk;
 
@@ -65,7 +70,6 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
         const response = await axios.put(`${process.env.API}/products/${id}`, product);
   
         if (response.status === 200) {
-          // Handle success, maybe redirect to inventory page
           toast.success("Produk berhasil diedit");
           mutate();
           handleOpen();
@@ -128,7 +132,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
               <PencilSquareIcon className="h-4 w-4" />
           </Button>
         </Tooltip>
-    <Dialog open={open} size="lg" handler={handleOpen}>
+    <Dialog open={open} size="lg" handler={handleOpen} className="overflow-auto max-h-[90%] max-w-52">
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
             {" "}
@@ -169,6 +173,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
                     }}
                     value={product.kode_produk}
                     onChange={(e) => handleChange(e, "kode_produk")}
+                    disabled
                 />
                 <div className="-mb-3">
                     Nama Produk (*)
@@ -226,8 +231,8 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
           <Button variant="text" color="gray" onClick={handleOpen}>
             Batalkan
           </Button>
-          {/* <Button variant="gradient" color="blue" onClick={handleSubmit}> */}
-          <Button variant="gradient" color="blue" onClick={handleSubmit}>
+          {/* <Button variant="filled" color="blue" onClick={handleSubmit}> */}
+          <Button variant="filled" color="blue" onClick={handleSubmit}>
             {isLoading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Simpan"}
           </Button>
         </DialogFooter>

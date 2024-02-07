@@ -109,6 +109,7 @@ export default function EditModalAkun({uname, userId, mutate, onClose}) {
     try {
       if (!newPassword || !username) {
         toast.error('Username atau password baru tidak boleh kosong');
+        setIsLoading(false);
         return;
       }
 
@@ -126,6 +127,7 @@ export default function EditModalAkun({uname, userId, mutate, onClose}) {
       // password baru harus lebih dari 6 karakter
       if (newPassword.length < 5) {
         toast.error('Password baru harus terdiri dari 5/lebih karakter');
+        setIsLoading(false);
         return;
       }
   

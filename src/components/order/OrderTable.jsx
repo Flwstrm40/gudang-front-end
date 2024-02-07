@@ -174,7 +174,7 @@ export default function OrderTable() {
                       <div className="font-normal">{formatDate(jadwal_kirim)}</div>
                     </td>
                     <td className="p-3">
-                      <div className="flex justify-center gap-1 items-center sm:flex-col">
+                      <div className="flex justify-center gap-1 items-center">
                         {/* <DocumentTextIcon className="h-6 w-6 text-blue-500 cursor-pointer" onClick={() => router.push(`/order/${order_id}`)}/> */}
                         <ModalLihatOrderCust  nama_cust={nama_cust} no_telp={no_telp} alamat={alamat} tanggal_order={formatDate2(tanggal_order)} 
                                               jadwal_kirim={formatDate2(jadwal_kirim)} total_harga={total_harga} total_dp1={total_dp1} 

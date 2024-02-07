@@ -122,7 +122,7 @@ export default function TableInventory() {
                     <div className="font-normal">{stok}</div>
                   </td>
                   <td className="p-3">
-                    <div className="flex justify-center gap-2 items-center sm:flex-col">
+                    <div className="flex justify-center gap-1 items-center">
                       <div>
                         <ModalTambahStok name={nama_produk} produkId={id_produk} mutate={mutate}/>
                       </div>

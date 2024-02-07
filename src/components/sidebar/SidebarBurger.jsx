@@ -129,15 +129,18 @@ export default function SidebarBurger() {
     {/* shadow-xl shadow--900/5 */}
       {/* {console.log(children)} */}
       <div className="mb-2 p-4 mx-auto flex justify-between items-center">
-        <Image
-          src="/Logo-Offo.png"
-          alt="Logo"
-          width={1500}
-          height={500}
-          className="object-contain w-auto h-auto"
-          priority={true}
-        />
-         <IconButton variant="text" color="blue-gray" onClick={closeDrawer} >
+        <div>
+          <Image
+            src="/Logo-Offo.png"
+            alt="Logo"
+            width={1500}
+            height={500}
+            className="object-contain w-auto h-auto"
+            priority={true}
+          />
+        </div>
+        <div>
+        <IconButton variant="text" color="blue-gray" onClick={closeDrawer} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -153,6 +156,7 @@ export default function SidebarBurger() {
               />
             </svg>
           </IconButton>
+        </div>
       </div>
       <hr className="my-2 border" />
       <List>

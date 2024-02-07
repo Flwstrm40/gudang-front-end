@@ -134,7 +134,7 @@ export default function HistoryLeftTable() {
         </Button>
       </div>
       {isOpened && (
-        <div className="mb-3 flex justify-center gap-8 xl:flex-col xl:items-center"> 
+        <div className="mb-3 flex justify-center gap-8 xl:flex-col xl:items-center overflow-auto xl:my-auto"> 
           <DateRangePicker
             onChange={(ranges) => setDateRange([ranges.selection])}
             ranges={dateRange}

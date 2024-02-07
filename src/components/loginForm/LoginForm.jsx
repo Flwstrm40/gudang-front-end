@@ -101,22 +101,22 @@ export default function LoginForm() {
       
           // Set cookie di sisi server dan klien dengan path ke '/dashboard'
           setCookie(null, 'token', data.token, {
-            maxAge: 3600, // Expire in 1 hour
+            maxAge: 18000, // Expire in 5 hour
             path: '/', 
           });
       
           setCookie(null, 'username', data.username, {
-            maxAge: 3600,
+            maxAge: 18000,
             path: '/',
           });
       
           setCookie(null, 'role', data.role, {
-            maxAge: 3600,
+            maxAge: 18000,
             path: '/',
           });
 
           setCookie(null, 'id', data.userId, {
-            maxAge: 3600,
+            maxAge: 18000,
             path: '/',
           });
         };
