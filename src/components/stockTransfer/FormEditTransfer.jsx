@@ -120,7 +120,7 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
     
     return (
         <div className="text-sm text-black w-full">
-          <Toaster position="top-right" closeButton={true} richColors={true} />
+          {/* <Toaster position="top-right" closeButton={true} richColors={true} /> */}
           <div className="flex justify-between items-center mb-14">
             <div className="flex justify-start gap-6">
               <div className="flex flex-col">
