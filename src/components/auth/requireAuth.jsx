@@ -43,6 +43,13 @@ export function withAuth(Component){
         router.push('/dashboard');
       }
 
+
+      if (role !== 'kepala gudang' && pathname === '/stockTransfer/store') {
+        // If the user is an admin and trying to access /accountManagement, redirect to another page
+        // only reload if the user is an admin and trying to access /accountManagement
+        router.push('/dashboard');
+      }
+
       if (role !== 'kepala gudang' && pathname === '/inventory/addProduct') {
         // If the user is an admin and trying to access /accountManagement, redirect to another page
         // only reload if the user is an admin and trying to access /accountManagement
