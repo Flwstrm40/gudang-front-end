@@ -74,8 +74,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
         };
         
         await axios.post(`${process.env.API}/inHistories`, inHistoriesData);
-        
-        console.log('Response:', response.data);
+
         toast.success('Stok berhasil ditambahkan');
         mutate();
 
@@ -104,7 +103,7 @@ export default function ModalTambahStok({name, produkId, mutate}) {
           }}
           className="bg-blue-800 text-blue-gray-50"
         >
-          <Button onClick={handleOpen} size="sm" variant="text" color="blue">
+          <Button onClick={handleOpen} size="sm" variant="text" color="blue" className="p-2">
               <PlusIcon className="h-4 w-4" />
           </Button>
         </Tooltip>
