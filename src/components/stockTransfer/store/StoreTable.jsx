@@ -67,7 +67,7 @@ export default function StoreTable() {
       // Sorting logic based on the selected option
       let sortedRows = [...filtered];
       if (sortOption === "default") {
-        sortedRows = sortedRows.sort((a, b) => a.id_toko - b.id_toko);
+        sortedRows = sortedRows.sort((a, b) => b.id_toko - a.id_toko);
       } else if (sortOption === "storeAsc") {
         sortedRows = sortedRows.sort((a, b) => a.nama_toko.localeCompare(b.nama_toko));
       } else if (sortOption === "storeDesc") {

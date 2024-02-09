@@ -14,7 +14,8 @@ import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import { TooltipIcon } from "@/components/tooltip/Tooltip";
 import { Spinner } from "@material-tailwind/react";
-  
+import useSWR, {mutate} from "swr";  
+
 export default function AddStore() {
     const router = useRouter();
     const [open, setOpen] = useState(false);
@@ -54,6 +55,7 @@ export default function AddStore() {
             setToko({
                 nama_toko: ""
             });
+            mutate(`${process.env.API}/stores`);
           } else {
             // Handle error
             toast.error("Gagal menambahkan Toko");
