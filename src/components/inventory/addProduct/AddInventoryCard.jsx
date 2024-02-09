@@ -36,14 +36,14 @@ export default function AddInventoryCard() {
     // cek kode produk apakah sudah digunakan oleh produk lain
     const checkKodeProdukAvailability = async () => {
       try {
-          const response = await axios.post(`http://localhost:5050/products/cekKodeProduk`, {
+          const response = await axios.post(`${process.env.API}/products/cekKodeProduk`, {
             kode_produk: product.kode_produk,
           });
     
           if (!response.data.isKodeProdukAvailable) {
             toast.error('Kode produk sudah digunakan oleh produk lain');
           }
-          console.log("response", response.data.isKodeProdukAvailable)
+          // console.log("response", response.data.isKodeProdukAvailable)
           return response.data.isKodeProdukAvailable;
         } catch (error) {
           console.error('Error checking kode produk availability:', error.message);
@@ -59,16 +59,22 @@ export default function AddInventoryCard() {
             return;
         }
 
+        // Cek apakah nama produk mengandung koma
+        if (product.nama_produk.includes(',')) {
+          toast.error("Nama produk tidak boleh mengandung koma.");
+          return;
+        }
+
         // Cek kode produk apakah sudah digunakan oleh produk lain
         const isKodeProdukAvailable = await checkKodeProdukAvailability();
-        console.log("isKodeProdukAvailable", isKodeProdukAvailable);
+        // console.log("isKodeProdukAvailable", isKodeProdukAvailable);
         if (!isKodeProdukAvailable) {
             return;
         }
         
         setIsLoading(true);
         try {
-          const response = await axios.post("http://localhost:5050/products", product);
+          const response = await axios.post(`${process.env.API}/products`, product);
     
           if (response.status === 200) {
             // Handle success, maybe redirect to inventory page
