@@ -20,7 +20,7 @@ import { Spinner } from "@material-tailwind/react";
 import { set } from "date-fns";
 import { Tooltip } from "@material-tailwind/react";
  
-export default function ModalTambahStok({name, produkId, mutate}) {
+export default function ModalTambahStok({name, mutate, kode_produk, nama_produk, stok, harga, deskripsi, produkId}) {
     const [open, setOpen] = React.useState(false);
     const [stock, setStock] = useState('');
     const [keterangan, setKeterangan] = useState('');
@@ -65,7 +65,11 @@ export default function ModalTambahStok({name, produkId, mutate}) {
     
         // Post to inHistories endpoint
         const inHistoriesData = {
-          id_produk: produkId,
+          kode_produk: kode_produk,
+          nama_produk: nama_produk,
+          stok: stok,
+          harga: harga,
+          deskripsi: deskripsi,
           stok_masuk: stock,
           tanggal: new Date().toISOString().split('T')[0],
           jam: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }), 

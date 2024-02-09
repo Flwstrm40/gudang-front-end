@@ -157,7 +157,6 @@ export default function HistoryLeftTable() {
           ) : (
             paginatedRows.map(({ 
               s_id_history_keluar,
-              s_id_produk,
               s_harga_jual,
               s_stok_keluar,
               s_tipe,
@@ -172,7 +171,6 @@ export default function HistoryLeftTable() {
               s_deskripsi,
               s_harga_produk,
               id_transfer,
-              id_produk,
               id_toko,
               kuantitas,
               asal,

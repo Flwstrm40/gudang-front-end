@@ -127,7 +127,7 @@ export default function TableInventory() {
                   <td className="p-3">
                     <div className="flex justify-center gap-1 items-center">
                       <div>
-                        <ModalTambahStok name={nama_produk} produkId={id_produk} mutate={mutate}/>
+                        <ModalTambahStok name={nama_produk} produkId={id_produk} kode_produk={kode_produk} nama_produk={nama_produk} stok={stok} harga={harga} deskripsi={deskripsi} mutate={mutate}/>
                       </div>
                       { role === "kepala gudang" &&
                       <div className="flex gap-1">

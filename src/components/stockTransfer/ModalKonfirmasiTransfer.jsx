@@ -16,7 +16,7 @@ import { Spinner } from "@material-tailwind/react";
 import { Tooltip } from "@material-tailwind/react";
 import useSWR from "swr";
 
-export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk, harga, stok_keluar}) {
+export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produk, id_produk, harga, stok_keluar, asal, keterangan, nama_toko, kode_produk, stok, deskripsi}) {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const cookies = parseCookies();
@@ -41,25 +41,45 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
       });
   
       if (transferRes.status === 200) {
-        // Post data to outHistories
-        const outHistoriesRes = await axios.post(`${process.env.API}/outHistories`, {
-          id_produk: id_produk,
-          harga_jual: harga,
-          tanggal: new Date().toISOString().split('T')[0], // Today's date
-          jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
-          stok_keluar: stok_keluar,
-          tipe: 0,
-          pj: role,
+        // post data to transferHistories
+        const transferHistoriesData = {
           id_transfer: id_transfer,
-        });
-  
-        if (outHistoriesRes.status === 200) {
-          toast.success("Transfer berhasil dikonfirmasi.");
-          mutate();
-          handleOpen();
-          setIsLoading(false);
+          kuantitas: stok_keluar,
+          asal: asal,
+          keterangan: keterangan,
+          nama_toko: nama_toko,
+          kode_produk: kode_produk,
+          nama_produk: nama_produk,
+          stok : stok,
+          deskripsi: deskripsi,
+          harga: harga,
+        };
+
+        const transferHistoriesRes = await axios.post(`${process.env.API}/transferHistories`, transferHistoriesData);
+
+        if (transferHistoriesRes.status === 200) {
+          // Post data to outHistories
+          const outHistoriesRes = await axios.post(`${process.env.API}/outHistories`, {
+            harga_jual: harga,
+            tanggal: new Date().toISOString().split('T')[0], // Today's date
+            jam: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'}), // Current time
+            stok_keluar: stok_keluar,
+            tipe: 0,
+            pj: role,
+            id_transfer: id_transfer,
+          });
+    
+          if (outHistoriesRes.status === 200) {
+            toast.success("Transfer berhasil dikonfirmasi.");
+            mutate();
+            handleOpen();
+            setIsLoading(false);
+          } else {
+            toast.error("Gagal menambahkan data ke riwayat keluar.");
+            setIsLoading(false);
+          }
         } else {
-          toast.error("Gagal menambahkan data ke riwayat keluar.");
+          toast.error("Gagal menambahkan data ke riwayat transfer.");
           setIsLoading(false);
         }
       } else {
