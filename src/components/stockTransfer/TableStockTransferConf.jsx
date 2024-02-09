@@ -147,13 +147,10 @@ export default function TableStockTransfeConf() {
                     <div className="font-normal">{kuantitas}</div>
                   </td>
                   <td className="p-3">
-                    <div className="flex justify-center gap-2 items-center sm:flex-col">
-                      <div>
-                        {/* <ModalTambahStok name={nama_produk} produkId={id_transfer} mutate={mutate}/> */}
+                    <div className="flex justify-center gap-1 items-center">
                         <ModalEditTransfer id_transfer={id_transfer} id_produk={id_produk} id_toko={id_toko} edit_kuantitas={kuantitas} edit_keterangan={keterangan}  mutate={mutate}/>
                         <ModalDeleteTransfer id_transfer={id_transfer} mutate={mutate} nama_produk={nama_produk}/>
                         <ModalKonfirmasiTransfer mutate={mutate} id_transfer={id_transfer} nama_produk={nama_produk} id_produk={id_produk} harga={harga} stok_keluar={kuantitas}/>
-                      </div>
                     </div>
                   </td>
                 </tr>
