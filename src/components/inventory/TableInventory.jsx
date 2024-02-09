@@ -15,6 +15,7 @@ import useSWR, {mutate} from "swr";
 import { Select, Option } from "@material-tailwind/react";
 import RowsPerPage from "../pagination/RowsPerPage";
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import ModalDeleteProduk from "./ModalDeleteProduk";
 
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
@@ -63,11 +64,13 @@ export default function TableInventory() {
     } else if (sortOption === "productDesc") {
       sortedRows = sortedRows.sort((a, b) => b.nama_produk.localeCompare(a.nama_produk));
     } else if (sortOption === "default") {
-      sortedRows = sortedRows.sort((a, b) => a.id_produk - b.id_produk);
+      sortedRows = sortedRows.sort((a, b) => b.id_produk - a.id_produk);
     }
 
     setFilteredRows(sortedRows);
   }, [searchInput, tableRows, sortOption]);
+
+
 
   if (error) return <p>Error fetching data...</p>;
   if (!tableRows) return <p>Loading...</p>;
@@ -127,9 +130,15 @@ export default function TableInventory() {
                         <ModalTambahStok name={nama_produk} produkId={id_produk} mutate={mutate}/>
                       </div>
                       { role === "kepala gudang" &&
-                      <div>
-                        <ModalEditStok nama_produk={nama_produk} kode_produk={kode_produk} harga={harga} deskripsi={deskripsi} id_produk={id_produk} mutate={mutate}/>
-                      </div>}
+                      <div className="flex gap-1">
+                        <div>
+                          <ModalEditStok nama_produk={nama_produk} kode_produk={kode_produk} harga={harga} deskripsi={deskripsi} id_produk={id_produk} mutate={mutate}/>
+                        </div>
+                        <div className={stok ==0 ? "" : "hidden"}>
+                         <ModalDeleteProduk id_produk={id_produk} nama_produk={nama_produk} mutate={mutate} kode_produk={kode_produk}/>
+                        </div>
+                      </div>
+                      }
                     </div>
                   </td>
                 </tr>
