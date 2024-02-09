@@ -85,7 +85,7 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
           }}
           className="bg-green-800 text-blue-gray-50"
       >
-        <Button onClick={handleOpen} variant="text" color="green" size="sm">
+        <Button onClick={handleOpen} variant="text" color="green" size="sm" className="p-2">
           <CheckIcon className="h-5 w-5" /> 
         </Button>
       </Tooltip>

@@ -128,7 +128,7 @@ export default function ModalEditStok({kode_produk, nama_produk, harga, deskrips
           }}
           className="bg-green-800 text-blue-gray-50"
         >
-          <Button onClick={handleOpen} size="sm" color="green" variant="text">
+          <Button onClick={handleOpen} size="sm" color="green" variant="text" className="p-2">
               <PencilSquareIcon className="h-4 w-4" />
           </Button>
         </Tooltip>

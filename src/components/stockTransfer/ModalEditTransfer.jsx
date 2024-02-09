@@ -27,7 +27,7 @@ export default function ModalEditTransfer({id_transfer, id_produk, id_toko, edit
           }}
           className="bg-blue-800 text-blue-gray-50"
       >
-        <Button onClick={handleOpen} variant="text" size="sm" color="blue">
+        <Button onClick={handleOpen} variant="text" size="sm" color="blue" className="p-2">
           <PencilSquareIcon className="h-4 w-4" />
         </Button>
       </Tooltip>

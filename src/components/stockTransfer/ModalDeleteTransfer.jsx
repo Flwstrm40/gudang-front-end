@@ -61,7 +61,7 @@ export default function ModalDeleteTransfer({mutate, id_transfer, nama_produk}) 
           }}
           className="bg-red-800 text-blue-gray-50"
       >
-        <Button onClick={handleOpen} variant="text" color="red" size="sm">
+        <Button onClick={handleOpen} variant="text" color="red" size="sm" className="p-2">
           <TrashIcon className="h-5 w-5" /> 
         </Button>
       </Tooltip>
