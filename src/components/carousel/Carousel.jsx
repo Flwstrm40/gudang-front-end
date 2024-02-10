@@ -28,6 +28,7 @@ export default function CarouselDefault() {
       )}
       className="h-screen max-h-screen w-full top-0 left-0 overflow-hidden fixed"
       autoplay={true}
+      autoplayDelay={4000}
       onChange={handleIndexChange} 
       loop={true} 
     >
