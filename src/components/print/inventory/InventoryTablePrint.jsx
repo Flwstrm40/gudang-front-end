@@ -40,7 +40,7 @@ export default function InventoryTablePrint() {
 
     return (
         <div className="max-w-screen-md mx-auto text-base">
-            <div className="flex justify-end mb-5 gap-3">
+            <div className="flex justify-end mb-5 gap-3 text-sm">
                 <div>
                     Tanggal Cetak:
                 </div>
