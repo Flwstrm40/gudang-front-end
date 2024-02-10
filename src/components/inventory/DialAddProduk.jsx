@@ -46,7 +46,7 @@ import {
                 <SpeedDialAction className="h-16 w-16 hover:bg-blue-500 hover:text-white">
                   <Square3Stack3DIcon className="h-5 w-5" />
                   <div color="blue-gray" className="text-xs font-normal">
-                    Tambah
+                    Produk
                   </div>
                 </SpeedDialAction>
               </Link>
