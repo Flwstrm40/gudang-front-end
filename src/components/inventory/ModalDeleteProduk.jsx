@@ -55,7 +55,7 @@ export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode
 
   
   // Memeriksa apakah kode_produk yang akan dihapus ada di dalam orderDetails
-  const isKodeProdukInOrderDetails = orderDetails && orderDetails.some(order => order.kode_produk.includes(kode_produk));
+  const isKodeProdukInOrderDetails = orderDetails && orderDetails.some(order => order.kode_produk.includes(kode_produk) && order.status_terima == 0);
   
   // Memeriksa apakah kode_produk yang akan dihapus ada di dalam transfer
   const isKodeProdukInTransfer = transfer && (transfer.some(transfer => transfer.kode_produk.includes(kode_produk) && transfer.status == 0));
