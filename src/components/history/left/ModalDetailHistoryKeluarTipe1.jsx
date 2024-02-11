@@ -76,6 +76,11 @@ export default function ModalDetailHistoryKeluarTipe1({
     ));
   };
 
+  // jumlah produk keluar
+  const products = nama_produk ? nama_produk.split(",") : [];
+  // length of products
+  const productLength = products.length;
+
   return (
     <>
         <button className="font-semibold hover:bg-blue-500 rounded-md pl-4 p-2 ease-in duration-200 hover:text-white" onClick={handleOpen}>
@@ -136,7 +141,7 @@ export default function ModalDetailHistoryKeluarTipe1({
           </div>
           <div className="mt-5">
             <div className="font-semibold">
-              Produk Keluar:
+              Produk Keluar ({productLength}):
             </div>
             {renderItems()}
           </div>
