@@ -43,7 +43,7 @@ export default function ModalKonfirmasiTransfer({mutate, id_transfer, nama_produ
       if (transferRes.status === 200) {
         // post data to transferHistories
         const transferHistoriesData = {
-          id_transfer: id_transfer,
+          id_transfer_histories: id_transfer,
           kuantitas: stok_keluar,
           asal: asal,
           keterangan: keterangan,

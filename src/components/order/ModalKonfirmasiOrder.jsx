@@ -101,7 +101,7 @@ export default function ModalKonfirmasiOrder({
   
         // Post data to orderHistories
         const orderHistoryData = {
-          order_id: order_id,
+          order_histories_id: order_id,
           sales_order: sales_order,
           nama_cust: nama_cust,
           no_telp: no_telp,
