@@ -35,7 +35,6 @@ export default function FormEditCard({id_transfer, id_produk, id_toko, edit_kuan
     axios.get(url).then((res) => res.data.stores)
     );
 
-  // Use useSWR to fetch the stock data
   const { data: getStok } = useSWR(
     idProduk ? `${process.env.API}/products/getStock/${idProduk}` : null,
     (url) => axios.get(url).then((res) => res.data.stock)
