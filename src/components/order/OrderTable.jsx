@@ -36,6 +36,10 @@ export default function OrderTable() {
     return response.data;
   });
 
+  // const { data: orders, error, mutate } = useSWR(`${process.env.API2}/getSO`, async (url) => {
+  //   const response = await axios.get(url);
+  //   return response.data;
+  // });
     
   const { data: totalOrder } = useSWR(
     `${process.env.API}/orders/total`,
@@ -80,7 +84,7 @@ export default function OrderTable() {
       } else if (sortOption === "productDesc") {
         sortedRows = sortedRows.sort((a, b) => b.nama_produk.localeCompare(a.nama_produk));
       } else if (sortOption === "default") {
-        sortedRows = sortedRows.sort((a, b) => a.order_id - b.order_id);
+        sortedRows = sortedRows.sort((a, b) => a.id - b.id);
       }
   
       setFilteredRows(sortedRows);
@@ -104,7 +108,8 @@ export default function OrderTable() {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const formattedDate = new Intl.DateTimeFormat('id-ID', options).format(new Date(dateString));
       return formattedDate;
-    };
+    };    
+    
     
     const handlePrintButton = (id_customer) => {
       window.open(`/printDO/${id_customer}`, '_blank');
@@ -145,8 +150,8 @@ export default function OrderTable() {
                   </td>
                 </tr>
               ) : (
-                paginatedRows.map(({ order_id, jadwal_kirim, kode_produk, nama_produk, qty, harga_per_item_setelah_ppn, nama_cust, no_telp, alamat, total_harga, total_dp1, metode_bayar_dp1, total_dp2, metode_bayar_dp2, balance_due, status_terima, remarks, tanggal_order, nama_sales, sales_order }) => (
-                  <tr key={order_id} className="even:bg-blue-gray-50/50">
+                paginatedRows.map(({ id, jadwal_kirim, kode_produk, nama_produk, qty, harga_item_ppn, nama_cust, no_telp, alamat, total_harga, total_dp1, metode_dp1, total_dp2, metode_dp2, balance_due, status_terima, remarks, tanggal_transaksi, nama_sales, id_SO }) => (
+                  <tr key={id} className="even:bg-blue-gray-50/50">
                     <td className="p-3">
                       <div className="font-normal">
                         <ButtonTooltip
@@ -168,24 +173,24 @@ export default function OrderTable() {
                     </td>
                     <td className="p-3">
                       <div className="font-normal">{nama_cust}</div>
-                      {/* <ModalLihatOrderCust nama_cust={nama_cust} no_hp={no_hp} alamat={alamat} sales_jualan={sales_jualan} kuantiti={qty} pembayaran={pembayaran} tanggal_order={formatDate(tanggal_order)} jadwal_kirim={formatDate(jadwal_kirim)} harga={harga}/> */}
+                      {/* <ModalLihatOrderCust nama_cust={nama_cust} no_hp={no_hp} alamat={alamat} sales_jualan={sales_jualan} kuantiti={qty} pembayaran={pembayaran} tanggal_transaksi={formatDate(tanggal_transaksi)} jadwal_kirim={formatDate(jadwal_kirim)} harga={harga}/> */}
                     </td>
                     <td className="p-3">
                       <div className="font-normal">{formatDate(jadwal_kirim)}</div>
                     </td>
                     <td className="p-3">
                       <div className="flex justify-center gap-1 items-center">
-                        {/* <DocumentTextIcon className="h-6 w-6 text-blue-500 cursor-pointer" onClick={() => router.push(`/order/${order_id}`)}/> */}
-                        <ModalLihatOrderCust  nama_cust={nama_cust} no_telp={no_telp} alamat={alamat} tanggal_order={formatDate2(tanggal_order)} 
+                        {/* <DocumentTextIcon className="h-6 w-6 text-blue-500 cursor-pointer" onClick={() => router.push(`/order/${id}`)}/> */}
+                        <ModalLihatOrderCust  nama_cust={nama_cust} no_telp={no_telp} alamat={alamat} tanggal_order={formatDate2(tanggal_transaksi)} 
                                               jadwal_kirim={formatDate2(jadwal_kirim)} total_harga={total_harga} total_dp1={total_dp1} 
-                                              metode_bayar_dp1={metode_bayar_dp1} total_dp2={total_dp2} metode_bayar_dp2={metode_bayar_dp2} balance_due={balance_due} 
+                                              metode_bayar_dp1={metode_dp1} total_dp2={total_dp2} metode_bayar_dp2={metode_dp2} balance_due={balance_due} 
                                               status_terima={status_terima} kode_produk={kode_produk} nama_produk={nama_produk} nama_sales={nama_sales}
-                                              harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} qty={qty} remarks={remarks} sales_order={sales_order} />
-                        <ModalKonfirmasiOrder order_id={order_id} nama_cust={nama_cust} no_telp={no_telp} alamat={alamat} tanggal_order={tanggal_order} 
-                                              jadwal_kirim={jadwal_kirim} total_dp1={total_dp1} metode_bayar_dp1={metode_bayar_dp1} total_dp2={total_dp2} 
-                                              metode_bayar_dp2={metode_bayar_dp2} balance_due={balance_due} status_terima={status_terima} 
+                                              harga_per_item_setelah_ppn={harga_item_ppn} qty={qty} remarks={remarks} sales_order={id_SO} />
+                        <ModalKonfirmasiOrder order_id={id} nama_cust={nama_cust} no_telp={no_telp} alamat={alamat} tanggal_order={tanggal_transaksi} 
+                                              jadwal_kirim={jadwal_kirim} total_dp1={total_dp1} metode_bayar_dp1={metode_dp1} total_dp2={total_dp2} 
+                                              metode_bayar_dp2={metode_dp2} balance_due={balance_due} status_terima={status_terima} 
                                               kode_produk={kode_produk} nama_produk={nama_produk} nama_sales={nama_sales} total_harga={total_harga}
-                                              harga_per_item_setelah_ppn={harga_per_item_setelah_ppn} qty={qty} remarks={remarks} mutate={mutate} sales_order={sales_order}/>
+                                              harga_per_item_setelah_ppn={harga_item_ppn} qty={qty} remarks={remarks} mutate={mutate} sales_order={id_SO}/>
                       </div>
                     </td>
                   </tr>
