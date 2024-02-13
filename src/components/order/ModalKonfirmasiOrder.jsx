@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Spinner,
 } from "@material-tailwind/react";
 import { 
     CheckIcon,
@@ -13,6 +14,8 @@ import axios from "axios";
 import { Toaster, toast } from 'sonner'
 import { parseCookies } from "nookies";
 import { Tooltip } from "@material-tailwind/react";
+import { set } from "date-fns";
+
  
 export default function ModalKonfirmasiOrder({
   mutate, 
@@ -38,6 +41,7 @@ export default function ModalKonfirmasiOrder({
   sales_order,
   }) {
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const cookies = parseCookies();
   const role = cookies.role;
 
@@ -82,13 +86,18 @@ export default function ModalKonfirmasiOrder({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       // change qty from string to array of integers
       const qtyArray = qty.split(',').map(qty => parseInt(qty.trim(), 10));
       const totalQty = qtyArray.reduce((total, qty) => total + qty, 0);
 
-      const orderRes = await axios.put(`${process.env.API}/orders/${order_id}`, {
-        status_terima: 1,
+      // const orderRes = await axios.put(`${process.env.API}/orders/${order_id}`, {
+      //   status_terima: 1,
+      // });
+
+      const orderRes = await axios.put(`${process.env.API2}/setDelivered/${sales_order}`, {
+        status: 1,
       });
   
       if (orderRes.status === 200) {
@@ -137,23 +146,26 @@ export default function ModalKonfirmasiOrder({
           };
   
           const outHistoriesRes = await axios.post(`${process.env.API}/outHistories`, outHistoryData);
-  
           if (outHistoriesRes.status === 200) {
             toast.success("Order berhasil dikonfirmasi.");
-          } else {
+            setLoading(false);
+            } else {
             toast.error("Gagal menambahkan data ke riwayat keluar.");
+            setLoading(false);
           }
-  
-          mutate();
-          handleOpen();
         } else {
-          toast.error("Gagal menambahkan data ke riwayat pesanan.");
+            toast.error("Gagal menambahkan data ke riwayat pesanan.");
+            setLoading(false);
         }
       } else {
         toast.error("Gagal mengkonfirmasi Order.");
+        setLoading(false);
       }
+      mutate();
+      handleOpen();
     } catch (error) {
       toast.error("Terjadi kesalahan, silakan coba lagi nanti.");
+      setLoading(false);
       console.log(error);
     }
   };
@@ -213,8 +225,8 @@ export default function ModalKonfirmasiOrder({
           >
             <span>Batalkan</span>
           </Button>
-          <Button variant="filled" color="green" onClick={handleSubmit}>
-            <span>Konfirmasi</span>
+          <Button variant="filled" color="green" onClick={handleSubmit} disabled={loading ? true : false}>
+            <span>{loading ? <Spinner color="white" className='mx-auto h-4 w-4'/> : "Konfirmasi"}</span>
           </Button>
         </DialogFooter>
       </Dialog>
