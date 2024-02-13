@@ -18,6 +18,7 @@ const nextConfig = {
     // API: "http://localhost:5050",
     // API: "http://localhost:42879",
     API: "https://gudang-back-end.vercel.app",
+    API2: "https://kasir-belakang.vercel.app"
   },
   images: {
     remotePatterns: [
