@@ -31,18 +31,25 @@ const paginate = (items, pageNumber, pageSize) => {
 };
 
 export default function OrderTable() {
-  const { data: orders, error, mutate } = useSWR(`${process.env.API}/orders/details`, async (url) => {
-    const response = await axios.get(url);
-    return response.data;
-  });
-
-  // const { data: orders, error, mutate } = useSWR(`${process.env.API2}/getSO`, async (url) => {
+  // const { data: orders, error, mutate } = useSWR(`${process.env.API}/orders/details`, async (url) => {
   //   const response = await axios.get(url);
   //   return response.data;
   // });
+
+  const { data: orders, error, mutate } = useSWR(`${process.env.API2}/getSO`, async (url) => {
+    const response = await axios.get(url);
+    return response.data;
+  });
     
+  // const { data: totalOrder } = useSWR(
+  //   `${process.env.API}/orders/total`,
+  //   async (url) => {
+  //     const response = await axios.get(url);
+  //     return response.data[0];
+  //   }
+  // );
   const { data: totalOrder } = useSWR(
-    `${process.env.API}/orders/total`,
+    `${process.env.API2}/getNotDelivered`,
     async (url) => {
       const response = await axios.get(url);
       return response.data[0];

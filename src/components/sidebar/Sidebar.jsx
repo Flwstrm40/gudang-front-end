@@ -75,8 +75,15 @@ export function Sidebar() {
     return 'bg-gray-200 font-semibold text-black p-0';
   }
   
+  // const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
+  //   `${process.env.API}/orders/total`,
+  //   async (url) => {
+  //     const response = await axios.get(url);
+  //     return response.data[0];
+  //   }
+  // );
   const { data: totalOrder, mutate: mutateTotalOrder } = useSWR(
-    `${process.env.API}/orders/total`,
+    `${process.env.API2}/getNotDelivered`,
     async (url) => {
       const response = await axios.get(url);
       return response.data[0];

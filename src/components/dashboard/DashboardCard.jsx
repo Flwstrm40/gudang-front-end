@@ -51,7 +51,11 @@ const DashboardCard = () => {
 
   const { data: user, error, mutate} = useSWR(id ? `${process.env.API}/user/${id}` : null, fetcher);
 
-  const {data: totalOrder} = useSWR(`${process.env.API}/orders/total`, async (url) => {
+  // const {data: totalOrder} = useSWR(`${process.env.API}/orders/total`, async (url) => {
+  //   const response = await axios.get(url);
+  //   return response.data[0];
+  // });
+  const {data: totalOrder} = useSWR(`${process.env.API2}/getNotDelivered`, async (url) => {
     const response = await axios.get(url);
     return response.data[0];
   });

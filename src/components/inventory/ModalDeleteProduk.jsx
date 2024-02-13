@@ -24,7 +24,12 @@ export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode
   
   const handleOpen = () => setOpen(!open);
 
-  const { data: orderDetails, error: errorDetails } = useSWR(`${process.env.API}/orders/details`, async (url) => {
+  // const { data: orderDetails, error: errorDetails } = useSWR(`${process.env.API}/orders/details`, async (url) => {
+  //   const response = await axios.get(url);
+  //   return response.data;
+  // });
+
+  const { data: orderDetails, error: errorDetails } = useSWR(`${process.env.API2}/getSO`, async (url) => {
     const response = await axios.get(url);
     return response.data;
   });
