@@ -16,7 +16,7 @@ import { Select, Option } from "@material-tailwind/react";
 import RowsPerPage from "../pagination/RowsPerPage";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import ModalDeleteProduk from "./ModalDeleteProduk";
-
+import Loading from "../loading/loading";
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
 
@@ -73,7 +73,7 @@ export default function TableInventory() {
 
 
   if (error) return <p>Error fetching data...</p>;
-  if (!tableRows) return <p>Loading...</p>;
+  if (!tableRows) return <Loading />;
 
   // Get the current page of rows based on activePage and pageSize
   const paginatedRows = paginate(filteredRows, activePage, pageSize);

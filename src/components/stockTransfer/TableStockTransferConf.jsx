@@ -20,6 +20,7 @@ import ModalEditTransfer from "./ModalEditTransfer";
 import { usePathname } from "next/navigation";
 import RowsPerPage from "../pagination/RowsPerPage";
 import ButtonTooltip from "../tooltip/ButtonTooltip";
+import Loading from "../loading/loading";
 
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
@@ -91,7 +92,7 @@ export default function TableStockTransfeConf() {
     }, [searchInput, tableRows, sortOption]);
   
     if (error) return <p>Error fetching data...</p>;
-    if (!tableRows) return <p>Loading...</p>;
+    if (!tableRows) return <Loading />;
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);
 

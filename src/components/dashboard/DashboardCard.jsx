@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { Spinner } from '@material-tailwind/react';
 import LineChartDashboard from '../chart/LineChartDashboard';
 import ProfileMenu from './ProfileMenu';
+import Loading from '../loading/loading';
 
 const getGreeting = () => {
   const currentHour = new Date().getHours();
@@ -79,7 +80,7 @@ const DashboardCard = () => {
   // }, []); 
 
   if (!user || !totalOrder || !totalTransfer || !totalProduk)  {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   
 

@@ -11,6 +11,7 @@ import useSWR, {mutate} from "swr";
 import { Avatar } from "@material-tailwind/react";
 import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Toaster, toast } from "sonner";
+import Loading from "../loading/loading";
 
 const ProfileCard = () => {
   const cookies = parseCookies();
@@ -39,7 +40,7 @@ const ProfileCard = () => {
   }
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   const handleOpen = () => {

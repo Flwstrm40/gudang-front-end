@@ -18,7 +18,7 @@ import ModalEditTransfer from ".././ModalEditTransfer";
 import { usePathname } from "next/navigation";
 import RowsPerPage from "../../pagination/RowsPerPage";
 import ButtonTooltip from "../../tooltip/ButtonTooltip";
-
+import Loading from "../../loading/loading";
 
 // const TABLE_HEAD = ["No", "Nama Toko", ""];
 const TABLE_HEAD = ["Nama Toko", ""];
@@ -78,7 +78,7 @@ export default function StoreTable() {
     }, [searchInput, tableRows, sortOption]);
   
     if (error) return <p>Error fetching data...</p>;
-    if (!tableRows) return <p>Loading...</p>;
+    if (!tableRows) return <Loading />;
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);
 

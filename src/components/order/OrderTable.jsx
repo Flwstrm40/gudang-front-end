@@ -19,7 +19,7 @@ import ModalKonfirmasiOrder from "./ModalKonfirmasiOrder";
 import { useRouter } from "next/navigation";
 import RowsPerPage from "../pagination/RowsPerPage";
 import ButtonTooltip from "../tooltip/ButtonTooltip";
-
+import Loading from "../loading/loading";
 
 // const TABLE_HEAD = ["Asal", "Tujuan", "Barang", "Qty", ""];
 const TABLE_HEAD = ["Item(s) Order", "Qty","Customer", "Jadwal Kirim", ""];
@@ -100,7 +100,7 @@ export default function OrderTable() {
     // console.log(filteredRows)
   
     if (error) return <p>Error fetching data...</p>;
-    if (!orders) return <p>Loading...</p>;
+    if (!orders) return <Loading />;
   
     // Get the current page of rows based on activePage and pageSize
     const paginatedRows = paginate(filteredRows, activePage, pageSize);

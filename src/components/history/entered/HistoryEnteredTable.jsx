@@ -17,6 +17,7 @@ import ModalDetailHistoryMasuk from "./ModalDetailHistoryMasuk";
 import { constants } from "crypto";
 import RowsPerPage from "@/components/pagination/RowsPerPage";
 import { Tooltip } from "@material-tailwind/react";
+import Loading from "@/components/loading/loading";
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
@@ -93,7 +94,7 @@ export default function HistoryEnteredTable() {
   }, [searchInput, tableRows, dateRange]);
   
   if (error) return <p>Error fetching data...</p>;
-  if (!tableRows) return <p>Loading...</p>;
+  if (!tableRows) return <Loading />;
 
   // Get the current page of rows based on activePage and pageSize
   const paginatedRows = paginate(filteredRows, activePage, pageSize);
