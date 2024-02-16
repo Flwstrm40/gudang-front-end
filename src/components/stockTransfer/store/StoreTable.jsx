@@ -18,7 +18,7 @@ import ModalEditTransfer from ".././ModalEditTransfer";
 import { usePathname } from "next/navigation";
 import RowsPerPage from "../../pagination/RowsPerPage";
 import ButtonTooltip from "../../tooltip/ButtonTooltip";
-import Loading from "../../loading/loading";
+import Loading from "../../loading/Loading";
 
 // const TABLE_HEAD = ["No", "Nama Toko", ""];
 const TABLE_HEAD = ["Nama Toko", ""];

@@ -16,7 +16,7 @@ import { Select, Option } from "@material-tailwind/react";
 import RowsPerPage from "../pagination/RowsPerPage";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import ModalDeleteProduk from "./ModalDeleteProduk";
-import Loading from "../loading/loading";
+import Loading from "../loading/Loading";
 
 const TABLE_HEAD = ["Kode", "Produk", "Stok", ""];
 

@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { Spinner } from '@material-tailwind/react';
 import LineChartDashboard from '../chart/LineChartDashboard';
 import ProfileMenu from './ProfileMenu';
-import Loading from '../loading/loading';
+import Loading from '../loading/Loading';
 
 const getGreeting = () => {
   const currentHour = new Date().getHours();

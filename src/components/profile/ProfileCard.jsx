@@ -11,7 +11,7 @@ import useSWR, {mutate} from "swr";
 import { Avatar } from "@material-tailwind/react";
 import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Toaster, toast } from "sonner";
-import Loading from "../loading/loading";
+import Loading from "../loading/Loading";
 
 const ProfileCard = () => {
   const cookies = parseCookies();

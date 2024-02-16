@@ -17,7 +17,7 @@ import ModalDetailHistoryMasuk from "./ModalDetailHistoryMasuk";
 import { constants } from "crypto";
 import RowsPerPage from "@/components/pagination/RowsPerPage";
 import { Tooltip } from "@material-tailwind/react";
-import Loading from "@/components/loading/loading";
+import Loading from "@/components/loading/Loading";
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {

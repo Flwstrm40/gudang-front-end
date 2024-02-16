@@ -20,7 +20,7 @@ import ModalDetailHistoryKeluarTipe0 from "./ModalDetailHistoryKeluarTipe0";
 import ModalDetailHistoryKeluarTipe1 from "./ModalDetailHistoryKeluarTipe1";
 import RowsPerPage from "@/components/pagination/RowsPerPage";
 import { Tooltip } from "@material-tailwind/react";
-import Loading from "@/components/loading/loading";
+import Loading from "@/components/loading/Loading";
 
 // Function to slice rows based on the active page
 const paginate = (items, pageNumber, pageSize) => {
