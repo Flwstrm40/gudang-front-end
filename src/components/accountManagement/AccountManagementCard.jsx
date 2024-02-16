@@ -8,6 +8,7 @@ import { Toaster, toast } from "sonner";
 import ModalKonfirmasiReset from "./ModalKonfirmasiReset";
 import DialAddUser from "./DialAddUser";
 import ModalDeleteAkun from "./ModalDeleteAkun";
+import Loading from "@/components/loading/Loading";
 
 const AccountManagementCard = () => {
   const {data: dataKepalaGudang, error} = useSWR(`${process.env.API}/user/kepala-gudang`, async (url) => {
@@ -23,7 +24,7 @@ const AccountManagementCard = () => {
   // console.log(dataKepalaGudang);
   // console.log(dataAdmin);
 
-  if (!dataKepalaGudang || !dataAdmin) return <div>Loading...</div>;
+  if (!dataKepalaGudang || !dataAdmin) return <Loading />;
 
     return ( 
       <div className="text-black text-sm">
