@@ -12,6 +12,7 @@ import { Avatar } from "@material-tailwind/react";
 import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Toaster, toast } from "sonner";
 import Loading from "../loading/Loading";
+import ModalDeleteProfPic from "./ModalDeleteProfPic";
 
 const ProfileCard = () => {
   const cookies = parseCookies();
@@ -64,7 +65,7 @@ const ProfileCard = () => {
     }
     // Validate file size
     if (file.size > 1024 * 1024 * 1) {
-      toast.error('Ukuran file tidak boleh lebih dari 1MB');
+      toast.error('Ukuran file tidak boleh lebih dari 1 MB');
       return;
     }
     if (file) {
@@ -210,7 +211,8 @@ const ProfileCard = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end mt-10">
+      <div className="flex justify-end mt-10 gap-2">
+        <ModalDeleteProfPic mutate={mutate} id_user={id}/>
         <EditModalAkun uname={userData.username} userId={id} mutate={mutate}/>
         {/* <Button>
           Ganti Username/Password
