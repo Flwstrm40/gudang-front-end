@@ -111,6 +111,48 @@ export default function SidebarBurger() {
   //     return response.data[0];
   //   }
   // );
+
+  let title;
+  switch (pathname) {
+    case '/dashboard':
+      title = 'Dashboard';
+      break;
+    case '/order':
+      title = 'Pesanan';
+      break;
+    case '/inventory':
+      title = 'Inventori';
+      break;
+    case '/stockTransfer':
+      title = 'Transfer Stok';
+      break;
+    case '/history/entered':
+      title = 'Riwayat Masuk';
+      break;
+    case '/history/left':
+      title = 'Riwayat Keluar';
+      break;
+    case '/profile':
+      title = 'Profil';
+      break;
+    case '/accountManagement':
+      title = 'Manajemen Akun';
+      break;
+    case '/inventory/addProduct':
+      title = 'Tambah Produk';
+      break;
+    case '/stockTransfer/formTransfer':
+      title = 'Form Transfer';
+      break;
+    case '/stockTransfer/store':
+      title = 'Toko';
+      break;
+    case '/accountManagement/formAddUser':
+      title = 'Tambah User';
+      break;
+    default:
+      title = '';
+  }
  
   return (
     <>
@@ -122,6 +164,9 @@ export default function SidebarBurger() {
               <Bars3Icon className="h-8 w-8 stroke-2" />
               )}
         </IconButton>
+        <div className="hidden lg:inline font-semibold text-white text-lg ml-3">
+          {title}
+        </div>
       </div>
       <Drawer open={isDrawerOpen} onClose={closeDrawer}>
       <div className="h-[calc(100vh)] w-full fixed p-4 z-30 overflow-auto bg-white">
