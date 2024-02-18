@@ -134,8 +134,8 @@ export default function TableInventory() {
                         <div>
                           <ModalEditStok nama_produk={nama_produk} kode_produk={kode_produk} harga={harga} deskripsi={deskripsi} id_produk={id_produk} mutate={mutate}/>
                         </div>
-                        <div className={stok ==0 ? "" : "hidden"}>
-                         <ModalDeleteProduk id_produk={id_produk} nama_produk={nama_produk} mutate={mutate} kode_produk={kode_produk}/>
+                        <div>
+                         <ModalDeleteProduk id_produk={id_produk} nama_produk={nama_produk} mutate={mutate} kode_produk={kode_produk} stok={stok}/>
                         </div>
                       </div>
                       }

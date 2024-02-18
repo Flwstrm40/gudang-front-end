@@ -18,7 +18,7 @@ import { Tooltip } from "@material-tailwind/react";
 import useSWR from "swr";
 import { Result } from "postcss";
 
-export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode_produk }) {
+export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode_produk, stok }) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
@@ -79,7 +79,7 @@ export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode
           }}
           className="bg-red-800 text-blue-gray-50"
         >
-          <Button variant="text" color="red" size="sm" className="p-2 hidden">
+          <Button variant="text" color="red" size="sm" className="p-2" disabled>
             <TrashIcon className="h-5 w-5" />
           </Button>
         </Tooltip>
@@ -92,7 +92,7 @@ export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode
           }}
           className="bg-red-800 text-blue-gray-50"
         >
-          <Button onClick={handleOpen} variant="text" color="red" size="sm" className="p-2">
+          <Button onClick={handleOpen} variant="text" color="red" size="sm" className="p-2" disabled={stok ==0 ? false : true}>
             <TrashIcon className="h-5 w-5" />
           </Button>
         </Tooltip>
