@@ -211,9 +211,13 @@ const ProfileCard = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end mt-10 gap-2">
-        <ModalDeleteProfPic mutate={mutate} id_user={id}/>
-        <EditModalAkun uname={userData.username} userId={id} mutate={mutate}/>
+      <div className="flex justify-end mt-10 gap-2 sm:flex-col sm:items-end">
+        <div className={userData.profilePhoto ? "" : "hidden"}>
+          <ModalDeleteProfPic mutate={mutate} id_user={id}/>
+        </div>
+        <div>
+          <EditModalAkun uname={userData.username} userId={id} mutate={mutate}/>
+        </div>
         {/* <Button>
           Ganti Username/Password
         </Button> */}

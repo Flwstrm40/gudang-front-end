@@ -45,7 +45,7 @@ export default function ModalDeleteProfPic({mutate, id_user}) {
 
   return (
     <>
-        <Button onClick={handleOpen}  color="red" size="sm" className="shadow-none">
+        <Button onClick={handleOpen}  color="red" size="md" className="shadow-none">
             <div className="flex gap-2 items-center justify-center">
                 <div>
                     <TrashIcon className="h-5 w-5" /> 
