@@ -96,18 +96,23 @@ export default function FormTransferCard() {
     
 
     const productOptions = products
-    ? products.map((product) => ({
-        value: product.id_produk.toString(),
-        label: `${product.kode_produk} - ${product.nama_produk} (Sisa stok: ${product.stok})`,
-      }))
+    ? products
+        .sort((a, b) => a.nama_produk.localeCompare(b.nama_produk))
+        .map((product) => ({
+          value: product.id_produk.toString(),
+          label: `${product.kode_produk} - ${product.nama_produk} (Sisa stok: ${product.stok})`,
+        }))
     : [];
-
-    const storeOptions = stores
-      ? stores.map((store) => ({
+  
+  const storeOptions = stores
+    ? stores
+        .sort((a, b) => a.nama_toko.localeCompare(b.nama_toko))
+        .map((store) => ({
           value: store.id_toko.toString(),
           label: store.nama_toko,
         }))
-      : [];
+    : [];
+  
       
     
 

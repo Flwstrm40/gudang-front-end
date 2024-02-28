@@ -124,8 +124,18 @@ export default function LoginForm() {
     return (
       <>
           <div className='flex justify-between items-center'>
-            <div className='sm:hidden'>
-              <CarouselDefault />
+            {/* Background image */}
+            {/* <div className='sm:hidden'> */}
+            <div className='sm:hidden h-screen max-h-screen w-full top-0 left-0 overflow-hidden fixed'>
+              {/* <CarouselDefault /> */}
+              {/* <Image
+                src="/Ocean.jpg"
+                alt='Ocean Background'
+                width={3000}
+                height={3000}
+                priority={true}
+                className="h-screen w-full object-cover"
+              /> */}
             </div>
             <div className='w-full mx-auto'>
               <Toaster position="top-right" closeButton={true} richColors={true}/>

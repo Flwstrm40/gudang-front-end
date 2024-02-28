@@ -79,7 +79,7 @@ export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode
           }}
           className="bg-red-800 text-blue-gray-50"
         >
-          <Button variant="text" color="red" size="sm" className="p-2" disabled>
+          <Button variant="text" color="blue-gray" size="sm" className="p-2" disabled>
             <TrashIcon className="h-5 w-5" />
           </Button>
         </Tooltip>
@@ -92,7 +92,7 @@ export default function ModalDeleteProduk({ mutate, id_produk, nama_produk, kode
           }}
           className="bg-red-800 text-blue-gray-50"
         >
-          <Button onClick={handleOpen} variant="text" color="red" size="sm" className="p-2" disabled={stok ==0 ? false : true}>
+          <Button onClick={handleOpen} variant="text" color={stok ==0 ? "red" : "blue-gray"} size="sm" className="p-2" disabled={stok ==0 ? false : true}>
             <TrashIcon className="h-5 w-5" />
           </Button>
         </Tooltip>
